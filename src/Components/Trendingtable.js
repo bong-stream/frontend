@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Trendingtable({ data, handleDeleteSong }) {
+export default function Trendingtable({ data, handleDeleteSong, name }) {
   const classes = useStyles();
 
-  const handleDelete = (id) => {
-    handleDeleteSong(id);
+  const handleDelete = (id, name) => {
+    handleDeleteSong(id, name);
   };
   return (
     <List className={classes.root}>
@@ -53,7 +53,7 @@ export default function Trendingtable({ data, handleDeleteSong }) {
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="comments">
                 <DragIndicatorIcon />
-                <DeleteIcon onClick={() => handleDelete(value._id)} />
+                <DeleteIcon onClick={() => handleDelete(value._id, name)} />
               </IconButton>
               <Divider variant="inset" component="li" />
             </ListItemSecondaryAction>

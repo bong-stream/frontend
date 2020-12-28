@@ -200,7 +200,7 @@ export default function Editsong({
         aria-labelledby="form-dialog-title"
         // onSubmit={handleSubmit}
       >
-        <DialogTitle id="form-dialog-title">Edit Artist</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Song</DialogTitle>
         <DialogContent>
           <DialogContentText></DialogContentText>
           <TextField
@@ -255,20 +255,22 @@ export default function Editsong({
                 {foundArtists ? (
                   <List>
                     {foundArtists.map((artist) => {
-                      <ListItem>
-                        <ListItemText
-                          primary={artist.artistname}
-                          // secondary={secondary ? "Secondary text" : null}
-                        />
-                        {console.log(artist.artistname)}
-                        <ListItemSecondaryAction>
-                          <IconButton edge="end" aria-label="delete">
-                            <DeleteForeverIcon
-                              onClick={() => deleteAlbumArtists(artist._id)}
-                            />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      </ListItem>;
+                      return (
+                        <ListItem>
+                          <ListItemText
+                            primary={artist.artistname}
+                            // secondary={secondary ? "Secondary text" : null}
+                          />
+                          {console.log(artist.artistname)}
+                          <ListItemSecondaryAction>
+                            <IconButton edge="end" aria-label="delete">
+                              <DeleteForeverIcon
+                                onClick={() => deleteAlbumArtists(artist._id)}
+                              />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
                     })}
                   </List>
                 ) : null}

@@ -19,9 +19,13 @@ import Addchart from "../Components/Addchart";
 const Admintopcharts = () => {
   const [open, setOpen] = React.useState(false);
   const [topcharts, setTopcharts] = useState();
+  const [top20, setTop20] = useState();
+  const [top50, setTop50] = useState();
+  const [top100, setTop100] = useState();
   const [updateData, setUpdateData] = useState(false);
   const [trending, setTrending] = useState();
   const [listName, setListName] = useState();
+  const [deleteListName, setDeleteListName] = useState();
 
   const handleClickOpen = (name) => {
     console.log(name);
@@ -33,8 +37,106 @@ const Admintopcharts = () => {
     setOpen(false);
   };
 
-  const handleAddCharts = (data, name) => {
-    console.log(data, name);
+  const handleAddCharts = (topchart, name) => {
+    // console.log(data, name);
+    let data;
+    if (name === "top20") {
+      data = {
+        topchart,
+        name,
+        id: top20,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    } else if (name === "top50") {
+      data = {
+        topchart,
+        name,
+        id: top50,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    } else {
+      data = {
+        topchart,
+        name,
+        id: top100,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    }
+  };
+
+  const handleDeleteList = (name) => {
+    let data;
+    if (name === "top20") {
+      data = {
+        topchart: [],
+        name,
+        id: top20,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    } else if (name === "top50") {
+      data = {
+        topchart: [],
+        name,
+        id: top50,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    } else if (name === "top100") {
+      data = {
+        topchart: [],
+        name,
+        id: top100,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    }
+  };
+
+  const handleDeleteSong = (id, name) => {
+    console.log(id, name);
+    let data;
+    let filterCharts;
+    if (name === "top20") {
+      let topchart = topcharts[0].topchart;
+      filterCharts = topchart.filter((chart) => {
+        return chart._id !== id;
+      });
+      data = {
+        topchart: filterCharts,
+        name,
+        id: top20,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    } else if (name === "top50") {
+      let topchart = topcharts[1].topchart;
+      filterCharts = topchart.filter((chart) => {
+        return chart._id !== id;
+      });
+      data = {
+        topchart: filterCharts,
+        name,
+        id: top50,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    } else if (name === "top100") {
+      let topchart = topcharts[2].topchart;
+      filterCharts = topchart.filter((chart) => {
+        return chart._id !== id;
+      });
+      data = {
+        topchart: filterCharts,
+        name,
+        id: top100,
+      };
+      editTopcharts(data);
+      setUpdateData(true);
+    }
   };
 
   useEffect(() => {
@@ -43,18 +145,19 @@ const Admintopcharts = () => {
       allTopcharts = await getTopcharts();
       console.log(allTopcharts);
       setTopcharts(allTopcharts);
+      allTopcharts.map((top) => {
+        if (top.name === "top20") {
+          setTop20(top._id);
+        } else if (top.name === "top50") {
+          setTop50(top._id);
+        } else {
+          setTop100(top._id);
+        }
+      });
     };
 
     fetchTopcharts();
 
-    const fetchTrending = async () => {
-      let allTrending;
-      allTrending = await getTrending();
-      console.log(allTrending);
-      setTrending(allTrending);
-    };
-
-    fetchTrending();
     setUpdateData(false);
   }, [updateData]);
   return (
@@ -79,23 +182,24 @@ const Admintopcharts = () => {
                 <button
                   style={{ width: "120px" }}
                   className="btn btn-sm btn-danger"
-                  //   onClick={handleDeleteList}
+                  onClick={() => handleDeleteList("top20")}
                 >
                   Delete List <DeleteIcon />
                 </button>
               </div>
               <br />
               <div className="col-12 my-4">
-                {trending ? (
+                {topcharts ? (
                   <React.Fragment>
-                    {trending[0].trending.length === 0 ? (
-                      " Trending List is Empty"
+                    {topcharts[0].topchart.length === 0 ? (
+                      " Top 20 List is Empty"
                     ) : (
-                      <div style={{ width: "100%" }}>
-                        {trending ? (
+                      <div>
+                        {topcharts ? (
                           <Trendingtable
-                            data={trending[0].trending}
-                            // handleDeleteSong={handleDeleteSong}
+                            data={topcharts[0].topchart}
+                            handleDeleteSong={handleDeleteSong}
+                            name="top20"
                           />
                         ) : null}
                       </div>
@@ -121,23 +225,24 @@ const Admintopcharts = () => {
                 <button
                   style={{ width: "120px" }}
                   className="btn btn-sm btn-danger"
-                  //   onClick={handleDeleteList}
+                  onClick={() => handleDeleteList("top50")}
                 >
                   Delete List <DeleteIcon />
                 </button>
               </div>
               <br />
               <div className="col-12 my-4">
-                {trending ? (
+                {topcharts ? (
                   <React.Fragment>
-                    {trending[0].trending.length === 0 ? (
-                      " Trending List is Empty"
+                    {topcharts[1].topchart.length === 0 ? (
+                      " Top50 List is Empty"
                     ) : (
-                      <div style={{ width: "100%" }}>
-                        {trending ? (
+                      <div>
+                        {topcharts ? (
                           <Trendingtable
-                            data={trending[0].trending}
-                            // handleDeleteSong={handleDeleteSong}
+                            data={topcharts[1].topchart}
+                            handleDeleteSong={handleDeleteSong}
+                            name="top50"
                           />
                         ) : null}
                       </div>
@@ -163,23 +268,24 @@ const Admintopcharts = () => {
                 <button
                   style={{ width: "120px" }}
                   className="btn btn-sm btn-danger"
-                  //   onClick={handleDeleteList}
+                  onClick={() => handleDeleteList("top100")}
                 >
                   Delete List <DeleteIcon />
                 </button>
               </div>
               <br />
               <div className="col-12 my-4">
-                {trending ? (
+                {topcharts ? (
                   <React.Fragment>
-                    {trending[0].trending.length === 0 ? (
-                      " Trending List is Empty"
+                    {topcharts[2].topchart.length === 0 ? (
+                      " Top 100 List is Empty"
                     ) : (
-                      <div style={{ width: "100%" }}>
-                        {trending ? (
+                      <div>
+                        {topcharts ? (
                           <Trendingtable
-                            data={trending[0].trending}
-                            // handleDeleteSong={handleDeleteSong}
+                            data={topcharts[2].topchart}
+                            handleDeleteSong={handleDeleteSong}
+                            name="top100"
                           />
                         ) : null}
                       </div>

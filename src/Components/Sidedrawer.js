@@ -16,14 +16,15 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import AlbumIcon from "@material-ui/icons/Album";
 import FaceIcon from "@material-ui/icons/Face";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AppsIcon from "@material-ui/icons/Apps";
 import Logo from ".././assets/logo.png";
+import TrendingUpIcon from "@material-ui/icons/TrendingUp";
+import WhatshotIcon from "@material-ui/icons/Whatshot";
+import InsertChartIcon from "@material-ui/icons/InsertChart";
 
 const drawerWidth = 240;
 
@@ -224,6 +225,42 @@ function Sidedrawer() {
                 <MusicNoteIcon />{" "}
               </ListItemIcon>
               <ListItemText primary="Songs" />
+            </ListItem>
+          </Link>
+
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to="/admin/trending"
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <TrendingUpIcon style={{ color: "#f44040" }} />
+              </ListItemIcon>
+              <ListItemText primary="Trending" />
+            </ListItem>
+          </Link>
+
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to="/admin/popular"
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <WhatshotIcon style={{ color: "#f44040" }} />
+              </ListItemIcon>
+              <ListItemText primary="Popular" />
+            </ListItem>
+          </Link>
+
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to="/admin/charts"
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <InsertChartIcon style={{ color: "#f44040" }} />
+              </ListItemIcon>
+              <ListItemText primary="Top Charts" />
             </ListItem>
           </Link>
         </List>

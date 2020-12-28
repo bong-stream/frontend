@@ -114,6 +114,7 @@ const getTopcharts = async () => {
 };
 
 const editTopcharts = async (data) => {
+  console.log(data);
   let topchart;
   topchart = await axios.put("http://localhost:3001/api/topcharts", data);
   console.log(topchart.data);
