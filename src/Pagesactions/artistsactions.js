@@ -4,8 +4,8 @@ import axios from "axios";
 const getArtists = async () => {
   let artists;
 
-  // artists = await axios.get("https://bong-backend.herokuapp.com/api/artist");
-  artists = await axios.get("http://localhost:3001/api/artist");
+  artists = await axios.get("https://bong-backend.herokuapp.com/api/artist");
+  // artists = await axios.get("http://localhost:3001/api/artist");
   console.log(artists);
   return artists.data;
 };
@@ -19,11 +19,11 @@ const addArtists = async (data, albums, songs) => {
     songs,
   };
 
-  // artists = await axios.post(
-  //   "https://bong-backend.herokuapp.com/api/artist",
-  //   artistsData
-  // );
-  artists = await axios.post("http://localhost:3001/api/artist", artistsData);
+  artists = await axios.post(
+    "https://bong-backend.herokuapp.com/api/artist",
+    artistsData
+  );
+  // artists = await axios.post("http://localhost:3001/api/artist", artistsData);
   console.log(artists.data);
   return artists.data;
 };
@@ -33,11 +33,11 @@ const editArtists = async (data) => {
 
   console.log(data);
 
-  // artists = await axios.put(
-  //   "https://bong-backend.herokuapp.com/api/artist",
-  //   data
-  // );
-  artists = await axios.put("http://localhost:3001/api/artist", data);
+  artists = await axios.put(
+    "https://bong-backend.herokuapp.com/api/artist",
+    data
+  );
+  // artists = await axios.put("http://localhost:3001/api/artist", data);
   console.log(artists.data);
   return artists.data;
 };
@@ -49,8 +49,8 @@ const deleteArtists = async (id) => {
 
   const response = await axios({
     method: "DELETE",
-    // url: "https://bong-backend.herokuapp.com/api/artist",
-    url: "http://localhost:3001/api/artist",
+    url: "https://bong-backend.herokuapp.com/api/artist",
+    // url: "http://localhost:3001/api/artist",
     data: {
       id: id,
     },
