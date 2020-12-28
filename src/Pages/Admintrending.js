@@ -4,6 +4,7 @@ import "../Styles/adminhome.css";
 import Trendingtable from "../Components/Trendingtable";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import SortIcon from "@material-ui/icons/Sort";
 import Addtrending from "../Components/Addtrending";
 import {
   addTrending,
@@ -15,6 +16,8 @@ const Admintrending = () => {
   const [open, setOpen] = React.useState(false);
   const [trending, setTrending] = useState();
   const [updateData, setUpdateData] = useState(false);
+  const [sortState, setSortState] = useState(false);
+  const [sortedList, setSortedList] = useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,12 +52,30 @@ const Admintrending = () => {
     await editTrending(filterSongs);
     setUpdateData(true);
   };
+
+  const handleNewSort = (sortedArray) => {
+    // console.log(sortedArray);
+    setSortedList(sortedArray);
+    setSortState(true);
+  };
+
+  const handleSortList = async () => {
+    console.log("hello g");
+    console.log(sortedList);
+    setSortState(false);
+
+    await editTrending(sortedList);
+    setUpdateData(true);
+  };
+
   useEffect(() => {
     const fetchTrending = async () => {
       let allTrending;
       allTrending = await getTrending();
       console.log(allTrending);
       setTrending(allTrending);
+      setSortedList(allTrending);
+      setSortState(false);
     };
 
     fetchTrending();
@@ -70,12 +91,14 @@ const Admintrending = () => {
       <div className="container">
         <div className="row">
           <div className="mb-4 col-12 col-md-2">
+            <br />
+            <br />
             <button
               style={{ width: "120px" }}
               className="btn btn-sm btn-danger"
               onClick={handleClickOpen}
             >
-              New List <AddCircleIcon />
+              <AddCircleIcon /> New List
             </button>
             <br />
             <br />
@@ -84,13 +107,23 @@ const Admintrending = () => {
               className="btn btn-sm btn-danger"
               onClick={handleDeleteList}
             >
-              Delete List <DeleteIcon />
+              <DeleteIcon /> Delete List
+            </button>
+            <br />
+            <br />
+            <button
+              style={{ width: "120px" }}
+              className="btn btn-sm btn-danger"
+              onClick={handleSortList}
+              disabled={sortState ? false : true}
+            >
+              <SortIcon /> Save Sort
             </button>
           </div>
           <div className="col-12 col-md-8 text-center">
             <div className="row">
               <div className="col-0 col-md-2"></div>
-              <div className="col-11 col-md-6">
+              <div className="col-11 col-md-8">
                 {trending ? (
                   <React.Fragment>
                     {trending[0].trending.length === 0 ? (
@@ -101,6 +134,7 @@ const Admintrending = () => {
                           <Trendingtable
                             data={trending[0].trending}
                             handleDeleteSong={handleDeleteSong}
+                            handleNewSort={handleNewSort}
                           />
                         ) : null}
                       </div>

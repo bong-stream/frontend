@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -11,6 +11,12 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {
+  sortableContainer,
+  sortableElement,
+  sortableHandle,
+} from "react-sortable-hoc";
+import arrayMove from "array-move";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,98 +26,120 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Trendingtable({ data, handleDeleteSong, name }) {
+const DragHandle = sortableHandle(() => (
+  <IconButton edge="end" aria-label="comments">
+    <DragIndicatorIcon />
+  </IconButton>
+));
+
+const SortableItem = sortableElement(
+  ({ value, name, classes, handleDelete }) => (
+    <ListItem alignItems="flex-start" width="100%">
+      <ListItemAvatar>
+        <Avatar alt="Remy Sharp" src={value.songimage} />
+      </ListItemAvatar>
+      <ListItemText
+        style={{ color: "black" }}
+        primary={`${value.songname}`}
+        secondary={
+          <React.Fragment>
+            <Typography
+              component="span"
+              variant="body2"
+              className={classes.inline}
+              color="textPrimary"
+            >
+              Ali Gatie
+            </Typography>
+          </React.Fragment>
+        }
+      />
+      <ListItemSecondaryAction>
+        <DragHandle />
+        <IconButton>
+          <DeleteIcon onClick={() => handleDelete(value._id, name)} />
+        </IconButton>
+        <Divider variant="inset" component="li" />
+      </ListItemSecondaryAction>
+    </ListItem>
+  )
+);
+
+const SortableContainer = sortableContainer(({ children, classes }) => {
+  return (
+    <List width="100%" className={classes.root}>
+      {children}
+    </List>
+  );
+});
+
+const Trendingtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
   const classes = useStyles();
+
+  const [state, setState] = useState(data);
 
   const handleDelete = (id, name) => {
     handleDeleteSong(id, name);
   };
+
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setState((items) => arrayMove(items, oldIndex, newIndex));
+  };
+
+  useMemo(() => {
+    handleNewSort(state, name);
+  }, [state]);
+
   return (
-    <List className={classes.root}>
-      {data.map((value) => {
-        return (
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar alt="Remy Sharp" src={value.songimage} />
-            </ListItemAvatar>
-            <ListItemText
-              style={{ color: "black" }}
-              primary={`${value.songname}`}
-              secondary={
-                <React.Fragment>
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
-                  >
-                    Ali Gatie
-                  </Typography>
-                </React.Fragment>
-              }
-            />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <DragIndicatorIcon />
-                <DeleteIcon onClick={() => handleDelete(value._id, name)} />
-              </IconButton>
-              <Divider variant="inset" component="li" />
-            </ListItemSecondaryAction>
-          </ListItem>
-        );
-      })}
-    </List>
+    <SortableContainer onSortEnd={onSortEnd} useDragHandle classes={classes}>
+      {console.log(state)}
+      {state.map((value, index) => (
+        <SortableItem
+          key={`item-${value._id}`}
+          index={index}
+          value={value}
+          handleDelete={handleDelete}
+          classes={classes}
+        />
+      ))}
+    </SortableContainer>
+    // <List className={classes.root} width="100%">
+    //   {data.map((value) => {
+    //     return (
+    //       <ListItem alignItems="flex-start" width="100%">
+    //         <ListItemAvatar>
+    //           <Avatar alt="Remy Sharp" src={value.songimage} />
+    //         </ListItemAvatar>
+    //         <ListItemText
+    //           style={{ color: "black" }}
+    //           primary={`${value.songname}`}
+    //           secondary={
+    //             <React.Fragment>
+    //               <Typography
+    //                 component="span"
+    //                 variant="body2"
+    //                 className={classes.inline}
+    //                 color="textPrimary"
+    //               >
+    //                 Ali Gatie
+    //               </Typography>
+    //             </React.Fragment>
+    //           }
+    //         />
+    //         <ListItemSecondaryAction>
+    //           <IconButton edge="end" aria-label="comments">
+    //             <DragIndicatorIcon />
+    //           </IconButton>
+    //           <IconButton>
+    //             <DeleteIcon onClick={() => handleDelete(value._id, name)} />
+    //           </IconButton>
+    //           <Divider variant="inset" component="li" />
+    //         </ListItemSecondaryAction>
+    //       </ListItem>
+    //     );
+    //   })}
+    // </List>
   );
+};
 
-  // const classes = useStyles();
-  // const [checked, setChecked] = React.useState([0]);
-
-  // const handleToggle = (value) => () => {
-  //   const currentIndex = checked.indexOf(value);
-  //   const newChecked = [...checked];
-
-  //   if (currentIndex === -1) {
-  //     newChecked.push(value);
-  //   } else {
-  //     newChecked.splice(currentIndex, 1);
-  //   }
-
-  //   setChecked(newChecked);
-  // };
-
-  // return (
-  //   <List className={classes.root}>
-  //     {console.log(data)}
-  //     {data.map((value) => {
-  //       const labelId = `checkbox-list-label-${value._id}`;
-
-  //       console.log(value.songname);
-  //       return (
-  //         <ListItem
-  //           // key={value}
-  //           role={undefined}
-  //           dense
-  //           button
-  //           onClick={handleToggle(value)}
-  //         >
-  //           {/* <ListItemIcon>
-  //             <Checkbox
-  //               edge="start"
-  //               checked={checked.indexOf(value) !== -1}
-  //               tabIndex={-1}
-  //               disableRipple
-  //               inputProps={{ "aria-labelledby": labelId }}
-  //             />
-  //           </ListItemIcon> */}
-  //           <ListItemText id={labelId} primary={`${value.songname}`} />
-  //           <ListItemSecondaryAction>
-  //             <IconButton edge="end" aria-label="comments">
-  //               <DragIndicatorIcon />
-  //             </IconButton>
-  //           </ListItemSecondaryAction>
-  //         </ListItem>
-  //       );
-  //     })}
-  //   </List>
-  // );
-}
+export default sortableContainer(Trendingtable);

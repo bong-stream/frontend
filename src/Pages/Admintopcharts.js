@@ -13,6 +13,7 @@ import {
 } from "../Pagesactions/songsactions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import SortIcon from "@material-ui/icons/Sort";
 import Trendingtable from "../Components/Trendingtable";
 import Addchart from "../Components/Addchart";
 
@@ -23,9 +24,12 @@ const Admintopcharts = () => {
   const [top50, setTop50] = useState();
   const [top100, setTop100] = useState();
   const [updateData, setUpdateData] = useState(false);
-  const [trending, setTrending] = useState();
   const [listName, setListName] = useState();
-  const [deleteListName, setDeleteListName] = useState();
+  const [sortStateTop20, setSortStateTop20] = useState(false);
+  const [sortStateTop50, setSortStateTop50] = useState(false);
+  const [sortStateTop100, setSortStateTop100] = useState(false);
+  const [sortedList, setSortedList] = useState();
+  const [sortedListName, setSortedListName] = useState();
 
   const handleClickOpen = (name) => {
     console.log(name);
@@ -139,6 +143,69 @@ const Admintopcharts = () => {
     }
   };
 
+  const handleNewSort = (sortedArray, name) => {
+    console.log(sortedArray, name);
+    // console.log(sortedArray);
+    setSortedList(sortedArray);
+    setSortedListName(name);
+
+    let data;
+    if (name === "top20") {
+      console.log("top20 running");
+      setSortStateTop20(true);
+      setSortStateTop50(false);
+      setSortStateTop100(false);
+    } else if (name === "top50") {
+      console.log("top 50 runing");
+      setSortStateTop20(false);
+      setSortStateTop50(true);
+      setSortStateTop100(false);
+    } else if (name === "top100") {
+      console.log("top 100 running");
+      setSortStateTop20(false);
+      setSortStateTop50(false);
+      setSortStateTop100(true);
+    }
+  };
+
+  const handleSortList = async () => {
+    // console.log("hello g");
+    // console.log(sortedList);
+    // setSortState(false);
+    // await editPopular(sortedList);
+    // setUpdateData(true);
+    console.log(sortedList, sortedListName);
+    let data;
+    if (sortedListName === "top20") {
+      data = {
+        topchart: sortedList,
+        name: sortedListName,
+        id: top20,
+      };
+      editTopcharts(data);
+      setSortStateTop20(false);
+      setUpdateData(true);
+    } else if (sortedListName === "top50") {
+      data = {
+        topchart: sortedList,
+        name: sortedListName,
+        id: top50,
+      };
+      editTopcharts(data);
+      setSortStateTop50(false);
+      setUpdateData(true);
+    } else if (sortedListName === "top100") {
+      data = {
+        topchart: sortedList,
+        name: sortedListName,
+        id: top100,
+      };
+      editTopcharts(data);
+      setSortStateTop100(false);
+      setUpdateData(true);
+    }
+  };
+
   useEffect(() => {
     const fetchTopcharts = async () => {
       let allTopcharts;
@@ -154,6 +221,9 @@ const Admintopcharts = () => {
           setTop100(top._id);
         }
       });
+      setSortStateTop20(false);
+      setSortStateTop50(false);
+      setSortStateTop100(false);
     };
 
     fetchTopcharts();
@@ -186,6 +256,16 @@ const Admintopcharts = () => {
                 >
                   Delete List <DeleteIcon />
                 </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleSortList}
+                  disabled={sortStateTop20 ? false : true}
+                >
+                  <SortIcon /> Save Sort
+                </button>
               </div>
               <br />
               <div className="col-12 my-4">
@@ -200,6 +280,7 @@ const Admintopcharts = () => {
                             data={topcharts[0].topchart}
                             handleDeleteSong={handleDeleteSong}
                             name="top20"
+                            handleNewSort={handleNewSort}
                           />
                         ) : null}
                       </div>
@@ -229,6 +310,16 @@ const Admintopcharts = () => {
                 >
                   Delete List <DeleteIcon />
                 </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleSortList}
+                  disabled={sortStateTop50 ? false : true}
+                >
+                  <SortIcon /> Save Sort
+                </button>
               </div>
               <br />
               <div className="col-12 my-4">
@@ -243,6 +334,7 @@ const Admintopcharts = () => {
                             data={topcharts[1].topchart}
                             handleDeleteSong={handleDeleteSong}
                             name="top50"
+                            handleNewSort={handleNewSort}
                           />
                         ) : null}
                       </div>
@@ -272,6 +364,16 @@ const Admintopcharts = () => {
                 >
                   Delete List <DeleteIcon />
                 </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleSortList}
+                  disabled={sortStateTop100 ? false : true}
+                >
+                  <SortIcon /> Save Sort
+                </button>
               </div>
               <br />
               <div className="col-12 my-4">
@@ -286,6 +388,7 @@ const Admintopcharts = () => {
                             data={topcharts[2].topchart}
                             handleDeleteSong={handleDeleteSong}
                             name="top100"
+                            handleNewSort={handleNewSort}
                           />
                         ) : null}
                       </div>
