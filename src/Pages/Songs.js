@@ -19,13 +19,14 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import ViewStreamIcon from "@material-ui/icons/ViewStream";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import Icon from "@material-ui/core/Icon";
 import "../Styles/adminpages.css";
 import "../Styles/adminsong.css";
 
 const Songs = () => {
   const [songs, setSongs] = useState();
-  const [totalPlays, setTotalPlays] = useState();
+  const [totalDownloads, setTotalDownloads] = useState("0");
   const [open, setOpen] = React.useState(false);
   const [updateData, setUpdateData] = useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
@@ -85,7 +86,7 @@ const Songs = () => {
         count += song.noofplays;
       });
       console.log(count);
-      setTotalPlays(count);
+      // setTotalPlays(count);
     };
     // const countPlays = () => {
 
@@ -115,12 +116,12 @@ const Songs = () => {
                 ) : null}
               </Col>
               <Col className="mb-4" md={6}>
-                {totalPlays ? (
+                {totalDownloads ? (
                   <Card>
                     <Card.Body>
-                      <PlayArrowIcon style={{ color: "#f44040" }} />
-                      <h3>{totalPlays}</h3>
-                      <p className="text-muted">Total Plays</p>
+                      <CloudDownloadIcon style={{ color: "#f44040" }} />
+                      <h3>{totalDownloads}</h3>
+                      <p className="text-muted">Total Downloads</p>
                       <Chart {...seoAnalytics2} />
                     </Card.Body>
                   </Card>
@@ -147,6 +148,7 @@ const Songs = () => {
                 </Card>
               </Col>
             </Row>
+
             {songs ? (
               <Songstable
                 data={songs}

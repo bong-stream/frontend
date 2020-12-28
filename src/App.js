@@ -12,6 +12,9 @@ import Artist from "./Pages/Artist";
 import Songs from "./Pages/Songs";
 import Albums from "./Pages/Albums";
 import Signin from "./Pages/Signin";
+import Admintrending from "./Pages/Admintrending";
+import Adminpopular from "./Pages/Adminpopular";
+import Admintopcharts from "./Pages/Admintopcharts";
 import "./App.css";
 
 export const GlobalData = React.createContext();
@@ -29,57 +32,57 @@ function App() {
     albums: [],
   });
 
-  useEffect(() => {
-    const fetchAlbums = async () => {
-      let allAlbums;
-      allAlbums = await getAlbums();
-      console.log(allAlbums);
-      setAlbums(allAlbums);
-      setData({
-        ...data,
-        albums: allAlbums,
-      });
-    };
+  // useEffect(() => {
+  //   const fetchAlbums = async () => {
+  //     let allAlbums;
+  //     allAlbums = await getAlbums();
+  //     console.log(allAlbums);
+  //     setAlbums(allAlbums);
+  //     setData({
+  //       ...data,
+  //       albums: allAlbums,
+  //     });
+  //   };
 
-    const fetchSongs = async () => {
-      let allSongs;
-      allSongs = await getSongs();
-      console.log(allSongs);
-      setSongs(allSongs);
-      setData({
-        ...data,
-        songs: allSongs,
-      });
-    };
+  //   const fetchSongs = async () => {
+  //     let allSongs;
+  //     allSongs = await getSongs();
+  //     console.log(allSongs);
+  //     setSongs(allSongs);
+  //     setData({
+  //       ...data,
+  //       songs: allSongs,
+  //     });
+  //   };
 
-    const fetchArtists = async () => {
-      let allArtists;
-      allArtists = await getArtists();
-      console.log(allArtists);
-      setArtists(allArtists);
-      setData({
-        ...data,
-        artists: allArtists,
-      });
-    };
+  //   const fetchArtists = async () => {
+  //     let allArtists;
+  //     allArtists = await getArtists();
+  //     console.log(allArtists);
+  //     setArtists(allArtists);
+  //     setData({
+  //       ...data,
+  //       artists: allArtists,
+  //     });
+  //   };
 
-    const fetchUsers = async () => {
-      let allUsers;
-      allUsers = await getUsers();
-      console.log(allUsers);
-      setUsers(allUsers);
-      setData({
-        ...data,
-        users: allUsers,
-      });
-    };
+  //   const fetchUsers = async () => {
+  //     let allUsers;
+  //     allUsers = await getUsers();
+  //     console.log(allUsers);
+  //     setUsers(allUsers);
+  //     setData({
+  //       ...data,
+  //       users: allUsers,
+  //     });
+  //   };
 
-    fetchUsers();
+  //   fetchUsers();
 
-    fetchArtists();
-    fetchAlbums();
-    fetchSongs();
-  }, []);
+  //   fetchArtists();
+  //   fetchAlbums();
+  //   fetchSongs();
+  // }, []);
   return (
     <GlobalData.Provider value={(artists, songs, albums, users)}>
       <div className="App">
@@ -110,6 +113,21 @@ function App() {
               exact
               path="/admin/songs"
               render={(routeProps) => <Songs />}
+            />
+            <Route
+              exact
+              path="/admin/trending"
+              render={(routeProps) => <Admintrending />}
+            />
+            <Route
+              exact
+              path="/admin/popular"
+              render={(routeProps) => <Adminpopular />}
+            />
+            <Route
+              exact
+              path="/admin/charts"
+              render={(routeProps) => <Admintopcharts />}
             />
           </Switch>
         </Router>

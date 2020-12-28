@@ -125,6 +125,7 @@ function Sidedrawer() {
         style={{
           backgroundColor: "#F44040",
         }}
+        // color="default"
       >
         <Toolbar>
           <IconButton
