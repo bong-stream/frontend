@@ -27,17 +27,20 @@ const Adminpopular = () => {
     setOpen(false);
   };
 
-  const handleAddPopular = (data) => {
+  const handleAddPopular = async (data) => {
     console.log(data);
     // addPopular(data);
     // console.log("yoo");
-    editPopular(data);
+    let res;
+
+    res = await editPopular(data);
     setUpdateData(true);
   };
 
-  const handleDeleteList = () => {
+  const handleDeleteList = async () => {
     let yoo = [];
-    editPopular(yoo);
+    let res;
+    res = await editPopular(yoo);
     setUpdateData(true);
   };
 
@@ -54,9 +57,9 @@ const Adminpopular = () => {
     setUpdateData(true);
   };
 
-  const handleNewSort = (sortedArray) => {
+  const handleNewSort = async (sortedArray) => {
     // console.log(sortedArray);
-    setSortedList(sortedArray);
+    await setSortedList(sortedArray);
     setSortState(true);
   };
 
@@ -65,7 +68,8 @@ const Adminpopular = () => {
     console.log(sortedList);
     setSortState(false);
 
-    await editPopular(sortedList);
+    let res;
+    res = await editPopular(sortedList);
     setUpdateData(true);
   };
 

@@ -27,16 +27,19 @@ const Admintrending = () => {
     setOpen(false);
   };
 
-  const handleAddTrending = (data) => {
+  const handleAddTrending = async (data) => {
     console.log(data);
     // addTrending(data);
-    editTrending(data);
+    let res;
+    res = await editTrending(data);
+    console.log(res);
     setUpdateData(true);
   };
 
-  const handleDeleteList = () => {
+  const handleDeleteList = async () => {
     let yoo = [];
-    editTrending(yoo);
+    let res;
+    res = await editTrending(yoo);
     setUpdateData(true);
   };
 
@@ -44,13 +47,18 @@ const Admintrending = () => {
     console.log(id);
     let trendingSongs = trending[0].trending;
     let filterSongs;
-    filterSongs = trendingSongs.filter((song) => {
+    filterSongs = await trendingSongs.filter((song) => {
       return song._id !== id;
     });
     console.log(filterSongs);
     // setTrending(filterSongs)
-    await editTrending(filterSongs);
-    setUpdateData(true);
+    let res;
+    res = await editTrending(filterSongs);
+    console.log(res);
+    if (res) {
+      console.log("i am running");
+      setUpdateData(true);
+    }
   };
 
   const handleNewSort = (sortedArray) => {
@@ -63,8 +71,8 @@ const Admintrending = () => {
     console.log("hello g");
     console.log(sortedList);
     setSortState(false);
-
-    await editTrending(sortedList);
+    let res;
+    res = await editTrending(sortedList);
     setUpdateData(true);
   };
 
@@ -130,6 +138,7 @@ const Admintrending = () => {
                       " Trending List is Empty"
                     ) : (
                       <div style={{ width: "100%" }}>
+                        {console.log(trending[0].trending)}
                         {trending ? (
                           <Trendingtable
                             data={trending[0].trending}

@@ -34,7 +34,7 @@ const editSongs = async (data) => {
 
   console.log(data);
 
-  songs = await axios.put("https://bong-backend.herokuapp.com/api/album", data);
+  songs = await axios.put("https://bong-backend.herokuapp.com/api/song", data);
   // songs = await axios.put("http://localhost:3001/api/song", data);
   console.log(songs.data);
   return songs.data;
@@ -68,7 +68,9 @@ const getTrending = async () => {
 const addTrending = async (data) => {
   // let trending;
   // console.log(data);
-  // trending = await axios.post("https://bong-backend.herokuapp.com/api/trending");
+  // trending = await axios.post(
+  //   "https://bong-backend.herokuapp.com/api/trending"
+  // );
   // trending = await axios.post("http://localhost:3001/api/trending", data);
   // console.log(trending.data);
   // return trending.data;
@@ -76,7 +78,10 @@ const addTrending = async (data) => {
 
 const editTrending = async (data) => {
   let trending;
-  trending = await axios.put("https://bong-backend.herokuapp.com/api/trending");
+  trending = await axios.put(
+    "https://bong-backend.herokuapp.com/api/trending",
+    data
+  );
   // trending = await axios.put("http://localhost:3001/api/trending", data);
   console.log(trending.data);
   return trending.data;

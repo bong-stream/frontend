@@ -60,25 +60,29 @@ const Albums = () => {
 
   const addAlbum = async (data) => {
     console.log(data);
-    await addAlbums(data);
+
+    let res = await addAlbums(data);
     setUpdateData(true);
   };
 
   const deleteAlbum = async (id) => {
     console.log(id);
-    deleteAlbums(id);
+    let res;
+    res = await deleteAlbums(id);
     setUpdateData(true);
   };
 
   const editAlbum = async (data) => {
     console.log(data);
+
     await setEditAlbumData(data);
     setOpenEdit(true);
   };
 
-  const handleEditAlbum = (data) => {
+  const handleEditAlbum = async (data) => {
     console.log(data);
-    editAlbums(data);
+    let res;
+    res = await editAlbums(data);
     setUpdateData(true);
   };
 

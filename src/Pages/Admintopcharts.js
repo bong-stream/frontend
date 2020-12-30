@@ -41,16 +41,17 @@ const Admintopcharts = () => {
     setOpen(false);
   };
 
-  const handleAddCharts = (topchart, name) => {
+  const handleAddCharts = async (topchart, name) => {
     // console.log(data, name);
     let data;
+    let res;
     if (name === "top20") {
       data = {
         topchart,
         name,
         id: top20,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     } else if (name === "top50") {
       data = {
@@ -58,7 +59,7 @@ const Admintopcharts = () => {
         name,
         id: top50,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     } else {
       data = {
@@ -66,20 +67,21 @@ const Admintopcharts = () => {
         name,
         id: top100,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     }
   };
 
-  const handleDeleteList = (name) => {
+  const handleDeleteList = async (name) => {
     let data;
+    let res;
     if (name === "top20") {
       data = {
         topchart: [],
         name,
         id: top20,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     } else if (name === "top50") {
       data = {
@@ -87,7 +89,7 @@ const Admintopcharts = () => {
         name,
         id: top50,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     } else if (name === "top100") {
       data = {
@@ -95,14 +97,15 @@ const Admintopcharts = () => {
         name,
         id: top100,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     }
   };
 
-  const handleDeleteSong = (id, name) => {
+  const handleDeleteSong = async (id, name) => {
     console.log(id, name);
     let data;
+    let res;
     let filterCharts;
     if (name === "top20") {
       let topchart = topcharts[0].topchart;
@@ -114,7 +117,7 @@ const Admintopcharts = () => {
         name,
         id: top20,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     } else if (name === "top50") {
       let topchart = topcharts[1].topchart;
@@ -126,7 +129,7 @@ const Admintopcharts = () => {
         name,
         id: top50,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     } else if (name === "top100") {
       let topchart = topcharts[2].topchart;
@@ -138,7 +141,7 @@ const Admintopcharts = () => {
         name,
         id: top100,
       };
-      editTopcharts(data);
+      res = await editTopcharts(data);
       setUpdateData(true);
     }
   };

@@ -51,26 +51,30 @@ const Songs = () => {
     console.log(editSongData);
   };
 
-  const handleEditSong = (data) => {
+  const handleEditSong = async (data) => {
     console.log(data);
-    editSongs(data);
+    let res;
+    res = await editSongs(data);
     setUpdateData(true);
   };
 
-  const addSong = (data) => {
+  const addSong = async (data) => {
     console.log(data);
-    addSongs(data);
+    let res;
+    res = await addSongs(data);
+    console.log(res);
     setUpdateData(true);
   };
 
-  const editSong = (data) => {
-    console.log(data);
-    editSongs(data);
-    setUpdateData(true);
-  };
-  const deleteSong = (id) => {
+  // const editSong = (data) => {
+  //   console.log(data);
+  //   editSongs(data);
+  //   setUpdateData(true);
+  // };
+  const deleteSong = async (id) => {
     console.log(id);
-    deleteSongs(id);
+    let res;
+    res = await deleteSongs(id);
     setUpdateData(true);
   };
 

@@ -59,9 +59,10 @@ export default function Userstable({ data, handleUpdateData }) {
     setKeys(yoo);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     console.log(id);
-    deleteUsers(id);
+    let res;
+    res = await deleteUsers(id);
     handleUpdateData();
   };
 

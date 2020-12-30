@@ -75,10 +75,11 @@ const SortableContainer = sortableContainer(({ children, classes }) => {
 
 const Trendingtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
   const classes = useStyles();
-
+  console.log(data);
   const [state, setState] = useState(data);
-
-  const handleDelete = (id, name) => {
+  console.log(state);
+  const handleDelete = (id) => {
+    console.log(name);
     handleDeleteSong(id, name);
   };
 
