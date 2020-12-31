@@ -89,7 +89,7 @@ const editTrending = async (data) => {
 
 const getPopular = async () => {
   let popular;
-
+  //
   popular = await axios.get("https://bong-backend.herokuapp.com/api/popular");
   // popular = await axios.get("http://localhost:3001/api/popular");
   console.log(popular);
