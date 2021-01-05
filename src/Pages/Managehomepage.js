@@ -12,6 +12,8 @@ import {
   editTopalbums,
   getTopartists,
   editTopartists,
+  getTopcharts,
+  editTopcharts,
 } from "../Pagesactions/songsactions";
 import "../Styles/adminpages.css";
 import "../Styles/adminhome.css";
@@ -24,6 +26,7 @@ const Managehomepage = () => {
   const [activeRecommended, setActiveRecommended] = useState(true);
   const [activeTopalbums, setActiveTopalbums] = useState(true);
   const [activeTopartists, setActiveTopartists] = useState(true);
+  const [activeTopcharts, setActiveTopcharts] = useState(true);
   const [fetchDone, setFetchDone] = useState(false);
   const [trending, setTrending] = useState();
   const [popular, setPopular] = useState();
@@ -31,6 +34,7 @@ const Managehomepage = () => {
   const [topalbums, setTopalbums] = useState();
   const [topartists, setTopartists] = useState();
   const [recommended, setRecommended] = useState();
+  const [topcharts, setTopcharts] = useState();
   const handleChange = async (active, label) => {
     console.log(active, label);
 
@@ -52,11 +56,20 @@ const Managehomepage = () => {
     } else if (label === "Recommended") {
       await editRecommended({ active, recommended: recommended });
       setActiveRecommended(active);
+    } else if (label === "Topcharts") {
+      await editTopcharts({ active, topcharts: topcharts });
+      setActiveTopcharts(active);
     }
   };
 
   useEffect(() => {
-    let trending, popular, bongplaylist, recommended, topalbums, topartists;
+    let trending,
+      popular,
+      bongplaylist,
+      recommended,
+      topalbums,
+      topartists,
+      topcharts;
     const fetch = async () => {
       trending = await getTrending();
       console.log("helo trending", trending);
@@ -77,7 +90,10 @@ const Managehomepage = () => {
       topartists = await getTopartists();
       setActiveTopartists(topartists[0].active);
       setTopartists(topartists[0].topartists);
-      console.log(trending[0].active);
+      topcharts = await getTopcharts();
+      setActiveTopcharts(topcharts[0].active);
+      setTopcharts(topcharts[0].topcharts);
+      console.log(topcharts[0].topcharts);
       setFetchDone(true);
       console.log("i am done");
     };
@@ -139,6 +155,13 @@ const Managehomepage = () => {
                         label="Recommended"
                         handleChange={handleChange}
                         active={activeRecommended}
+                      />
+                    </div>
+                    <div className="col-12">
+                      <Active
+                        label="Topcharts"
+                        handleChange={handleChange}
+                        active={activeTopcharts}
                       />
                     </div>
                   </div>
