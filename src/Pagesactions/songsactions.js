@@ -82,6 +82,8 @@ const editTrending = async (data) => {
     "https://bong-backend.herokuapp.com/api/trending",
     data
   );
+  console.log(data);
+
   // trending = await axios.put("http://localhost:3001/api/trending", data);
   console.log(trending.data);
   return trending.data;
@@ -139,6 +141,98 @@ const editTopcharts = async (data) => {
   return topchart.data;
 };
 
+const getBongplaylist = async () => {
+  let Bongplaylist;
+
+  Bongplaylist = await axios.get(
+    "https://bong-backend.herokuapp.com/api/bongplaylist"
+  );
+  // Bongplaylist = await axios.get("http://localhost:3001/api/bongplaylist");
+  console.log(Bongplaylist);
+  return Bongplaylist.data;
+};
+
+const editBongplaylist = async (data) => {
+  let Bongplaylist;
+  Bongplaylist = await axios.put(
+    "https://bong-backend.herokuapp.com/api/bongplaylist",
+    data
+  );
+  // Bongplaylist = await axios.put(
+  //   "http://localhost:3001/api/bongplaylist",
+  //   data
+  // );
+  console.log(Bongplaylist.data);
+  return Bongplaylist.data;
+};
+
+const getRecommended = async () => {
+  let Recommended;
+
+  Recommended = await axios.get(
+    "https://bong-backend.herokuapp.com/api/recommended"
+  );
+  // Recommended = await axios.get("http://localhost:3001/api/recommended");
+  console.log(Recommended);
+  return Recommended.data;
+};
+
+const editRecommended = async (data) => {
+  let Recommended;
+  Recommended = await axios.put(
+    "https://bong-backend.herokuapp.com/api/recommended",
+    data
+  );
+  console.log(data);
+  // Recommended = await axios.put("http://localhost:3001/api/recommended", data);
+  // console.log(Recommended.data);
+  // return Recommended.data;
+};
+
+const getTopalbums = async () => {
+  let Topalbums;
+
+  Topalbums = await axios.get(
+    "https://bong-backend.herokuapp.com/api/topalbums"
+  );
+  // Topalbums = await axios.get("http://localhost:3001/api/topalbums");
+  console.log(Topalbums);
+  return Topalbums.data;
+};
+
+const editTopalbums = async (data) => {
+  let Topalbums;
+  Topalbums = await axios.put(
+    "https://bong-backend.herokuapp.com/api/Topalbums",
+    data
+  );
+  // Topalbums = await axios.put("http://localhost:3001/api/Topalbums", data);
+  console.log(Topalbums.data);
+  return Topalbums.data;
+};
+
+const getTopartists = async () => {
+  let Topartists;
+
+  Topartists = await axios.get(
+    "https://bong-backend.herokuapp.com/api/topartists"
+  );
+  // Topartists = await axios.get("http://localhost:3001/api/topartists");
+  console.log(Topartists);
+  return Topartists.data;
+};
+
+const editTopartists = async (data) => {
+  let Topartists;
+  Topartists = await axios.put(
+    "https://bong-backend.herokuapp.com/api/Topartists",
+    data
+  );
+  // Topartists = await axios.put("http://localhost:3001/api/Topartists", data);
+  console.log(Topartists.data);
+  return Topartists.data;
+};
+
 export {
   addTrending,
   getSongs,
@@ -152,4 +246,12 @@ export {
   getPopular,
   getTopcharts,
   editTopcharts,
+  getBongplaylist,
+  editBongplaylist,
+  getRecommended,
+  editRecommended,
+  getTopalbums,
+  editTopalbums,
+  getTopartists,
+  editTopartists,
 };

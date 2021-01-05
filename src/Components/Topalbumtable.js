@@ -36,11 +36,11 @@ const SortableItem = sortableElement(
   ({ value, name, classes, handleDelete }) => (
     <ListItem alignItems="flex-start" width="100%">
       <ListItemAvatar>
-        <Avatar alt="Remy Sharp" src={value.songimage} />
+        <Avatar alt="Remy Sharp" src={value.albumimage} />
       </ListItemAvatar>
       <ListItemText
         style={{ color: "black" }}
-        primary={`${value.songname}`}
+        primary={`${value.albumname}`}
         secondary={
           <React.Fragment>
             <Typography
@@ -48,7 +48,9 @@ const SortableItem = sortableElement(
               variant="body2"
               className={classes.inline}
               color="textPrimary"
-            ></Typography>
+            >
+              Ali Gatie
+            </Typography>
           </React.Fragment>
         }
       />
@@ -71,7 +73,7 @@ const SortableContainer = sortableContainer(({ children, classes }) => {
   );
 });
 
-const Trendingtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
+const Topalbumtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
   const classes = useStyles();
   console.log(data);
   const [state, setState] = useState(data);
@@ -141,4 +143,4 @@ const Trendingtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
   );
 };
 
-export default sortableContainer(Trendingtable);
+export default sortableContainer(Topalbumtable);

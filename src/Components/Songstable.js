@@ -111,7 +111,7 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
 
                 <StyledTableCell align="left">{row.songname}</StyledTableCell>
 
-                <StyledTableCell align="left">{row.songimage}</StyledTableCell>
+                {/* <StyledTableCell align="left">{row.songimage}</StyledTableCell> */}
                 <StyledTableCell align="left">{row.noofplays}</StyledTableCell>
                 {/* <StyledTableCell align="right">
                   {artists ? findArtistName(row.artists) : null}

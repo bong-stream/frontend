@@ -21,10 +21,11 @@ import AlbumIcon from "@material-ui/icons/Album";
 import FaceIcon from "@material-ui/icons/Face";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AppsIcon from "@material-ui/icons/Apps";
-import Logo from ".././assets/logo.png";
+import Logo from ".././assets/logo2.png";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
+import HomeWorkIcon from "@material-ui/icons/HomeWork";
 
 const drawerWidth = 240;
 
@@ -177,6 +178,18 @@ function Sidedrawer() {
                 <AppsIcon />
               </ListItemIcon>
               <ListItemText primary="Home" />
+            </ListItem>
+          </Link>
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to="/admin/managehomepage"
+          >
+            <ListItem button>
+              <ListItemIcon>
+                {" "}
+                <HomeWorkIcon />
+              </ListItemIcon>
+              <ListItemText primary="Manage Homepage" />
             </ListItem>
           </Link>
           <Link

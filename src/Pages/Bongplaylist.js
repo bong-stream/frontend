@@ -5,16 +5,15 @@ import Trendingtable from "../Components/Trendingtable";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import SortIcon from "@material-ui/icons/Sort";
-import Addpopular from "../Components/Addpopular";
+import Addtrending from "../Components/Addtrending";
 import {
-  addPopular,
-  editPopular,
-  getPopular,
+  getBongplaylist,
+  editBongplaylist,
 } from "../Pagesactions/songsactions";
 
-const Adminpopular = () => {
+const Bongplaylist = () => {
   const [open, setOpen] = React.useState(false);
-  const [popular, setPopular] = useState();
+  const [trending, setTrending] = useState();
   const [updateData, setUpdateData] = useState(false);
   const [sortState, setSortState] = useState(false);
   const [sortedList, setSortedList] = useState();
@@ -28,39 +27,43 @@ const Adminpopular = () => {
     setOpen(false);
   };
 
-  const handleAddPopular = async (data) => {
+  const handleAddTrending = async (data) => {
     console.log(data);
-    // addPopular(data);
-    // console.log("yoo");
+    // addTrending(data);
     let res;
-
-    res = await editPopular({ popular: data, active: active });
+    res = await editBongplaylist({ bongplaylist: data, active: active });
+    console.log(res);
     setUpdateData(true);
   };
 
   const handleDeleteList = async () => {
     let yoo = [];
     let res;
-    res = await editPopular({ popular: yoo, active: active });
+    res = await editBongplaylist({ bongplaylist: yoo, active: active });
     setUpdateData(true);
   };
 
   const handleDeleteSong = async (id) => {
     console.log(id);
-    let popularSongs = popular[0].popular;
+    let trendingSongs = trending[0].trending;
     let filterSongs;
-    filterSongs = popularSongs.filter((song) => {
+    filterSongs = await trendingSongs.filter((song) => {
       return song._id !== id;
     });
     console.log(filterSongs);
-    // setpopular(filterSongs)
-    await editPopular({ popular: filterSongs, active: active });
-    setUpdateData(true);
+    // setTrending(filterSongs)
+    let res;
+    res = await editBongplaylist({ bongplaylist: filterSongs, active: active });
+    console.log(res);
+    if (res) {
+      console.log("i am running");
+      setUpdateData(true);
+    }
   };
 
-  const handleNewSort = async (sortedArray) => {
+  const handleNewSort = (sortedArray) => {
     // console.log(sortedArray);
-    await setSortedList({ popular: sortedArray });
+    setSortedList(sortedArray);
     setSortState(true);
   };
 
@@ -68,42 +71,43 @@ const Adminpopular = () => {
     console.log("hello g");
     console.log(sortedList);
     setSortState(false);
-
     let res;
-    res = await editPopular({ popular: sortedList, active: active });
+    res = await editBongplaylist({ bongplaylist: sortedList, active: active });
     setUpdateData(true);
   };
 
   useEffect(() => {
-    const fetchPopular = async () => {
-      let allPopular;
-      allPopular = await getPopular();
-      console.log(allPopular);
-      setPopular(allPopular);
-      setActive(allPopular[0].active);
-      setSortedList(allPopular);
+    const fetchTrending = async () => {
+      let allTrending;
+      allTrending = await getBongplaylist();
+      console.log(allTrending);
+      setTrending(allTrending);
+      setActive(allTrending[0].active);
+      setSortedList(allTrending);
       setSortState(false);
     };
 
-    fetchPopular();
+    fetchTrending();
     setUpdateData(false);
   }, [updateData]);
 
   return (
     <div className="main">
       <div>
-        <h2>Popular Songs</h2>
+        <h2>Bong Playlist</h2>
         <br />
       </div>
       <div className="container">
         <div className="row">
-          <div className=" mb-4 col-12 col-md-2">
+          <div className="mb-4 col-12 col-md-2">
+            <br />
+            <br />
             <button
               style={{ width: "120px" }}
               className="btn btn-sm btn-danger"
               onClick={handleClickOpen}
             >
-              New List <AddCircleIcon />
+              <AddCircleIcon /> New List
             </button>
             <br />
             <br />
@@ -112,7 +116,7 @@ const Adminpopular = () => {
               className="btn btn-sm btn-danger"
               onClick={handleDeleteList}
             >
-              Delete List <DeleteIcon />
+              <DeleteIcon /> Delete List
             </button>
             <br />
             <br />
@@ -124,28 +128,21 @@ const Adminpopular = () => {
             >
               <SortIcon /> Save Sort
             </button>
-            {open ? (
-              <Addpopular
-                open={open}
-                handleClickOpen={handleClickOpen}
-                handleClose={handleClose}
-                handleAddPopular={handleAddPopular}
-              />
-            ) : null}
           </div>
-          <div className="col-12 col-md-8 ">
+          <div className="col-12 col-md-8 text-center">
             <div className="row">
               <div className="col-0 col-md-2"></div>
-              <div className="col-11 col-md-6">
-                {popular ? (
+              <div className="col-11 col-md-8">
+                {trending ? (
                   <React.Fragment>
-                    {popular[0].popular.length === 0 ? (
-                      " Popular List is Empty"
+                    {trending[0].bongplaylist.length === 0 ? (
+                      " Bongplaylist List is Empty"
                     ) : (
                       <div style={{ width: "100%" }}>
-                        {popular ? (
+                        {console.log(trending[0].bongplaylist)}
+                        {trending ? (
                           <Trendingtable
-                            data={popular[0].popular}
+                            data={trending[0].bongplaylist}
                             handleDeleteSong={handleDeleteSong}
                             handleNewSort={handleNewSort}
                           />
@@ -155,14 +152,23 @@ const Adminpopular = () => {
                   </React.Fragment>
                 ) : null}
               </div>
-              <div className="col-1 col-md-2"></div>
+              <div className="col-0 col-md-2"></div>
             </div>
           </div>
-          <div className="col-12 col-md-2"></div>
+          <div className="col-12 col-md-2">
+            {open ? (
+              <Addtrending
+                open={open}
+                handleClickOpen={handleClickOpen}
+                handleClose={handleClose}
+                handleAddTrending={handleAddTrending}
+              />
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Adminpopular;
+export default Bongplaylist;

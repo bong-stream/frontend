@@ -18,6 +18,7 @@ const Admintrending = () => {
   const [updateData, setUpdateData] = useState(false);
   const [sortState, setSortState] = useState(false);
   const [sortedList, setSortedList] = useState();
+  const [active, setActive] = useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,7 +32,8 @@ const Admintrending = () => {
     console.log(data);
     // addTrending(data);
     let res;
-    res = await editTrending(data);
+    console.log(trending);
+    res = await editTrending({ trending: data, active: active });
     console.log(res);
     setUpdateData(true);
   };
@@ -39,7 +41,8 @@ const Admintrending = () => {
   const handleDeleteList = async () => {
     let yoo = [];
     let res;
-    res = await editTrending(yoo);
+
+    res = await editTrending({ trending: yoo, active: active });
     setUpdateData(true);
   };
 
@@ -53,7 +56,10 @@ const Admintrending = () => {
     console.log(filterSongs);
     // setTrending(filterSongs)
     let res;
-    res = await editTrending(filterSongs);
+    res = await editTrending({
+      trending: filterSongs,
+      active: active,
+    });
     console.log(res);
     if (res) {
       console.log("i am running");
@@ -72,7 +78,7 @@ const Admintrending = () => {
     console.log(sortedList);
     setSortState(false);
     let res;
-    res = await editTrending(sortedList);
+    res = await editTrending({ trending: sortedList, active: active });
     setUpdateData(true);
   };
 
@@ -82,6 +88,7 @@ const Admintrending = () => {
       allTrending = await getTrending();
       console.log(allTrending);
       setTrending(allTrending);
+      setActive(allTrending[0].active);
       setSortedList(allTrending);
       setSortState(false);
     };
@@ -101,6 +108,7 @@ const Admintrending = () => {
           <div className="mb-4 col-12 col-md-2">
             <br />
             <br />
+
             <button
               style={{ width: "120px" }}
               className="btn btn-sm btn-danger"

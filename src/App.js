@@ -15,6 +15,11 @@ import Signin from "./Pages/Signin";
 import Admintrending from "./Pages/Admintrending";
 import Adminpopular from "./Pages/Adminpopular";
 import Admintopcharts from "./Pages/Admintopcharts";
+import Managehomepage from "./Pages/Managehomepage";
+import Bongplaylist from "./Pages/Bongplaylist";
+import Topartists from "./Pages/Topartists";
+import Topalbums from "./Pages/Topalbums";
+import Recommended from "./Pages/Recommended";
 import "./App.css";
 
 export const GlobalData = React.createContext();
@@ -128,6 +133,31 @@ function App() {
               exact
               path="/admin/charts"
               render={(routeProps) => <Admintopcharts />}
+            />
+            <Route
+              exact
+              path="/admin/managehomepage"
+              render={(routeProps) => <Managehomepage />}
+            />
+            <Route
+              exact
+              path="/admin/bongplaylist"
+              render={(routeProps) => <Bongplaylist />}
+            />
+            <Route
+              exact
+              path="/admin/topalbums"
+              render={(routeProps) => <Topalbums />}
+            />
+            <Route
+              exact
+              path="/admin/topartists"
+              render={(routeProps) => <Topartists />}
+            />
+            <Route
+              exact
+              path="/admin/recommended"
+              render={(routeProps) => <Recommended />}
             />
           </Switch>
         </Router>
