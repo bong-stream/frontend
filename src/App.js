@@ -15,39 +15,58 @@ import Signin from "./Pages/Signin";
 import Admintrending from "./Pages/Admintrending";
 import Adminpopular from "./Pages/Adminpopular";
 import Admintopcharts from "./Pages/Admintopcharts";
-import Managehomepage from "./Pages/Managehomepage";
-import Bongplaylist from "./Pages/Bongplaylist";
-import Topartists from "./Pages/Topartists";
-import Topalbums from "./Pages/Topalbums";
-import Recommended from "./Pages/Recommended";
 import "./App.css";
+import AdminRoute from "./Components/AdminRoute";
+import ClientRoute from "./Components/ClientRoute";
+import Trendingtable from "./Components/Trendingtable";
+import CreateAccount from "./Pages/client/CreateAccount";
+import ResetLogin from "./Pages/client/ResetLogin";
+import DetailSignUp from "./Pages/client/DetailSignUp";
+import BrowseMain from "./Pages/client/screens/BrowseMain";
+import HomeScreen from "./Pages/client/screens/HomeScreen";
 
 export const GlobalData = React.createContext();
 
-function App() {
+function App(props) {
   const [artists, setArtists] = useState();
   const [songs, setSongs] = useState();
   const [albums, setAlbums] = useState();
   const [users, setUsers] = useState();
-
+  const [topCharts, setTopCharts] = useState();
+  const [bongplaylist, setbongplaylist] = useState();
   const [data, setData] = useState({
     users: [],
     artists: [],
     songs: [],
     albums: [],
+    topCharts: [],
+    bongplaylist: [],
   });
 
   // useEffect(() => {
-  //   const fetchAlbums = async () => {
-  //     let allAlbums;
-  //     allAlbums = await getAlbums();
-  //     console.log(allAlbums);
-  //     setAlbums(allAlbums);
+  //   const topchart = fetchTopCharts();
+  //   if (topchart.length <= 0 || topchart === undefined) {
+  //     console.log("emptyarray");
+  //   } else {
+  //     setTopCharts(topchart);
   //     setData({
   //       ...data,
-  //       albums: allAlbums,
+  //       topCharts: topCharts,
   //     });
-  //   };
+  //   }
+  // }, [topCharts]);
+  // useEffect(() => {
+  //   const playlist = fetchbongplaylist();
+  //   if (playlist.length <= 0 || playlist == undefined) {
+  //     console.log("bongplaylist is empty");
+  //   } else {
+  //     setbongplaylist(bongplaylist);
+  //     setData({
+  //       ...data,
+  //       bongplaylist: bongplaylist,
+  //     });
+  //   }
+  // }, [bongplaylist]);
 
   //   const fetchSongs = async () => {
   //     let allSongs;
@@ -81,84 +100,46 @@ function App() {
   //       users: allUsers,
   //     });
   //   };
-
   //   fetchUsers();
 
   //   fetchArtists();
   //   fetchAlbums();
   //   fetchSongs();
   // }, []);
+
   return (
-    <GlobalData.Provider value={(artists, songs, albums, users)}>
+    <GlobalData.Provider
+      value={(artists, songs, albums, users, bongplaylist, topCharts)}
+    >
       <div className="App">
-        {console.log(users, artists, songs, albums)}
-
         <Router>
-          <Sidedrawer />
+          <Route
+            exact
+            path={["/client/createAccount", "/client/login"]}
+            component={CreateAccount}
+          />
+          <Route
+            exact
+            path={["/client/reset", "/client/verification"]}
+            component={ResetLogin}
+          />
+          <Route exact path={"/client/detailSignup"} component={DetailSignUp} />
           <Switch>
-            <Route exact path="/" render={(routeProps) => <AdminHome />} />
-            <Route exact path="/signin" render={(routeProps) => <Signin />} />
+            <ClientRoute exact path={"/client/browse"} component={BrowseMain} />
+            <ClientRoute exact path={"/client/Home"} component={HomeScreen} />
+            <AdminRoute exact path="/admin" component={AdminHome} />
 
-            <Route
-              exact
-              path="/admin/users"
-              render={(routeProps) => <User />}
-            />
-            <Route
-              exact
-              path="/admin/albums"
-              render={(routeProps) => <Albums />}
-            />
-            <Route
-              exact
-              path="/admin/artist"
-              render={(routeProps) => <Artist />}
-            />
-            <Route
-              exact
-              path="/admin/songs"
-              render={(routeProps) => <Songs />}
-            />
-            <Route
+            <AdminRoute exact path="/admin/users" component={User} />
+            <AdminRoute exact path="/admin/albums" component={Albums} />
+            <AdminRoute exact path="/admin/artist" component={Artist} />
+            <AdminRoute exact path="/admin/songs" component={Songs} />
+            <AdminRoute
               exact
               path="/admin/trending"
-              render={(routeProps) => <Admintrending />}
+              component={Admintrending}
             />
-            <Route
-              exact
-              path="/admin/popular"
-              render={(routeProps) => <Adminpopular />}
-            />
-            <Route
-              exact
-              path="/admin/charts"
-              render={(routeProps) => <Admintopcharts />}
-            />
-            <Route
-              exact
-              path="/admin/managehomepage"
-              render={(routeProps) => <Managehomepage />}
-            />
-            <Route
-              exact
-              path="/admin/bongplaylist"
-              render={(routeProps) => <Bongplaylist />}
-            />
-            <Route
-              exact
-              path="/admin/topalbums"
-              render={(routeProps) => <Topalbums />}
-            />
-            <Route
-              exact
-              path="/admin/topartists"
-              render={(routeProps) => <Topartists />}
-            />
-            <Route
-              exact
-              path="/admin/recommended"
-              render={(routeProps) => <Recommended />}
-            />
+            <AdminRoute exact path="/admin/popular" component={Adminpopular} />
+            <AdminRoute exact path="/admin/charts" component={Admintopcharts} />
           </Switch>
         </Router>
       </div>

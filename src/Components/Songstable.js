@@ -104,14 +104,13 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
                 <StyledTableCell>{value}</StyledTableCell>;
               })} */}
                 {console.log(row)}
+                <StyledTableCell align="left">{row._id}</StyledTableCell>
                 <StyledTableCell align="left">
                   {row.artists.length}
                 </StyledTableCell>
-                <StyledTableCell align="left">{row._id}</StyledTableCell>
-
                 <StyledTableCell align="left">{row.songname}</StyledTableCell>
 
-                {/* <StyledTableCell align="left">{row.songimage}</StyledTableCell> */}
+                <StyledTableCell align="left">{row.songimage}</StyledTableCell>
                 <StyledTableCell align="left">{row.noofplays}</StyledTableCell>
                 {/* <StyledTableCell align="right">
                   {artists ? findArtistName(row.artists) : null}

@@ -132,7 +132,7 @@ export default function Editartist({
       ids.push(subData._id);
     });
 
-    setFoundAlbums(data);
+    setFoundSongs(data);
     setState({
       ...state,
       albums: ids,
@@ -270,24 +270,22 @@ export default function Editartist({
                 <div>
                   {foundAlbums ? (
                     <List>
-                      {foundAlbums.map((album) => {
-                        return (
-                          <ListItem key={album._id}>
-                            {console.log()}
-                            <ListItemText
-                              primary={album.albumname}
-                              // secondary={secondary ? "Secondary text" : null}
-                            />
-                            <ListItemSecondaryAction>
-                              <IconButton edge="end" aria-label="delete">
-                                <DeleteForeverIcon
-                                  onClick={() => deleteArtistAlbum(album._id)}
-                                />
-                              </IconButton>
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })}
+                      {foundAlbums.map((album) => (
+                        <ListItem>
+                          {console.log()}
+                          <ListItemText
+                            primary={album.albumname}
+                            // secondary={secondary ? "Secondary text" : null}
+                          />
+                          <ListItemSecondaryAction>
+                            <IconButton edge="end" aria-label="delete">
+                              <DeleteForeverIcon
+                                onClick={() => deleteArtistAlbum(album._id)}
+                              />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      ))}
                     </List>
                   ) : null}
                 </div>
@@ -327,24 +325,22 @@ export default function Editartist({
                 <div>
                   {foundSongs ? (
                     <List>
-                      {foundSongs.map((song) => {
-                        return (
-                          <ListItem>
-                            {console.log()}
-                            <ListItemText
-                              primary={song.songname}
-                              // secondary={secondary ? "Secondary text" : null}
-                            />
-                            <ListItemSecondaryAction>
-                              <IconButton edge="end" aria-label="delete">
-                                <DeleteForeverIcon
-                                  onClick={() => deleteArtistSong(song._id)}
-                                />
-                              </IconButton>
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })}
+                      {foundSongs.map((song) => (
+                        <ListItem>
+                          {console.log()}
+                          <ListItemText
+                            primary={song.songname}
+                            // secondary={secondary ? "Secondary text" : null}
+                          />
+                          <ListItemSecondaryAction>
+                            <IconButton edge="end" aria-label="delete">
+                              <DeleteForeverIcon
+                                onClick={() => deleteArtistSong(song._id)}
+                              />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      ))}
                     </List>
                   ) : null}
                 </div>

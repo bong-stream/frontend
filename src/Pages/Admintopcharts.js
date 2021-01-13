@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "../Styles/adminpages.css";
 import "../Styles/adminhome.css";
 import {
@@ -6,28 +6,26 @@ import {
   editTopcharts,
   getTopcharts,
 } from "../Pagesactions/songsactions";
+import {
+  addTrending,
+  editTrending,
+  getTrending,
+} from "../Pagesactions/songsactions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import Icon from "@material-ui/core/Icon";
-import SortIcon from "@material-ui/icons/Sort";
 import Trendingtable from "../Components/Trendingtable";
-import Addtrending from "../Components/Addtrending";
-import Tabsvertical from "../Components/Tabsvertical.js";
-import Addnewchart from "../Components/Addnewchart";
-import { v4 as uuidv4 } from "uuid";
+import Addchart from "../Components/Addchart";
 
 const Admintopcharts = () => {
-  const [fetchedTopcharts, setFetchedTopcharts] = useState();
   const [open, setOpen] = React.useState(false);
-  const [active, setActive] = useState();
-  const [newList, setNewList] = useState(false);
-  const [id, setId] = useState();
-  const [name, setName] = useState();
-  const [sortState, setSortState] = useState(false);
-  const [sortedList, setSortedList] = useState();
+  const [topcharts, setTopcharts] = useState();
   const [updateData, setUpdateData] = useState(false);
+  const [trending, setTrending] = useState();
+  const [listName, setListName] = useState();
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (name) => {
+    console.log(name);
+    setListName(name);
     setOpen(true);
   };
 
@@ -35,116 +33,8 @@ const Admintopcharts = () => {
     setOpen(false);
   };
 
-  const handleOpenNewList = async () => {
-    setNewList(!newList);
-  };
-
-  const handleId = async (id) => {
-    console.log(id);
-    setId(id);
-  };
-
-  const handleAddTopcharts = async (songs, name, image) => {
-    let topcharts = [
-      ...fetchedTopcharts,
-      {
-        topchart: songs,
-        name: name,
-        image: image,
-        id: uuidv4(),
-      },
-    ];
-    // addTrending(data);
-    let res;
-    res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
-
-    setUpdateData(true);
-  };
-
-  const handleDeleteChart = async () => {
-    let yooCharts = fetchedTopcharts;
-    let filterCharts;
-    filterCharts = yooCharts.filter((value) => {
-      return value.id !== id;
-    });
-
-    let topcharts = [...filterCharts];
-    let res;
-    res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
-    setId();
-    setUpdateData(true);
-  };
-
-  const handleAddNewList = async (data) => {
-    console.log(data);
-    fetchedTopcharts.map((value) => {
-      if (value.id === id) {
-        value.topchart = data;
-      }
-    });
-    let yoo = fetchedTopcharts;
-    let topcharts = [...yoo];
-    let res;
-    res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
-    setUpdateData(true);
-  };
-
-  const handleDeleteList = async () => {
-    fetchedTopcharts.map((value) => {
-      if (value.id === id) {
-        value.topchart = [];
-      }
-    });
-    let yoo = fetchedTopcharts;
-    let topcharts = [...yoo];
-    let res;
-    res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
-    setUpdateData(true);
-  };
-
-  const handleNewSort = (sortedArray) => {
-    console.log(sortedArray);
-    setSortedList(sortedArray);
-    setSortState(true);
-  };
-
-  const handleSortList = async () => {
-    setSortState(false);
-    fetchedTopcharts.map((value) => {
-      if (value.id === id) {
-        value.topchart = sortedList;
-      }
-    });
-    let yoo = fetchedTopcharts;
-    let topcharts = [...yoo];
-    let res;
-    res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
-    setUpdateData(true);
-  };
-
-  const handleDeleteSong = async (songId) => {
-    let yooSongs = fetchedTopcharts;
-    let filterSongs;
-    yooSongs.map((value) => {
-      if (value.id === id) {
-        filterSongs = value.topchart.filter((song) => {
-          return song._id !== songId;
-        });
-        value.topchart = filterSongs;
-      }
-    });
-
-    let yoo = fetchedTopcharts;
-    let topcharts = [...yoo];
-    let res;
-    res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
-    setUpdateData(true);
+  const handleAddCharts = (data, name) => {
+    console.log(data, name);
   };
 
   useEffect(() => {
@@ -152,97 +42,161 @@ const Admintopcharts = () => {
       let allTopcharts;
       allTopcharts = await getTopcharts();
       console.log(allTopcharts);
-      setFetchedTopcharts(allTopcharts[0].topcharts);
-      setActive(allTopcharts[0].active);
-      setSortedList(allTopcharts[0].topcharts);
-      setSortState(false);
+      setTopcharts(allTopcharts);
     };
 
     fetchTopcharts();
+
+    const fetchTrending = async () => {
+      let allTrending;
+      allTrending = await getTrending();
+      console.log(allTrending);
+      setTrending(allTrending);
+    };
+
+    fetchTrending();
     setUpdateData(false);
   }, [updateData]);
   return (
     <div className="main">
+      <h2>Top Charts</h2>
+      <br />
       <div className="container">
-        <h3>Top Charts</h3>
-        <br />
-        <br />
         <div className="row">
-          {console.log(fetchedTopcharts)}
-          <div className="col-12 col-md-8">
-            {fetchedTopcharts ? (
-              <Tabsvertical
-                data={fetchedTopcharts}
-                handleDeleteSong={handleDeleteSong}
-                handleNewSort={handleNewSort}
-                handleId={handleId}
-              />
-            ) : null}
-          </div>
-          {id ? (
-            <div className="col-12 col-md-2">
+          <div className="col-12 col-md-4 my-4">
+            <div className="row text-center">
+              <div className="col-12 ">
+                <h3>Top 20</h3>
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={() => handleClickOpen("top20")}
+                >
+                  New List <AddCircleIcon />
+                </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  //   onClick={handleDeleteList}
+                >
+                  Delete List <DeleteIcon />
+                </button>
+              </div>
               <br />
-              <button
-                style={{ width: "120px" }}
-                className="btn btn-sm btn-danger"
-                onClick={handleOpenNewList}
-              >
-                <AddCircleIcon /> New List
-              </button>
-              <br />
-              <br />
-              <button
-                style={{ width: "120px" }}
-                className="btn btn-sm btn-danger"
-                onClick={handleDeleteList}
-              >
-                <DeleteIcon /> Delete List
-              </button>
-              <br />
-              <br />
-              <button
-                style={{ width: "120px" }}
-                className="btn btn-sm btn-danger"
-                onClick={handleSortList}
-                disabled={sortState ? false : true}
-              >
-                <SortIcon /> Save Sort
-              </button>
-              <br />
-              <br />
-              <button
-                style={{ width: "120px" }}
-                className="btn btn-sm btn-danger"
-                onClick={handleDeleteChart}
-              >
-                <DeleteIcon /> Delete Chart
-              </button>
+              <div className="col-12 my-4">
+                {trending ? (
+                  <React.Fragment>
+                    {trending[0].trending.length === 0 ? (
+                      " Trending List is Empty"
+                    ) : (
+                      <div style={{ width: "100%" }}>
+                        {trending ? (
+                          <Trendingtable
+                            data={trending[0].trending}
+                            // handleDeleteSong={handleDeleteSong}
+                          />
+                        ) : null}
+                      </div>
+                    )}
+                  </React.Fragment>
+                ) : null}
+              </div>
             </div>
-          ) : null}
-
-          <div className="col-12 col-md-2">
-            <h5 style={{ color: "white" }}> New Chart </h5>
-            <Icon style={{ marginTop: "500px" }}>
-              <AddCircleIcon
-                style={{ color: "#F44040", fontSize: 35, marginTop: "10px" }}
-                onClick={handleClickOpen}
-              />
-            </Icon>
-            {open ? (
-              <Addnewchart
-                open={open}
-                handleClose={handleClose}
-                handleAddTopcharts={handleAddTopcharts}
-              />
-            ) : null}
-            {newList ? (
-              <Addtrending
-                open={newList}
-                handleClickOpen={handleOpenNewList}
-                handleClose={handleOpenNewList}
-                handleAddTrending={handleAddNewList}
-              />
-            ) : null}
+          </div>
+          <div className="col-12 col-md-4 my-4">
+            <div className="row">
+              <div className="col-12 ">
+                <h3>Top 50</h3>
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={() => handleClickOpen("top50")}
+                >
+                  New List <AddCircleIcon />
+                </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  //   onClick={handleDeleteList}
+                >
+                  Delete List <DeleteIcon />
+                </button>
+              </div>
+              <br />
+              <div className="col-12 my-4">
+                {trending ? (
+                  <React.Fragment>
+                    {trending[0].trending.length === 0 ? (
+                      " Trending List is Empty"
+                    ) : (
+                      <div style={{ width: "100%" }}>
+                        {trending ? (
+                          <Trendingtable
+                            data={trending[0].trending}
+                            // handleDeleteSong={handleDeleteSong}
+                          />
+                        ) : null}
+                      </div>
+                    )}
+                  </React.Fragment>
+                ) : null}
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-md-4 my-4">
+            <div className="row">
+              <div className="col-12 ">
+                <h3>Top 100</h3>
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={() => handleClickOpen("top100")}
+                >
+                  New List <AddCircleIcon />
+                </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  //   onClick={handleDeleteList}
+                >
+                  Delete List <DeleteIcon />
+                </button>
+              </div>
+              <br />
+              <div className="col-12 my-4">
+                {trending ? (
+                  <React.Fragment>
+                    {trending[0].trending.length === 0 ? (
+                      " Trending List is Empty"
+                    ) : (
+                      <div style={{ width: "100%" }}>
+                        {trending ? (
+                          <Trendingtable
+                            data={trending[0].trending}
+                            // handleDeleteSong={handleDeleteSong}
+                          />
+                        ) : null}
+                      </div>
+                    )}
+                  </React.Fragment>
+                ) : null}
+                {open ? (
+                  <Addchart
+                    open={open}
+                    handleClickOpen={handleClickOpen}
+                    handleClose={handleClose}
+                    handleAddCharts={handleAddCharts}
+                    listName={listName}
+                  />
+                ) : null}
+              </div>
+            </div>
           </div>
         </div>
       </div>

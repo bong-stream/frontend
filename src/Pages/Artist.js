@@ -58,15 +58,14 @@ const Artist = () => {
 
   const addArtist = async (data, albums, songs) => {
     console.log(data, albums, songs);
-    let res;
-    res = await addArtists(data, albums, songs);
+
+    await addArtists(data, albums, songs);
     setUpdateData(true);
   };
 
   const deleteArtist = async (id) => {
     console.log(id);
-    let res;
-    res = await deleteArtists(id);
+    deleteArtists(id);
     setUpdateData(true);
   };
 
@@ -76,10 +75,9 @@ const Artist = () => {
     setOpenEdit(true);
   };
 
-  const handleEditArtist = async (data) => {
-    let res;
-    res = await editArtists(data);
-    console.log(res);
+  const handleEditArtist = (data) => {
+    console.log(data);
+    editArtists(data);
     setUpdateData(true);
   };
 

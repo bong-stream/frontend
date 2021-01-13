@@ -16,16 +16,14 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import AlbumIcon from "@material-ui/icons/Album";
 import FaceIcon from "@material-ui/icons/Face";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AppsIcon from "@material-ui/icons/Apps";
-import Logo from ".././assets/logo2.png";
-import TrendingUpIcon from "@material-ui/icons/TrendingUp";
-import WhatshotIcon from "@material-ui/icons/Whatshot";
-import InsertChartIcon from "@material-ui/icons/InsertChart";
-import HomeWorkIcon from "@material-ui/icons/HomeWork";
+import Logo from ".././assets/logo.png";
 
 const drawerWidth = 240;
 
@@ -171,25 +169,13 @@ function Sidedrawer() {
           </IconButton>
         </div>
         <List>
-          <Link style={{ textDecoration: "none", color: "black" }} to="/">
+          <Link style={{ textDecoration: "none", color: "black" }} to="/admin">
             <ListItem button>
               <ListItemIcon>
                 {" "}
                 <AppsIcon />
               </ListItemIcon>
               <ListItemText primary="Home" />
-            </ListItem>
-          </Link>
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to="/admin/managehomepage"
-          >
-            <ListItem button>
-              <ListItemIcon>
-                {" "}
-                <HomeWorkIcon />
-              </ListItemIcon>
-              <ListItemText primary="Manage Homepage" />
             </ListItem>
           </Link>
           <Link
@@ -238,42 +224,6 @@ function Sidedrawer() {
                 <MusicNoteIcon />{" "}
               </ListItemIcon>
               <ListItemText primary="Songs" />
-            </ListItem>
-          </Link>
-
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to="/admin/trending"
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <TrendingUpIcon style={{ color: "#f44040" }} />
-              </ListItemIcon>
-              <ListItemText primary="Trending" />
-            </ListItem>
-          </Link>
-
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to="/admin/popular"
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <WhatshotIcon style={{ color: "#f44040" }} />
-              </ListItemIcon>
-              <ListItemText primary="Popular" />
-            </ListItem>
-          </Link>
-
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to="/admin/charts"
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <InsertChartIcon style={{ color: "#f44040" }} />
-              </ListItemIcon>
-              <ListItemText primary="Top Charts" />
             </ListItem>
           </Link>
         </List>
