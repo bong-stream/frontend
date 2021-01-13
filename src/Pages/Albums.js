@@ -7,6 +7,8 @@ import {
   deleteAlbums,
   editAlbums,
 } from "../Pagesactions/albumactions";
+import { getSongs } from "../Pagesactions/songsactions";
+import { getArtists } from "../Pagesactions/artistsactions";
 import Icon from "@material-ui/core/Icon";
 import FaceIcon from "@material-ui/icons/Face";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -20,12 +22,18 @@ import Chart from "react-apexcharts";
 import { Row, Col, Card } from "react-bootstrap";
 import "../Styles/adminpages.css";
 import "../Styles/adminalbum.css";
+import Viewalbum from "../Components/Viewalbum";
 
 const Albums = () => {
   const [albums, setAlbums] = useState([]);
+  const [artists, setArtists] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [updateData, setUpdateData] = useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [openView, setOpenView] = React.useState(false);
+  const [viewData, setViewData] = useState();
+  const [songs, setSongs] = useState([]);
+
   const [editAlbumData, setEditAlbumData] = useState();
 
   useEffect(() => {
@@ -35,6 +43,21 @@ const Albums = () => {
       console.log(allAlbums);
       setAlbums(allAlbums);
     };
+    const fetchSongs = async () => {
+      let allSongs;
+      allSongs = await getSongs();
+      console.log(allSongs);
+      setSongs(allSongs);
+    };
+
+    const fetchArtists = async () => {
+      let allArtists;
+      allArtists = await getArtists();
+      console.log(allArtists);
+      setArtists(allArtists);
+    };
+
+    fetchSongs();
 
     fetchAlbums();
     setUpdateData(false);
@@ -84,6 +107,15 @@ const Albums = () => {
     let res;
     res = await editAlbums(data);
     setUpdateData(true);
+  };
+
+  const handleToggleView = () => {
+    setOpenView(!openView);
+  };
+  const handleView = (data) => {
+    console.log(data);
+    setViewData(data);
+    handleToggleView();
   };
 
   return (
@@ -166,6 +198,8 @@ const Albums = () => {
                 data={albums}
                 handleDelete={deleteAlbum}
                 handleEdit={editAlbum}
+                handleView={handleView}
+                className="mb-4"
               />
             ) : null}
             <Addalbum
@@ -181,6 +215,15 @@ const Albums = () => {
                 handleClickOpen={handleClickOpenEdit}
                 handleCloseEdit={handleCloseEdit}
                 handleEditAlbum={handleEditAlbum}
+              />
+            ) : null}
+            {openView ? (
+              <Viewalbum
+                open={openView}
+                handleToggleView={handleToggleView}
+                data={viewData}
+                albums={albums}
+                songs={songs}
               />
             ) : null}
           </div>

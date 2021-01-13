@@ -8,6 +8,8 @@ import {
   deleteArtists,
   editArtists,
 } from "../Pagesactions/artistsactions";
+import { getAlbums } from "../Pagesactions/albumactions";
+import { getSongs } from "../Pagesactions/songsactions";
 import Icon from "@material-ui/core/Icon";
 import FaceIcon from "@material-ui/icons/Face";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -16,15 +18,20 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import Chart from "react-apexcharts";
 import { Row, Col, Card } from "react-bootstrap";
+import Viewartist from "../Components/Viewartist";
 import "../Styles/adminpages.css";
 import "../Styles/adminartist.css";
 
 const Artist = () => {
   const [artists, setArtists] = useState([]);
+  const [albums, setAlbums] = useState([]);
+  const [songs, setSongs] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [openView, setOpenView] = React.useState(false);
   const [editArtistData, setEditArtistData] = useState();
   const [updateData, setUpdateData] = useState(false);
+  const [viewData, setViewData] = useState();
 
   useEffect(() => {
     const fetchArtists = async () => {
@@ -33,6 +40,23 @@ const Artist = () => {
       console.log(allArtists);
       setArtists(allArtists);
     };
+    const fetchAlbums = async () => {
+      let allAlbums;
+      allAlbums = await getAlbums();
+      console.log(allAlbums);
+      setAlbums(allAlbums);
+    };
+
+    const fetchSongs = async () => {
+      let allSongs;
+      allSongs = await getSongs();
+      console.log(allSongs);
+      setSongs(allSongs);
+    };
+
+    fetchSongs();
+
+    fetchAlbums();
 
     fetchArtists();
     setUpdateData(false);
@@ -77,10 +101,21 @@ const Artist = () => {
   };
 
   const handleEditArtist = async (data) => {
+    console.log(data);
     let res;
     res = await editArtists(data);
     console.log(res);
     setUpdateData(true);
+  };
+
+  const handleToggleView = () => {
+    setOpenView(!openView);
+  };
+
+  const handleView = (data) => {
+    console.log(data);
+    setViewData(data);
+    handleToggleView();
   };
 
   return (
@@ -163,6 +198,7 @@ const Artist = () => {
                 handleDelete={deleteArtist}
                 handleEdit={editArtist}
                 className="mb-4"
+                handleView={handleView}
               />
             ) : null}
             {open ? (
@@ -181,6 +217,16 @@ const Artist = () => {
                 handleClickOpen={handleClickOpenEdit}
                 handleCloseEdit={handleCloseEdit}
                 handleEditArtist={handleEditArtist}
+              />
+            ) : null}
+
+            {openView ? (
+              <Viewartist
+                open={openView}
+                handleToggleView={handleToggleView}
+                data={viewData}
+                albums={albums}
+                songs={songs}
               />
             ) : null}
           </div>

@@ -10,7 +10,7 @@ const IOSSwitch = withStyles((theme) => ({
     width: 42,
     height: 26,
     padding: 0,
-    margin: theme.spacing(1),
+    // margin: theme.spacing(1),
   },
   switchBase: {
     padding: 1,
@@ -63,24 +63,24 @@ const Active = ({ label, handleChange, active }) => {
     handleChange(!active, label);
   };
   return (
-    <div>
-      <div className="row">
-        <div className="col-4">
-          <FormControlLabel
-            control={
-              <IOSSwitch
-                checked={active}
-                onChange={handleActiveChange}
-                name={label}
-              />
-            }
-            // label={label}
+    <div className="d-inline-block" style={{ position: "absolute", right: 0 }}>
+      {/* <div className="row"> */}
+      {/* <div className="col-4"> */}
+      <FormControlLabel
+        control={
+          <IOSSwitch
+            checked={active}
+            onChange={handleActiveChange}
+            name={label}
           />
-        </div>
-        <div style={{ marginTop: "8px" }} className="col-8">
+        }
+        // label={label}
+      />
+      {/* </div> */}
+      {/* <div style={{ marginTop: "8px" }} className="col-8">
           <h5> {label}</h5>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div>
   );
 };

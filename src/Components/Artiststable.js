@@ -10,6 +10,8 @@ import Paper from "@material-ui/core/Paper";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import Editartist from "../Components/Editartist";
+import Imageavatar from "../Components/Imageavatar.js";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -40,6 +42,7 @@ export default function Artiststable({
   handleDelete,
   handleEdit,
   openEdit,
+  handleView,
 }) {
   const classes = useStyles();
   const [keys, setKeys] = useState([]);
@@ -74,21 +77,27 @@ export default function Artiststable({
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              {console.log(keys)}
+              {/* {console.log(keys)}
               {keys.map((key) => (
                 <StyledTableCell>{key}</StyledTableCell>
-              ))}
-              <StyledTableCell>Actions</StyledTableCell>
+              ))} */}
+              <StyledTableCell>Artist Image</StyledTableCell>
+              <StyledTableCell>Artist Name</StyledTableCell>
+              <StyledTableCell>Albums</StyledTableCell>
+              <StyledTableCell>Songs</StyledTableCell>
+              <StyledTableCell>_id</StyledTableCell>
+              <StyledTableCell>Delete</StyledTableCell>
+              <StyledTableCell>Edit</StyledTableCell>
+              <StyledTableCell>View</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((row, idx) => (
               <StyledTableRow key={row._id}>
-                {/* {console.log(idx)}
-              {Object.values(row).map((value, idx) => {
-                console.log(value, idx);
-                <StyledTableCell>{value}</StyledTableCell>;
-              })} */}
+                <StyledTableCell>
+                  <Imageavatar imageSrc={row.artistimage} />
+                </StyledTableCell>
+                <StyledTableCell align="left">{row.artistname}</StyledTableCell>
                 <StyledTableCell align="left">
                   {row.albums.length}
                 </StyledTableCell>
@@ -96,14 +105,18 @@ export default function Artiststable({
                   {row.songs.length}
                 </StyledTableCell>
                 <StyledTableCell>{row._id}</StyledTableCell>
-                <StyledTableCell align="left">{row.artistname}</StyledTableCell>
-                <StyledTableCell align="left">
-                  {row.artistimage}
-                </StyledTableCell>
 
                 <StyledTableCell align="left">
-                  <DeleteForeverIcon onClick={() => hanldeDelete(row._id)} />
-                  <EditIcon
+                  <button
+                    className="btn btn-sm btn-primary"
+                    onClick={() => hanldeDelete(row._id)}
+                  >
+                    <DeleteForeverIcon />
+                  </button>
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  <button
+                    className="btn btn-sm btn-danger"
                     onClick={() =>
                       handleEditButton({
                         id: row._id,
@@ -113,7 +126,25 @@ export default function Artiststable({
                         songs: row.songs,
                       })
                     }
-                  />
+                  >
+                    <EditIcon />
+                  </button>
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  <button
+                    className="btn btn-sm btn-success"
+                    onClick={() => {
+                      handleView({
+                        id: row._id,
+                        artistimage: row.artistimage,
+                        artistname: row.artistname,
+                        albums: row.albums,
+                        songs: row.songs,
+                      });
+                    }}
+                  >
+                    <VisibilityIcon />
+                  </button>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

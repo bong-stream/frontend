@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import Demo from "../assets/demo.png";
 
 // import Button from "../Button/index";
 
@@ -72,11 +73,19 @@ const Imageupload = (props) => {
       <div>
         <div>
           <div>
-            {previewUrl && (
-              <img src={previewUrl} alt="Preview" className="img-thumbnail" />
-            )}
+            <img
+              src={
+                previewUrl
+                  ? previewUrl
+                  : `${props.imageSrc ? props.imageSrc : Demo}`
+              }
+              alt="Preview"
+              className="img-thumbnail"
+            />
+
             {!previewUrl && <p></p>}
           </div>
+          <br />
           <button
             className="btn btn-sm btn-danger"
             type="button"

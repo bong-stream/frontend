@@ -1,0 +1,12 @@
+/* .jumbo {
+  width: "100%";
+  height: "300px";
+} */
+
+:root {
+  --theme-color: linear-gradient(to right, #f44040, #1b3863);
+}
+
+.cover {
+  background: var(--theme-color);
+}

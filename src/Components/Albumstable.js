@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { getArtists } from "../Pagesactions/artistsactions";
+import { getArtists, findArtist } from "../Pagesactions/artistsactions";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,6 +10,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
+import Imageavatar from "../Components/Imageavatar.js";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -35,7 +37,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Albumstable({ data, handleDelete, handleEdit }) {
+export default function Albumstable({
+  data,
+  handleDelete,
+  handleEdit,
+  handleView,
+}) {
   const classes = useStyles();
   const [keys, setKeys] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -89,35 +96,62 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
           <TableHead>
             <TableRow>
               {console.log(data)}
-              {keys.map((key) => (
-                <StyledTableCell>{key}</StyledTableCell>
-              ))}
-              <StyledTableCell>Actions</StyledTableCell>
+              <StyledTableCell>Albums Image</StyledTableCell>
+              <StyledTableCell>Albums Name</StyledTableCell>
+              <StyledTableCell>Artist</StyledTableCell>
+              <StyledTableCell>Tracks</StyledTableCell>
+              <StyledTableCell>Duration</StyledTableCell>
+              <StyledTableCell>Poets</StyledTableCell>
+              <StyledTableCell>Mix and Master</StyledTableCell>
+              <StyledTableCell>Producer</StyledTableCell>
+              <StyledTableCell>Label</StyledTableCell>
+              <StyledTableCell>Genres</StyledTableCell>
+              <StyledTableCell>Year</StyledTableCell>
+              <StyledTableCell>_id</StyledTableCell>
+              <StyledTableCell>Delete</StyledTableCell>
+              <StyledTableCell>Edit</StyledTableCell>
+              <StyledTableCell>View</StyledTableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className={classes.root}>
             {data.map((row, idx) => (
               <StyledTableRow key={row._id}>
-                {/* {console.log(idx)}
-              {Object.values(row).map((value, idx) => {
-                console.log(value, idx);
-                <StyledTableCell>{value}</StyledTableCell>;
-              })} */}
-                <StyledTableCell>{row.songs.length}</StyledTableCell>
-                <StyledTableCell>{row._id}</StyledTableCell>
+                <StyledTableCell>
+                  <Imageavatar imageSrc={row.albumimage} />
+                </StyledTableCell>
                 <StyledTableCell align="right">{row.albumname}</StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.albumimage}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {artists ? findArtistName(row.artists) : null}
-                </StyledTableCell>
-                {/* <StyledTableCell align="right">
-                {row.album.length}
-              </StyledTableCell> */}
+                {artists ? (
+                  <>
+                    {artists.map((artist) => {
+                      return artist._id === row.artists ? (
+                        <StyledTableCell align="right">
+                          {artist.artistname}
+                        </StyledTableCell>
+                      ) : null;
+                    })}
+                  </>
+                ) : null}
+
+                <StyledTableCell>{row.songs.length}</StyledTableCell>
+                <StyledTableCell>{row.duration}</StyledTableCell>
+                <StyledTableCell>{row.poets}</StyledTableCell>
+                <StyledTableCell>{row.mixmaster}</StyledTableCell>
+                <StyledTableCell>{row.producer}</StyledTableCell>
+                <StyledTableCell>{row.label}</StyledTableCell>
+                <StyledTableCell>{row.genres}</StyledTableCell>
+                <StyledTableCell>{row.year}</StyledTableCell>
+                <StyledTableCell>{row._id}</StyledTableCell>
+
                 <StyledTableCell align="left">
-                  <DeleteForeverIcon onClick={() => hanldeDelete(row._id)} />
-                  <EditIcon
+                  <button
+                    onClick={() => hanldeDelete(row._id)}
+                    className="btn btn-sm btn-danger"
+                  >
+                    <DeleteForeverIcon />
+                  </button>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <button
                     onClick={() =>
                       handleEditButton({
                         id: row._id,
@@ -125,9 +159,46 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
                         albumname: row.albumname,
                         artists: row.artists,
                         songs: row.songs,
+                        tracks: row.tracks,
+                        genres: row.genres,
+                        duration: row.duration,
+                        poets: row.poets,
+                        mixmaster: row.mixmaster,
+                        producer: row.producer,
+                        year: row.year,
+                        label: row.label,
+                        summary: row.summary,
                       })
                     }
-                  />
+                    className="btn btn-sm btn-primary"
+                  >
+                    <EditIcon />
+                  </button>
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  <button
+                    className="btn btn-sm btn-success"
+                    onClick={() => {
+                      handleView({
+                        id: row._id,
+                        albumimage: row.albumimage,
+                        albumname: row.albumname,
+                        artists: row.artists,
+                        songs: row.songs,
+                        tracks: row.tracks,
+                        genres: row.genres,
+                        duration: row.duration,
+                        poets: row.poets,
+                        mixmaster: row.mixmaster,
+                        producer: row.producer,
+                        year: row.year,
+                        label: row.label,
+                        summary: row.summary,
+                      });
+                    }}
+                  >
+                    <VisibilityIcon />
+                  </button>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

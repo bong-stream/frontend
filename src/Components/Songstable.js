@@ -10,6 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
+import Imageavatar from "./Imageavatar";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -89,39 +90,68 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
           <TableHead>
             <TableRow>
               {console.log(data)}
-              {keys.map((key) => (
+              {/* {keys.map((key) => (
                 <StyledTableCell>{key}</StyledTableCell>
-              ))}
-              <StyledTableCell>Actions</StyledTableCell>
+              ))} */}
+
+              <StyledTableCell>Song Image</StyledTableCell>
+              <StyledTableCell>Song Name</StyledTableCell>
+              <StyledTableCell>Artists</StyledTableCell>
+              <StyledTableCell>Genres</StyledTableCell>
+              <StyledTableCell>Poets</StyledTableCell>
+              <StyledTableCell>Mix and Master</StyledTableCell>
+              <StyledTableCell>Producer</StyledTableCell>
+              <StyledTableCell>Label</StyledTableCell>
+              <StyledTableCell>Year</StyledTableCell>
+              <StyledTableCell>Delete</StyledTableCell>
+              <StyledTableCell>Edit</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((row, idx) => (
               <StyledTableRow key={row._id}>
-                {/* {console.log(idx)}
-              {Object.values(row).map((value, idx) => {
-                console.log(value, idx);
-                <StyledTableCell>{value}</StyledTableCell>;
-              })} */}
                 {console.log(row)}
+                <StyledTableCell align="left">
+                  {" "}
+                  <Imageavatar imageSrc={row.songimage} />
+                </StyledTableCell>
+                <StyledTableCell align="left">{row.songname}</StyledTableCell>
                 <StyledTableCell align="left">
                   {row.artists.length}
                 </StyledTableCell>
-                <StyledTableCell align="left">{row._id}</StyledTableCell>
 
-                <StyledTableCell align="left">{row.songname}</StyledTableCell>
+                {/* {artists ? (
+                  <>
+                    {row.artists.map((artist) => {
+                      return artists.map((foundArtist) => {
+                        return artist === foundArtist._id ? (
+                          <StyledTableCell align="right">
+                            {foundArtist.artistname}
+                          </StyledTableCell>
+                        ) : null;
+                      });
+                    })}
+                  </>
+                ) : null} */}
 
-                {/* <StyledTableCell align="left">{row.songimage}</StyledTableCell> */}
-                <StyledTableCell align="left">{row.noofplays}</StyledTableCell>
-                {/* <StyledTableCell align="right">
-                  {artists ? findArtistName(row.artists) : null}
-                </StyledTableCell> */}
-                {/* <StyledTableCell align="right">
-                {row.album.length}
-              </StyledTableCell> */}
+                <StyledTableCell align="left">{row.genres}</StyledTableCell>
+                <StyledTableCell align="left">{row.poet}</StyledTableCell>
+                <StyledTableCell align="left">{row.mixmaster}</StyledTableCell>
+                <StyledTableCell align="left">{row.producer}</StyledTableCell>
+                <StyledTableCell align="left">{row.label}</StyledTableCell>
+                <StyledTableCell align="left">{row.year}</StyledTableCell>
+
                 <StyledTableCell align="left">
-                  <DeleteForeverIcon onClick={() => hanldeDelete(row._id)} />
-                  <EditIcon
+                  <button
+                    onClick={() => hanldeDelete(row._id)}
+                    className="btn btn-sm btn-danger"
+                  >
+                    {" "}
+                    <DeleteForeverIcon />
+                  </button>
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  <button
                     onClick={() =>
                       handleEditButton({
                         id: row._id,
@@ -129,9 +159,21 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
                         songimage: row.songimage,
                         noofplays: row.noofplays,
                         artists: row.artists,
+                        genres: row.genres,
+                        poet: row.poet,
+                        mixmaster: row.mixmaster,
+                        producer: row.producer,
+                        label: row.label,
+                        year: row.year,
+                        summary: row.summary,
+                        lyrics: row.lyrics,
+                        relatedSongs: row.relatedSongs,
                       })
                     }
-                  />
+                    className="btn btn-sm btn-primary"
+                  >
+                    <EditIcon />
+                  </button>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

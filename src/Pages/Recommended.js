@@ -96,40 +96,40 @@ const Recommended = () => {
       </div>
       <div className="container">
         <div className="row">
-          <div className="mb-4 col-12 col-md-2">
-            <br />
-            <br />
-            <button
-              style={{ width: "120px" }}
-              className="btn btn-sm btn-danger"
-              onClick={handleClickOpen}
-            >
-              <AddCircleIcon /> New List
-            </button>
-            <br />
-            <br />
-            <button
-              style={{ width: "120px" }}
-              className="btn btn-sm btn-danger"
-              onClick={handleDeleteList}
-            >
-              <DeleteIcon /> Delete List
-            </button>
-            <br />
-            <br />
-            <button
-              style={{ width: "120px" }}
-              className="btn btn-sm btn-danger"
-              onClick={handleSortList}
-              disabled={sortState ? false : true}
-            >
-              <SortIcon /> Save Sort
-            </button>
-          </div>
-          <div className="col-12 col-md-8 text-center">
+          <div className="mb-4 col-12 col-md-1"></div>
+          <div className="col-12 col-md-10 text-center">
             <div className="row">
-              <div className="col-0 col-md-2"></div>
-              <div className="col-11 col-md-8">
+              <div className="col-0 col-md-3">
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleClickOpen}
+                >
+                  <AddCircleIcon /> New List
+                </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleDeleteList}
+                >
+                  <DeleteIcon /> Delete List
+                </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleSortList}
+                  disabled={sortState ? false : true}
+                >
+                  <SortIcon /> Save Sort
+                </button>
+              </div>
+              <div className="col-12 col-md-6 d-flex justify-content-center">
                 {trending ? (
                   <React.Fragment>
                     {trending[0].recommended.length === 0 ? (
@@ -149,10 +149,10 @@ const Recommended = () => {
                   </React.Fragment>
                 ) : null}
               </div>
-              <div className="col-0 col-md-2"></div>
+              <div className="col-1 col-md-3"></div>
             </div>
           </div>
-          <div className="col-12 col-md-2">
+          <div className="col-12 col-md-1">
             {open ? (
               <Addtrending
                 open={open}

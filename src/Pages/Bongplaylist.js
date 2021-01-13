@@ -10,8 +10,25 @@ import {
   getBongplaylist,
   editBongplaylist,
 } from "../Pagesactions/songsactions";
+import ListItemText from "@material-ui/core/ListItemText";
+import Avatar from "@material-ui/core/Avatar";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 const Bongplaylist = () => {
+  const classes = useStyles();
+
   const [open, setOpen] = React.useState(false);
   const [trending, setTrending] = useState();
   const [updateData, setUpdateData] = useState(false);
@@ -99,40 +116,40 @@ const Bongplaylist = () => {
       </div>
       <div className="container">
         <div className="row">
-          <div className="mb-4 col-12 col-md-2">
-            <br />
-            <br />
-            <button
-              style={{ width: "120px" }}
-              className="btn btn-sm btn-danger"
-              onClick={handleClickOpen}
-            >
-              <AddCircleIcon /> New List
-            </button>
-            <br />
-            <br />
-            <button
-              style={{ width: "120px" }}
-              className="btn btn-sm btn-danger"
-              onClick={handleDeleteList}
-            >
-              <DeleteIcon /> Delete List
-            </button>
-            <br />
-            <br />
-            <button
-              style={{ width: "120px" }}
-              className="btn btn-sm btn-danger"
-              onClick={handleSortList}
-              disabled={sortState ? false : true}
-            >
-              <SortIcon /> Save Sort
-            </button>
-          </div>
-          <div className="col-12 col-md-8 text-center">
+          <div className="mb-4 col-12 col-md-1"></div>
+          <div className="col-12 col-md-10 text-center">
             <div className="row">
-              <div className="col-0 col-md-2"></div>
-              <div className="col-11 col-md-8">
+              <div className="col-0 col-md-3">
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleClickOpen}
+                >
+                  <AddCircleIcon /> New List
+                </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleDeleteList}
+                >
+                  <DeleteIcon /> Delete List
+                </button>
+                <br />
+                <br />
+                <button
+                  style={{ width: "120px" }}
+                  className="btn btn-sm btn-danger"
+                  onClick={handleSortList}
+                  disabled={sortState ? false : true}
+                >
+                  <SortIcon /> Save Sort
+                </button>
+              </div>
+              <div className="col-12 col-md-6 d-flex justify-content-center">
                 {trending ? (
                   <React.Fragment>
                     {trending[0].bongplaylist.length === 0 ? (
@@ -140,6 +157,17 @@ const Bongplaylist = () => {
                     ) : (
                       <div style={{ width: "100%" }}>
                         {console.log(trending[0].bongplaylist)}
+                        <List className={classes.root}>
+                          <ListItem button>
+                            <ListItemAvatar>
+                              <Avatar
+                                alt={`Avatar n°${1 + 1}`}
+                                // src={value.image}
+                              />
+                            </ListItemAvatar>
+                            <h4 style={{ color: "black" }}>Bong Playlist</h4>
+                          </ListItem>
+                        </List>
                         {trending ? (
                           <Trendingtable
                             data={trending[0].bongplaylist}
@@ -152,10 +180,10 @@ const Bongplaylist = () => {
                   </React.Fragment>
                 ) : null}
               </div>
-              <div className="col-0 col-md-2"></div>
+              <div className="col-1 col-md-3"></div>
             </div>
           </div>
-          <div className="col-12 col-md-2">
+          <div className="col-12 col-md-1">
             {open ? (
               <Addtrending
                 open={open}

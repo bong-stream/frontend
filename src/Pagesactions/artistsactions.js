@@ -10,6 +10,17 @@ const getArtists = async () => {
   return artists.data;
 };
 
+const findArtist = async (id) => {
+  let artist;
+
+  artist = await axios.get(
+    `https://bong-backend.herokuapp.com/api/artist/${id}`
+  );
+  // artists = await axios.get("http://localhost:3001/api/artist");
+  console.log(artist);
+  return artist.data;
+};
+
 const addArtists = async (data, albums, songs) => {
   let artists;
   console.log(data, albums, songs);
@@ -60,4 +71,4 @@ const deleteArtists = async (id) => {
   // return artists.data;
 };
 
-export { getArtists, addArtists, deleteArtists, editArtists };
+export { getArtists, addArtists, deleteArtists, editArtists, findArtist };

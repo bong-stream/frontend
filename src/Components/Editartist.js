@@ -3,13 +3,12 @@ import Selectalbumforartist from "../Components/Selectalbumforartist";
 import Selectsongsforartist from "../Components/Selectsongsforartist";
 import { getAlbums } from "../Pagesactions/albumactions";
 import { getSongs } from "../Pagesactions/songsactions";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -17,6 +16,26 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
+import Imageupload from "../Components/Imageupload";
+
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    position: "relative",
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
+}));
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function Editartist({
   open,
@@ -32,6 +51,8 @@ export default function Editartist({
     songs: data.songs,
   });
   console.log(data);
+  const classes = useStyles();
+
   const [allAlbums, setAllAlbums] = useState([]);
   const [foundAlbums, setFoundAlbums] = useState([]);
   const [editAlbums, setEditAlbums] = useState(false);
@@ -212,150 +233,173 @@ export default function Editartist({
 
   return (
     <div>
-      <Dialog
+      {/* <Dialog
         open={open}
         onClose={handleCloseEdit}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Edit Artist</DialogTitle>
-        <DialogContent>
-          <DialogContentText></DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Artist Name"
-            type="text"
-            fullWidth
-            name="artistname"
-            value={state.artistname}
-            onChange={handleChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Artist Image Link"
-            type="text"
-            fullWidth
-            value={state.artistimage}
-            name="artistimage"
-            onChange={handleChange}
-          />
-          <br />
-          <br />
-          <div>
-            <div>
-              <span style={{ fontSize: "25px" }}>Albums</span>
+      </Dialog> */}
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleCloseEdit}
+        TransitionComponent={Transition}
+      >
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleCloseEdit}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Edit Artist
+            </Typography>
+            <Button autoFocus color="inherit" onClick={handleSubmit}>
+              save
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <DialogContent className="container">
+          <div className="row">
+            <div className="col-12 col-md-4">
+              <Imageupload imageSrc={state.artistimage} />
+            </div>
+            <div className="col-12 col-md-8">
+              <h4>Artist Detials</h4>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Artist Name"
+                type="text"
+                name="artistname"
+                value={state.artistname}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+              <br />
+              <div>
+                <div>
+                  <span style={{ fontSize: "25px" }}>Albums</span>
 
-              <button
-                style={{ marginLeft: "20px", marginBottom: "7px" }}
-                className="btn btn-sm btn-danger"
-                onClick={handleAlbumsToggle}
-              >
-                {editAlbums ? "X" : <EditIcon />}
-              </button>
-              <span>
-                {editAlbums || addAlbums ? (
                   <button
                     style={{ marginLeft: "20px", marginBottom: "7px" }}
                     className="btn btn-sm btn-danger"
-                    onClick={handleAddAlbums}
+                    onClick={handleAlbumsToggle}
                   >
-                    {addAlbums ? "X" : "+"}
+                    {editAlbums ? "X" : <EditIcon />}
                   </button>
-                ) : null}
-              </span>
-              {editAlbums ? (
-                <div>
-                  {foundAlbums ? (
-                    <List>
-                      {foundAlbums.map((album) => {
-                        return (
-                          <ListItem key={album._id}>
-                            {console.log()}
-                            <ListItemText
-                              primary={album.albumname}
-                              // secondary={secondary ? "Secondary text" : null}
-                            />
-                            <ListItemSecondaryAction>
-                              <IconButton edge="end" aria-label="delete">
-                                <DeleteForeverIcon
-                                  onClick={() => deleteArtistAlbum(album._id)}
+                  <span>
+                    {editAlbums || addAlbums ? (
+                      <button
+                        style={{ marginLeft: "20px", marginBottom: "7px" }}
+                        className="btn btn-sm btn-danger"
+                        onClick={handleAddAlbums}
+                      >
+                        {addAlbums ? "X" : "+"}
+                      </button>
+                    ) : null}
+                  </span>
+                  {editAlbums ? (
+                    <div>
+                      {foundAlbums ? (
+                        <List>
+                          {foundAlbums.map((album) => {
+                            return (
+                              <ListItem key={album._id}>
+                                {console.log()}
+                                <ListItemText
+                                  primary={album.albumname}
+                                  // secondary={secondary ? "Secondary text" : null}
                                 />
-                              </IconButton>
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })}
-                    </List>
+                                <ListItemSecondaryAction>
+                                  <IconButton edge="end" aria-label="delete">
+                                    <DeleteForeverIcon
+                                      onClick={() =>
+                                        deleteArtistAlbum(album._id)
+                                      }
+                                    />
+                                  </IconButton>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            );
+                          })}
+                        </List>
+                      ) : null}
+                    </div>
                   ) : null}
                 </div>
-              ) : null}
-            </div>
-            {addAlbums ? (
-              <Selectalbumforartist
-                data={allAlbums}
-                selectAlbums={handleSelectedAddAlbums}
-              />
-            ) : null}
-          </div>
+                {addAlbums ? (
+                  <Selectalbumforartist
+                    data={allAlbums}
+                    selectAlbums={handleSelectedAddAlbums}
+                  />
+                ) : null}
+              </div>
 
-          <div>
-            <div>
-              <span style={{ fontSize: "25px" }}>Songs</span>
+              <div>
+                <div>
+                  <span style={{ fontSize: "25px" }}>Songs</span>
 
-              <button
-                style={{ marginLeft: "20px", marginBottom: "7px" }}
-                className="btn btn-sm btn-danger"
-                onClick={handleSongsToggle}
-              >
-                {editSongs ? "X" : <EditIcon />}
-              </button>
-              <span>
-                {editSongs || addSongs ? (
                   <button
                     style={{ marginLeft: "20px", marginBottom: "7px" }}
                     className="btn btn-sm btn-danger"
-                    onClick={handleAddSongs}
+                    onClick={handleSongsToggle}
                   >
-                    {addSongs ? "X" : "+"}
+                    {editSongs ? "X" : <EditIcon />}
                   </button>
-                ) : null}
-              </span>
-              {editSongs ? (
-                <div>
-                  {foundSongs ? (
-                    <List>
-                      {foundSongs.map((song) => {
-                        return (
-                          <ListItem>
-                            {console.log()}
-                            <ListItemText
-                              primary={song.songname}
-                              // secondary={secondary ? "Secondary text" : null}
-                            />
-                            <ListItemSecondaryAction>
-                              <IconButton edge="end" aria-label="delete">
-                                <DeleteForeverIcon
-                                  onClick={() => deleteArtistSong(song._id)}
+                  <span>
+                    {editSongs || addSongs ? (
+                      <button
+                        style={{ marginLeft: "20px", marginBottom: "7px" }}
+                        className="btn btn-sm btn-danger"
+                        onClick={handleAddSongs}
+                      >
+                        {addSongs ? "X" : "+"}
+                      </button>
+                    ) : null}
+                  </span>
+                  {editSongs ? (
+                    <div>
+                      {foundSongs ? (
+                        <List>
+                          {foundSongs.map((song) => {
+                            return (
+                              <ListItem>
+                                {console.log()}
+                                <ListItemText
+                                  primary={song.songname}
+                                  // secondary={secondary ? "Secondary text" : null}
                                 />
-                              </IconButton>
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })}
-                    </List>
+                                <ListItemSecondaryAction>
+                                  <IconButton edge="end" aria-label="delete">
+                                    <DeleteForeverIcon
+                                      onClick={() => deleteArtistSong(song._id)}
+                                    />
+                                  </IconButton>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            );
+                          })}
+                        </List>
+                      ) : null}
+                    </div>
                   ) : null}
                 </div>
-              ) : null}
+                {addSongs ? (
+                  <Selectsongsforartist
+                    data={allSongs}
+                    selectSongs={handleSelectedAddSongs}
+                  />
+                ) : null}
+              </div>
             </div>
-            {addSongs ? (
-              <Selectsongsforartist
-                data={allSongs}
-                selectSongs={handleSelectedAddSongs}
-              />
-            ) : null}
           </div>
         </DialogContent>
         <DialogActions>

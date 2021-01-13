@@ -116,7 +116,7 @@ const AdminHome = () => {
               </Card>
             ) : null}
           </Col>
-          <Col className="mb-4" xl={3} md={12}>
+          <Col className="mb-4" xl={3} md={6}>
             {albums ? (
               <Card>
                 <Card.Body className="text-center">
@@ -136,7 +136,7 @@ const AdminHome = () => {
               </Card>
             ) : null}
           </Col>
-          <Col className="mb-4" xl={3} md={12}>
+          <Col className="mb-4" xl={3} md={6}>
             {songs ? (
               <Card>
                 <Card.Body className="text-center">
@@ -160,72 +160,7 @@ const AdminHome = () => {
           <br />
           <br />
         </Row>
-        <Row>
-          <Col className="mb-4" xl={4} md={6}>
-            {users ? (
-              <Card>
-                <Card.Body className="text-center">
-                  <TrendingUpIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20"> Trending</h4>
-                  {/* <p className="m-b-20">Your Users list is growing</p> */}
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to="/admin/trending"
-                  >
-                    <button className="btn btn-primary btn-sm btn-round">
-                      Manage Trending
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            ) : null}
-          </Col>
-          <Col className="mb-4" xl={4} md={6}>
-            {artists ? (
-              <Card>
-                <Card.Body className="text-center">
-                  {/* <i className="feather icon-twitter text-c-green d-block f-40" /> */}
-                  <WhatshotIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20">
-                    <span className="text-c-green"></span> Popular
-                  </h4>
-                  {/* <p className="m-b-20">Your Artists list is growing</p> */}
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to="/admin/popular"
-                  >
-                    <button className="btn btn-danger btn-sm btn-round">
-                      Manage Populars
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            ) : null}
-          </Col>
-          <Col className="mb-4" xl={4} md={12}>
-            {albums ? (
-              <Card>
-                <Card.Body className="text-center">
-                  {/* <i className="feather icon-briefcase text-c-red d-block f-40" /> */}
-                  <InsertChartIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20">Top Charts</h4>
-                  {/* <p className="m-b-20">This is your current active plan</p> */}
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to="/admin/charts"
-                  >
-                    <button className="btn btn-primary btn-sm btn-round">
-                      Manage Top Charts
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            ) : null}
-          </Col>
 
-          <br />
-          <br />
-        </Row>
         <Row>
           <Col className="mb-4">
             {albums ? (
@@ -248,90 +183,7 @@ const AdminHome = () => {
             ) : null}
           </Col>
         </Row>
-        <Row>
-          <Col className="mb-4" xl={3} md={6}>
-            {users ? (
-              <Card>
-                <Card.Body className="text-center">
-                  <PlaylistPlayIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20">Bong Playlist</h4>
-                  <p className="m-b-20">Setup Bong Playlist Here</p>
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to="/admin/bongplaylist"
-                  >
-                    <button className="btn btn-primary btn-sm btn-round">
-                      Manage Playlist
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            ) : null}
-          </Col>
-          <Col className="mb-4" xl={3} md={6}>
-            {artists ? (
-              <Card>
-                <Card.Body className="text-center">
-                  {/* <i className="feather icon-twitter text-c-green d-block f-40" /> */}
-                  <FaceIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20">Top Artists</h4>
-                  <p className="m-b-20">Setup Top Artists Here</p>
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to="/admin/topartists"
-                  >
-                    <button className="btn btn-danger btn-sm btn-round">
-                      Manage Top Artists
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            ) : null}
-          </Col>
-          <Col className="mb-4" xl={3} md={12}>
-            {albums ? (
-              <Card>
-                <Card.Body className="text-center">
-                  {/* <i className="feather icon-briefcase text-c-red d-block f-40" /> */}
-                  <AlbumIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20"> Top Albums</h4>
-                  <p className="m-b-20">Setup Top Albums List</p>
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to="/admin/topalbums"
-                  >
-                    <button className="btn btn-primary btn-sm btn-round">
-                      Manage Top ALbums
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            ) : null}
-          </Col>
-          <Col className="mb-4" xl={3} md={12}>
-            {songs ? (
-              <Card>
-                <Card.Body className="text-center">
-                  {/* <i className="feather icon-briefcase text-c-red d-block f-40" /> */}
-                  <MusicNoteIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20">Recommended</h4>
-                  <p className="m-b-20">Setup recommended List</p>
-                  <Link
-                    style={{ textDecoration: "none", color: "black" }}
-                    to="/admin/recommended"
-                  >
-                    <button className="btn btn-danger btn-sm btn-round">
-                      Manage Recommended List
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            ) : null}
-          </Col>
 
-          <br />
-          <br />
-        </Row>
         <Row>
           <Col className="mb-4" md={6} xl={4}>
             <Card>

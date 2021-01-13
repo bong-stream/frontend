@@ -24,7 +24,7 @@ export default function Selectsongsfortrending({
   const [checked, setChecked] = React.useState([]);
 
   const handleToggle = (value) => async () => {
-    console.log(value);
+    console.log(value._id);
     const currentIndex = checked.indexOf(value);
     console.log(currentIndex);
     const newChecked = [...checked];
@@ -40,8 +40,15 @@ export default function Selectsongsfortrending({
   };
 
   const handleAddAlbums = () => {
+    let ids = [];
+    checked.map((song) => {
+      ids.push(song._id);
+    });
+    console.log(ids);
     console.log(checked);
+    // selectSongs(ids);
     selectSongs(checked);
+
     handleClose();
   };
 

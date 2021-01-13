@@ -6,11 +6,15 @@ import { Row, Col, Card } from "react-bootstrap";
 import amountSpent from "../Components/charts/analytics-amount-spent";
 import amountProcessed from "../Components/charts/analytics-amount-processed";
 import profitProcessed from "../Components/charts/analytics-profit-processed";
+import View from "../Components/Userview";
 import "../Styles/adminpages.css";
 import "../Styles/adminuser.css";
 
 const User = () => {
   const [users, setUsers] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [viewData, setViewData] = useState();
+
   const [updateData, setUpdateData] = useState(false);
 
   useEffect(() => {
@@ -28,6 +32,19 @@ const User = () => {
   const handleUpdateData = () => {
     console.log("i am yoooo");
     setUpdateData(true);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleView = (data) => {
+    setViewData(data);
+    handleClickOpen();
   };
 
   return (
@@ -81,7 +98,11 @@ const User = () => {
                 className="mb-4"
                 data={users}
                 handleUpdateData={handleUpdateData}
+                handleView={handleView}
               />
+            ) : null}
+            {open ? (
+              <View open={open} handleClose={handleClose} data={viewData} />
             ) : null}
           </div>
           <div className="col-1 col-md-2 mb-4"></div>
