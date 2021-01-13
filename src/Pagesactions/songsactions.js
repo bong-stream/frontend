@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
+// "http://localhost:3001"
+let url = "https://bong-backend.herokuapp.com";
 
 const getSongs = async () => {
   let songs;
 
   // songs = await axios.get("https://bong-backend.herokuapp.com/api/song");
-  songs = await axios.get("http://localhost:3001/api/song");
+  songs = await axios.get(`${url}/api/song`);
   console.log(songs);
   return songs.data;
 };
@@ -24,7 +26,7 @@ const addSongs = async (data) => {
   //   "https://bong-backend.herokuapp.com/api/song",
   //   data
   // );
-  artists = await axios.post("http://localhost:3001/api/song", data);
+  artists = await axios.post(`${url}/api/song`, data);
   console.log(artists.data);
   return artists.data;
 };
@@ -35,7 +37,7 @@ const editSongs = async (data) => {
   console.log(data);
 
   // songs = await axios.put("https://bong-backend.herokuapp.com/api/song", data);
-  songs = await axios.put("http://localhost:3001/api/song", data);
+  songs = await axios.put(`${url}/api/song`, data);
   console.log(songs.data);
   return songs.data;
 };
@@ -46,7 +48,7 @@ const deleteSongs = async (id) => {
   const response = await axios({
     method: "DELETE",
     // url: "https://bong-backend.herokuapp.com/api/song",
-    url: "http://localhost:3001/api/song",
+    url: `${url}/api/song`,
     data: {
       id: id,
     },
@@ -60,7 +62,7 @@ const getTrending = async () => {
   let trending;
 
   // trending = await axios.get("https://bong-backend.herokuapp.com/api/trending");
-  trending = await axios.get("http://localhost:3001/api/trending");
+  trending = await axios.get(`${url}/api/trending`);
   console.log(trending);
   return trending.data;
 };
@@ -84,7 +86,7 @@ const editTrending = async (data) => {
   // );
   console.log(data);
 
-  trending = await axios.put("http://localhost:3001/api/trending", data);
+  trending = await axios.put(`${url}/api/trending`, data);
   console.log(trending.data);
   return trending.data;
 };
@@ -93,7 +95,7 @@ const getPopular = async () => {
   let popular;
   //
   // popular = await axios.get("https://bong-backend.herokuapp.com/api/popular");
-  popular = await axios.get("http://localhost:3001/api/popular");
+  popular = await axios.get(`${url}/api/popular`);
   console.log(popular);
   return popular.data;
 };
@@ -113,7 +115,7 @@ const editPopular = async (data) => {
   //   "https://bong-backend.herokuapp.com/api/popular",
   //   data
   // );
-  popular = await axios.put("http://localhost:3001/api/popular", data);
+  popular = await axios.put(`${url}/api/popular`, data);
   console.log(popular.data);
   return popular.data;
 };
@@ -121,7 +123,7 @@ const editPopular = async (data) => {
 const getTopcharts = async () => {
   let topchart;
 
-  topchart = await axios.get("http://localhost:3001/api/topcharts");
+  topchart = await axios.get(`${url}/api/topcharts`);
   // topchart = await axios.get(
   //   "https://bong-backend.herokuapp.com/api/topcharts"
   // );
@@ -136,7 +138,7 @@ const editTopcharts = async (data) => {
   //   "https://bong-backend.herokuapp.com/api/topcharts",
   //   data
   // );
-  topchart = await axios.put("http://localhost:3001/api/topcharts", data);
+  topchart = await axios.put(`${url}/api/topcharts`, data);
   console.log(topchart.data);
   return topchart.data;
 };
@@ -147,7 +149,7 @@ const getBongplaylist = async () => {
   // Bongplaylist = await axios.get(
   //   "https://bong-backend.herokuapp.com/api/bongplaylist"
   // );
-  Bongplaylist = await axios.get("http://localhost:3001/api/bongplaylist");
+  Bongplaylist = await axios.get(`${url}/api/bongplaylist`);
   console.log(Bongplaylist);
   return Bongplaylist.data;
 };
@@ -158,10 +160,7 @@ const editBongplaylist = async (data) => {
   //   "https://bong-backend.herokuapp.com/api/bongplaylist",
   //   data
   // );
-  Bongplaylist = await axios.put(
-    "http://localhost:3001/api/bongplaylist",
-    data
-  );
+  Bongplaylist = await axios.put(`${url}/api/bongplaylist`, data);
   console.log(Bongplaylist.data);
   return Bongplaylist.data;
 };
@@ -172,7 +171,7 @@ const getRecommended = async () => {
   // Recommended = await axios.get(
   //   "https://bong-backend.herokuapp.com/api/recommended"
   // );
-  Recommended = await axios.get("http://localhost:3001/api/recommended");
+  Recommended = await axios.get(`${url}/api/recommended`);
   console.log(Recommended);
   return Recommended.data;
 };
@@ -184,7 +183,7 @@ const editRecommended = async (data) => {
   //   data
   // );
   console.log(data);
-  Recommended = await axios.put("http://localhost:3001/api/recommended", data);
+  Recommended = await axios.put(`${url}/api/recommended`, data);
   // console.log(Recommended.data);
   // return Recommended.data;
 };
@@ -195,7 +194,7 @@ const getTopalbums = async () => {
   // Topalbums = await axios.get(
   //   "https://bong-backend.herokuapp.com/api/topalbums"
   // );
-  Topalbums = await axios.get("http://localhost:3001/api/topalbums");
+  Topalbums = await axios.get(`${url}/api/topalbums`);
   console.log(Topalbums);
   return Topalbums.data;
 };
@@ -206,7 +205,7 @@ const editTopalbums = async (data) => {
   //   "https://bong-backend.herokuapp.com/api/Topalbums",
   //   data
   // );
-  Topalbums = await axios.put("http://localhost:3001/api/Topalbums", data);
+  Topalbums = await axios.put(`${url}/api/Topalbums`, data);
   console.log(Topalbums.data);
   return Topalbums.data;
 };
@@ -217,7 +216,7 @@ const getTopartists = async () => {
   // Topartists = await axios.get(
   //   "https://bong-backend.herokuapp.com/api/topartists"
   // );
-  Topartists = await axios.get("http://localhost:3001/api/topartists");
+  Topartists = await axios.get(`${url}/api/topartists`);
   console.log(Topartists);
   return Topartists.data;
 };
@@ -228,7 +227,7 @@ const editTopartists = async (data) => {
   //   "https://bong-backend.herokuapp.com/api/Topartists",
   //   data
   // );
-  Topartists = await axios.put("http://localhost:3001/api/Topartists", data);
+  Topartists = await axios.put(`${url}/api/Topartists`, data);
   console.log(Topartists.data);
   return Topartists.data;
 };

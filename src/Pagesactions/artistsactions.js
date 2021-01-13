@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
+// "http://localhost:3001"
+let url = "https://bong-backend.herokuapp.com";
 
 const getArtists = async () => {
   let artists;
 
-  artists = await axios.get("https://bong-backend.herokuapp.com/api/artist");
-  // artists = await axios.get("http://localhost:3001/api/artist");
+  artists = await axios.get(`${url}/api/artist`);
+  // artists = await axios.get(`http://localhost:3001/api/artist`);
   console.log(artists);
   return artists.data;
 };
@@ -13,10 +15,8 @@ const getArtists = async () => {
 const findArtist = async (id) => {
   let artist;
 
-  artist = await axios.get(
-    `https://bong-backend.herokuapp.com/api/artist/${id}`
-  );
-  // artists = await axios.get("http://localhost:3001/api/artist");
+  artist = await axios.get(`${url}/api/artist/${id}`);
+  // artists = await axios.get(`http://localhost:3001/api/artist`);
   console.log(artist);
   return artist.data;
 };
@@ -30,11 +30,8 @@ const addArtists = async (data, albums, songs) => {
     songs,
   };
 
-  artists = await axios.post(
-    "https://bong-backend.herokuapp.com/api/artist",
-    artistsData
-  );
-  // artists = await axios.post("http://localhost:3001/api/artist", artistsData);
+  artists = await axios.post(`${url}/api/artist`, artistsData);
+  // artists = await axios.post(`http://localhost:3001/api/artist`, artistsData);
   console.log(artists.data);
   return artists.data;
 };
@@ -44,11 +41,8 @@ const editArtists = async (data) => {
 
   console.log(data);
 
-  artists = await axios.put(
-    "https://bong-backend.herokuapp.com/api/artist",
-    data
-  );
-  // artists = await axios.put("http://localhost:3001/api/artist", data);
+  artists = await axios.put(`${url}/api/artist`, data);
+  // artists = await axios.put(`http://localhost:3001/api/artist`, data);
   console.log(artists.data);
   return artists.data;
 };
@@ -59,8 +53,8 @@ const deleteArtists = async (id) => {
   console.log(id);
 
   const response = await axios({
-    method: "DELETE",
-    url: "https://bong-backend.herokuapp.com/api/artist",
+    method: `DELETE`,
+    url: `${url}/api/artist`,
     // url: "http://localhost:3001/api/artist",
     data: {
       id: id,

@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
-
+// "http://localhost:3001"
+let url = "https://bong-backend.herokuapp.com";
 const getUsers = async () => {
   let users;
 
-  users = await axios.get("https://bong-backend.herokuapp.com/api/users");
+  users = await axios.get(`${url}/api/users`);
   // users = await axios.get("http://localhost:3001/api/users");
   console.log(users);
   return users.data;
@@ -15,7 +16,7 @@ const deleteUsers = async (id) => {
 
   const response = await axios({
     method: "DELETE",
-    url: "https://bong-backend.herokuapp.com/api/users",
+    url: `${url}/api/users`,
     // url: "http://localhost:3001/api/users",
     data: {
       id: id,
