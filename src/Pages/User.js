@@ -136,8 +136,8 @@ const User = () => {
       {console.log(search)}
       <div>
         <div className="row">
-          <div className="col-1 col-md-1"></div>
-          <div className="col-10 col-md-10 ">
+          <div className="col-1 col-md-0"></div>
+          <div className="col-10 col-md-11 ">
             <Row>
               {users ? (
                 <Col className="mb-4" md={4} xl={4}>
@@ -220,7 +220,7 @@ const User = () => {
             {users ? (
               <Userstable
                 className="mb-4"
-                data={search.length > 0 ? search : users}
+                data={searchValue.length > 0 ? search : users}
                 handleUpdateData={handleUpdateData}
                 handleView={handleView}
                 handleEdit={handleEditData}
@@ -246,7 +246,7 @@ const User = () => {
               />
             ) : null}
           </div>
-          <div className="col-1 col-md-1 mb-4"></div>
+          <div className="col-1 col-md-0 mb-4"></div>
         </div>
       </div>
     </div>
