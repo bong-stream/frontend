@@ -27,18 +27,26 @@ const deleteUsers = async (id) => {
    // console.log(data);
 };
 
-export const sendOtpMobile = async (obj) => {
+export const sendOtpMobile = async (obj, history) => {
    axios
       .post(`${API_BASE_ORIGIN}/sendotp`, obj)
       .then((response) => {
          console.log(response.data);
+         if (response.data.success === true) {
+            history.push({
+               pathname: '/client/verification',
+               data: obj,
+            });
+         } else {
+            alert(response.data.message);
+         }
       })
       .catch((err) => {
          alert('error while sending otp', err);
       });
 };
 
-export const sendOtpEmail = async (obj) => {
+export const sendOtpEmail = async (obj, history) => {
    console.log('obj.user.email', obj.user.email);
    axios
       .post(`${API_BASE_ORIGIN}/sendemailotp`, {
@@ -46,6 +54,14 @@ export const sendOtpEmail = async (obj) => {
       })
       .then((response) => {
          console.log(response.data);
+         if (response.data.success === true) {
+            history.push({
+               pathname: '/client/verification',
+               data: obj,
+            });
+         } else {
+            alert(response.data.message);
+         }
       })
       .catch((err) => {
          alert('error while sending otp', err);
