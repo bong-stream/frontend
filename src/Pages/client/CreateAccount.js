@@ -7,16 +7,10 @@ import {
    Typography,
    IconButton,
 } from '@material-ui/core';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import MoodIcon from '@material-ui/icons/Mood';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import {
-   makeStyles,
-   useTheme,
-   withStyles,
-} from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, withRouter } from 'react-router-dom';
 import logo from '../../../src/assets/logo.png';
 import Form from './Form';
@@ -25,10 +19,11 @@ import {
    sendOtpMobile,
    signIn,
 } from '../../Pagesactions/usersactions';
-import { CloudCircle } from '@material-ui/icons';
 
-import { GlobalData } from '../../App';
 import { AuthContext } from '../../Contexts/AuthContext';
+
+import fb from './fb.svg';
+import google from './google.svg';
 
 import { genMediaQuery } from '../../Styles/constants';
 function TabPanel(props) {
@@ -73,6 +68,8 @@ const useStyles = makeStyles((theme) => ({
    root: {
       // margin: window.screen.width >= 768 ? 'auto' : 'auto',
       // width: window.screen.width >= 768 ? '70%' : '95%',
+      width: '70%',
+      margin: 'auto',
       [genMediaQuery('sm')]: {
          margin: 'auto',
          width: '70%',
@@ -102,13 +99,17 @@ const useStyles = makeStyles((theme) => ({
    },
    tabBtn: {
       '& .flexContainer button:focus': {
-         outline: '0px auto -webkit-focus-ring-color',
+         // outline: '0px auto -webkit-focus-ring-color',
+         border: '2px solid rgb(244, 64, 64)',
+      },
+      '& button:focus': {
+         outline: 'None',
       },
    },
 }));
 
 function CreateAccount(props) {
-   const { changeToken, token } = React.useContext(AuthContext);
+   const { changeToken } = React.useContext(AuthContext);
    console.log('*****');
    console.log('changedToken', changeToken);
 
@@ -158,21 +159,9 @@ function CreateAccount(props) {
 
       console.log('object', newObj);
 
-      let toVerify;
       // * Send OTP to Mobile and Email
       if (value === 1) {
-         // * Mobile
-         toVerify = sendOtpMobile(newObj);
       } else {
-         // * Email
-         toVerify = sendOtpEmail(newObj);
-      }
-      console.log('toVerify', toVerify);
-      if (toVerify) {
-         props.history.push({
-            pathname: '/client/verification',
-            data: newObj,
-         });
       }
    };
 
@@ -209,6 +198,7 @@ function CreateAccount(props) {
             justifyContent: 'center',
             alignContent: 'center',
             alignItems: 'center',
+
             // margin: window.screen.width >= 768 ? 'auto' : 'auto',
             // width: window.screen.width >= 768 ? '70%' : '95%',
          }}
@@ -263,7 +253,8 @@ function CreateAccount(props) {
                      display: 'flex',
                      backgroundColor: '#fff',
                      justifyContent: 'center',
-                     alignItems: 'center',
+                     boxShadow: 'none',
+                     // alignItems: 'center',
                   }}
                >
                   <Tabs
@@ -275,8 +266,36 @@ function CreateAccount(props) {
                      }}
                      classes={{ flexContainer: classes.tabBtn }}
                   >
-                     <Tab label='Email' {...a11yProps(0)} />
-                     <Tab label='Mobile' {...a11yProps(1)} />
+                     <Tab
+                        style={{
+                           color: 'black',
+                           '&:focus': {
+                              outline: 'none',
+                              border: 'none',
+                           },
+                           borderBottom:
+                              value === 0
+                                 ? '2px solid rgb(244, 64, 64)'
+                                 : 'none',
+                        }}
+                        label='Email'
+                        {...a11yProps(0)}
+                     />
+                     <Tab
+                        style={{
+                           color: 'black',
+                           '&:focus': {
+                              outline: 'none',
+                              border: 'none',
+                           },
+                           borderBottom:
+                              value === 1
+                                 ? '2px solid rgb(244, 64, 64)'
+                                 : 'none',
+                        }}
+                        label='Mobile'
+                        {...a11yProps(1)}
+                     />
                   </Tabs>
                </AppBar>
                <SwipeableViews
@@ -348,11 +367,27 @@ function CreateAccount(props) {
             </Grid>
             <Grid item>
                <div>
-                  <IconButton>
-                     <FacebookIcon size='large' />
+                  <IconButton
+                     style={{
+                        backgroundImage: `url(${fb})`,
+                        backgroundRepeat: 'no-repeat',
+                        borderRadius: 0,
+                        padding: 20,
+                        margin: 10,
+                     }}
+                  >
+                     {/* <FacebookIcon size='large' /> */}
                   </IconButton>
-                  <IconButton>
-                     <MoodIcon size='large' />
+                  <IconButton
+                     style={{
+                        backgroundImage: `url(${google})`,
+                        backgroundRepeat: 'no-repeat',
+                        borderRadius: 0,
+                        padding: 20,
+                        margin: 10,
+                     }}
+                  >
+                     {/* <MoodIcon size='large' /> */}
                   </IconButton>
                </div>
                <div

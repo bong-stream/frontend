@@ -15,6 +15,7 @@ import PhoneInput from 'react-phone-input-2';
 
 import 'react-phone-input-2/lib/material.css';
 import { genMediaQuery } from '../../Styles/constants';
+import './Form.css';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
       '& .MuiOutlinedInput-input': {
          padding: '10.5px 14px',
       },
+      '& .MuiFilledInput-root': {
+         backgroundColor: '#fff',
+      },
    },
    logo: {
       width: 100,
@@ -37,7 +41,13 @@ const useStyles = makeStyles((theme) => ({
    phoneField: {
       backgroundColor: 'red',
       '& .react-tel-input .form-control': {
-         width: '100%',
+         width: '100% !important',
+         '& input': {
+            width: '100% !important',
+         },
+      },
+      '& .MuiFilledInput-root': {
+         backgroundColor: '#fff',
       },
    },
    submitBtn: {
@@ -53,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
 function Form(props) {
    console.log(props.btnlabel);
    const classes = useStyles();
+   const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(
+      true
+   );
+
    return (
       <>
          <div style={{ display: 'block', paddingTop: '4%' }}>
@@ -64,10 +78,11 @@ function Form(props) {
                         name='mobileNo'
                         value={props.phone}
                         label='phone'
-                        variant='outlined'
+                        variant='filled'
                         fullwidth
                         onChange={(e) => props.phoneChange(e)}
                         className={classes.phoneField}
+                        className='phoneInput'
                      />
                   </FormControl>
                ) : (
@@ -76,7 +91,7 @@ function Form(props) {
                      name='email'
                      label='Email'
                      value={props.user.email}
-                     variant='outlined'
+                     variant='filled'
                      className={classes.textfield}
                      onChange={(e) => props.handleChange(e)}
                   />
@@ -86,7 +101,7 @@ function Form(props) {
                   name='password'
                   label='Password'
                   value={props.user.password}
-                  variant='outlined'
+                  variant='filled'
                   fullwidth
                   margin='normal'
                   className={classes.textfield}
@@ -158,6 +173,7 @@ function Form(props) {
                      backgroundColor: '#F44040',
                      color: '#fff',
                   }}
+                  disabled={isSubmitDisabled}
                   className={classes.submitBtn}
                   onClick={(e) => props.handleSubmit(e)}
                >
