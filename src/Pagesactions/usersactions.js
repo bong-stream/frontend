@@ -26,7 +26,7 @@ const deleteUsers = async (id) => {
    // console.log(data);
 };
 
-export const sendOtp = async (obj) => {
+export const sendOtpMobile = async (obj) => {
    axios
       .post(`${API_BASE_ORIGIN}/sendotp`, obj)
       .then((response) => {
@@ -36,9 +36,69 @@ export const sendOtp = async (obj) => {
          alert('error while sending otp', err);
       });
 };
-export const verifyOtp = async (obj) => {
+
+export const sendOtpEmail = async (obj) => {
+   console.log('obj.user.email', obj.user.email);
+   axios
+      .post(`${API_BASE_ORIGIN}/sendemailotp`, {
+         email: obj.user.email,
+      })
+      .then((response) => {
+         console.log(response.data);
+      })
+      .catch((err) => {
+         alert('error while sending otp', err);
+      });
+};
+
+export const verifyOtp = async (obj, history) => {
    axios
       .post(`${API_BASE_ORIGIN}/verify`, obj)
+      .then((response) => {
+         console.log(response);
+         history.push({
+            pathname: '/client/detailSignup',
+            data: history.location.data,
+         });
+      })
+      .catch((err) => {
+         alert('error while sending otp', err);
+      });
+};
+export const verifyEmailOtp = async (options, history) => {
+   (async () => {
+      axios
+         .post(`${API_BASE_ORIGIN}/verifyemailotp`, {
+            email: options.email,
+            otp: options.otp,
+         })
+         .then((response) => {
+            console.log(response);
+            console.log('haha');
+            if (response.data.success === true) {
+               history.push({
+                  pathname: '/client/detailSignup',
+                  data: history.location.data,
+               });
+            } else {
+               alert(response.data.message);
+            }
+         })
+         .catch((err) => {
+            alert('error while sending otp', err);
+         });
+   })();
+};
+
+export const signUp = async (obj, history) => {
+   const email = history.location.data.user.email;
+   const number = history.location.data.number;
+   axios
+      .post(`${API_BASE_ORIGIN}/signup`, {
+         email: email,
+         number: number,
+         ...obj,
+      })
       .then((response) => {
          console.log(response);
       })
@@ -46,9 +106,10 @@ export const verifyOtp = async (obj) => {
          alert('error while sending otp', err);
       });
 };
-export const signUp = async (obj) => {
+
+export const signIn = async (obj) => {
    axios
-      .post(`${API_BASE_ORIGIN}/signup`, obj)
+      .post(`${API_BASE_ORIGIN}/signin`, obj)
       .then((response) => {
          console.log(response);
       })
