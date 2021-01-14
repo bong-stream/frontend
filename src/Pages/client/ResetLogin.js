@@ -33,6 +33,7 @@ function ResetLogin(props) {
    const classes = useStyles();
    const theme = useTheme();
    const [otp, setOtp] = React.useState('');
+   const [value, setValue] = React.useState('');
    //   const createAccount = window.location.href.includes("reset");
    console.log(('props:', props));
 
@@ -147,9 +148,9 @@ function ResetLogin(props) {
                         <TextField
                            name='email'
                            label='Enter account detail to reset password'
-                           value={'value'}
+                           value={value}
                            className={classes.textfield}
-                           //   onChange={handleChange}
+                           onChange={(e) => setValue(e.target.value)}
                         />
                      ) : (
                         <>
