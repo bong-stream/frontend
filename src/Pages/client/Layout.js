@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import logo from '../../../src/assets/logo.png';
 import { Avatar, Button } from '@material-ui/core';
+import { AuthContext } from '../../Contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
    grow: {
@@ -109,6 +110,8 @@ export default function PrimarySearchAppBar() {
       null
    );
 
+   const { changeToken } = React.useContext(AuthContext);
+
    const isMenuOpen = Boolean(anchorEl);
    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -118,6 +121,11 @@ export default function PrimarySearchAppBar() {
 
    const handleMobileMenuClose = () => {
       setMobileMoreAnchorEl(null);
+   };
+
+   const logoutUser = () => {
+      changeToken(undefined);
+      window.location.reload();
    };
 
    const handleMenuClose = () => {
@@ -143,7 +151,7 @@ export default function PrimarySearchAppBar() {
          <MenuItem onClick={handleMenuClose}>
             Account Setting
          </MenuItem>
-         <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+         <MenuItem onClick={logoutUser}>Log Out</MenuItem>
       </Menu>
    );
 

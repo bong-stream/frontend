@@ -19,8 +19,12 @@ import Form from './Form';
 import {
    sendOtpEmail,
    sendOtpMobile,
+   signIn,
 } from '../../Pagesactions/usersactions';
 import { CloudCircle } from '@material-ui/icons';
+
+import { GlobalData } from '../../App';
+import { AuthContext } from '../../Contexts/AuthContext';
 function TabPanel(props) {
    const { children, value, index, ...other } = props;
 
@@ -76,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CreateAccount(props) {
+   const { changeToken, token } = React.useContext(AuthContext);
+   console.log('*****');
+   console.log('changedToken', changeToken);
+
    const classes = useStyles();
    const theme = useTheme();
    const [value, setValue] = useState(0);
@@ -140,7 +148,18 @@ function CreateAccount(props) {
       }
    };
 
-   const signInToAccount = () => {};
+   const signInToAccount = () => {
+      const newObj = {
+         user,
+      };
+
+      console.log('before changing token');
+      signIn(newObj);
+
+      console.log('changing Token');
+      changeToken('haha');
+      // window.location.href = '/client/home';
+   };
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -155,6 +174,7 @@ function CreateAccount(props) {
    console.log('url', createAccount);
    const width = window.screen.width;
    console.log('object', width);
+
    return (
       <div
          style={{

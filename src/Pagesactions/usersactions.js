@@ -1,3 +1,4 @@
+import { CloudCircle } from '@material-ui/icons';
 import axios from 'axios';
 import { API_BASE_ORIGIN, API_BASE_URL } from '../Utils/APU_URL';
 
@@ -91,8 +92,11 @@ export const verifyEmailOtp = async (options, history) => {
 };
 
 export const signUp = async (obj, history) => {
-   const email = history.location.data.user.email;
+   let email = history.location.data.user.email;
    const number = history.location.data.number;
+   if (email) {
+      email = email.toLowerCase();
+   }
    axios
       .post(`${API_BASE_ORIGIN}/signup`, {
          email: email,
@@ -107,11 +111,20 @@ export const signUp = async (obj, history) => {
       });
 };
 
-export const signIn = async (obj) => {
+export const signIn = async ({ user }) => {
+   console.clear();
+   console.log('user', user);
    axios
-      .post(`${API_BASE_ORIGIN}/signin`, obj)
+      .post(`${API_BASE_ORIGIN}/signin`, {
+         email: user.email,
+         password: user.password,
+         number: user.number,
+      })
       .then((response) => {
          console.log(response);
+         if (response.data.token) {
+            localStorage.setItem('token', response.data.token);
+         }
       })
       .catch((err) => {
          alert('error while sending otp', err);
