@@ -91,7 +91,7 @@ export const verifyEmailOtp = async (options, history) => {
    })();
 };
 
-export const signUp = async (obj, history) => {
+export const signUp = async (obj, history, changeToken) => {
    let email = history.location.data.user.email;
    const number = history.location.data.number;
    if (email) {
@@ -105,6 +105,7 @@ export const signUp = async (obj, history) => {
       })
       .then((response) => {
          console.log(response);
+         changeToken(response.data.token);
       })
       .catch((err) => {
          alert('error while sending otp', err);

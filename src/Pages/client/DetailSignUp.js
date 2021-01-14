@@ -12,6 +12,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import logo from '../../../src/assets/logo.png';
 import { signUp } from '../../Pagesactions/usersactions';
+import { AuthContext } from '../../Contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -37,6 +38,8 @@ function DetailSignUp(props) {
    const classes = useStyles();
    console.log('object', props);
 
+   const { changeToken } = React.useContext(AuthContext);
+
    const theme = useTheme();
    const [addUser, setAddUser] = React.useState({
       name: '',
@@ -50,7 +53,7 @@ function DetailSignUp(props) {
          [e.target.name]: e.target.value,
       });
    };
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault();
       console.log('final user', addUser);
       if (
@@ -67,7 +70,12 @@ function DetailSignUp(props) {
          age: addUser.age,
          gender: addUser.gender,
       };
-      const registered = signUp(newUser, props.history);
+      const registered = await signUp(
+         newUser,
+         props.history,
+         changeToken
+      );
+      console.log('registered', registered);
       // if (registered) {
       //   alert("user signed up successfully");
       // }
