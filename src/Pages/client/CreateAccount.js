@@ -119,12 +119,40 @@ function CreateAccount(props) {
    const [checked, setChecked] = useState(true);
    const [mobile, setMobile] = useState(false);
    const [number, setNumber] = useState('');
+   const [isDisabled, setIsDisabled] = useState(true);
+
    const otp = '12345';
    const [user, setUser] = useState({
       email: '',
       password: '',
       // age,
    });
+
+   React.useEffect(() => {
+      console.clear();
+      let inValid = 0;
+
+      console.log('number.length', number.length);
+      if (number.length <= 0) {
+         console.log('inside 1');
+         inValid += 1;
+      }
+      console.log('user.email.length', user.email.length);
+      console.log('user.password.length', user.password.length);
+
+      if (user.email.length <= 0 || user.password.length <= 0) {
+         console.log('inside 3');
+         inValid += 1;
+      }
+
+      console.log('inValid', inValid);
+
+      if (inValid <= 1) {
+         setIsDisabled(false);
+      } else {
+         setIsDisabled(true);
+      }
+   }, [user, number]);
 
    const handleChangeCheck = (event) => {
       setChecked(event.target.checked);
@@ -159,9 +187,14 @@ function CreateAccount(props) {
 
       console.log('object', newObj);
 
+      let toVerify;
       // * Send OTP to Mobile and Email
       if (value === 1) {
+         // * Mobile
+         sendOtpMobile(newObj, props.history);
       } else {
+         // * Email
+         sendOtpEmail(newObj, props.history);
       }
    };
 
@@ -326,6 +359,7 @@ function CreateAccount(props) {
                               ? 'chk'
                               : 'notChk'
                         }
+                        isDisabled={isDisabled}
                         handleChange={handleOnChange}
                         user={user}
                         handleCheck={handleChangeCheck}

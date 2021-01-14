@@ -173,7 +173,7 @@ function Form(props) {
                      backgroundColor: '#F44040',
                      color: '#fff',
                   }}
-                  disabled={isSubmitDisabled}
+                  disabled={props.isDisabled}
                   className={classes.submitBtn}
                   onClick={(e) => props.handleSubmit(e)}
                >
