@@ -5,9 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider, AuthContext } from './Contexts/AuthContext';
 
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 ReactDOM.render(
    <React.StrictMode>
       <AuthProvider>
+         <ToastContainer></ToastContainer>
          <App />
       </AuthProvider>
    </React.StrictMode>,

@@ -1,6 +1,7 @@
-import { CloudCircle } from '@material-ui/icons';
 import axios from 'axios';
 import { API_BASE_ORIGIN, API_BASE_URL } from '../Utils/APU_URL';
+
+import makeToast from '../Utils/makeToast';
 
 const getUsers = async () => {
    let users;
@@ -32,17 +33,19 @@ export const sendOtpMobile = async (obj, history) => {
       .post(`${API_BASE_ORIGIN}/sendotp`, obj)
       .then((response) => {
          console.log(response.data);
+         console.log('response.data.success', response.data.success);
          if (response.data.success === true) {
+            console.log('pushing');
             history.push({
                pathname: '/client/verification',
                data: obj,
             });
          } else {
-            alert(response.data.message);
+            makeToast('error', response.data.message);
          }
       })
       .catch((err) => {
-         alert('error while sending otp', err);
+         makeToast('error', 'Something Went Wrong');
       });
 };
 
@@ -60,11 +63,13 @@ export const sendOtpEmail = async (obj, history) => {
                data: obj,
             });
          } else {
-            alert(response.data.message);
+            // alert(response.data.message);
+            makeToast('error', response.data.message);
          }
       })
       .catch((err) => {
-         alert('error while sending otp', err);
+         // alert('error while sending otp', err);
+         makeToast('error', 'Something Went Wrongs');
       });
 };
 
@@ -73,13 +78,17 @@ export const verifyOtp = async (obj, history) => {
       .post(`${API_BASE_ORIGIN}/verify`, obj)
       .then((response) => {
          console.log(response);
-         history.push({
-            pathname: '/client/detailSignup',
-            data: history.location.data,
-         });
+         if (response.data.message === 'otp_verified') {
+            history.push({
+               pathname: '/client/detailSignup',
+               data: history.location.data,
+            });
+         } else {
+            makeToast('error', 'Wrong OTP');
+         }
       })
       .catch((err) => {
-         alert('error while sending otp', err);
+         makeToast('error', 'Wrong OTP');
       });
 };
 export const verifyEmailOtp = async (options, history) => {
@@ -98,11 +107,11 @@ export const verifyEmailOtp = async (options, history) => {
                   data: history.location.data,
                });
             } else {
-               alert(response.data.message);
+               makeToast('error', 'Wrong OTP');
             }
          })
          .catch((err) => {
-            alert('error while sending otp', err);
+            makeToast('error', 'Wrong OTP ');
          });
    })();
 };
@@ -121,6 +130,11 @@ export const signUp = async (obj, history, changeToken) => {
       })
       .then((response) => {
          console.log(response);
+         makeToast(
+            'success',
+            'Signed Up Successfully ! Redirecting ...'
+         );
+
          changeToken(response.data.token);
       })
       .catch((err) => {
@@ -139,12 +153,28 @@ export const signIn = async ({ user }) => {
       })
       .then((response) => {
          console.log(response);
+         makeToast(
+            'success',
+            'Logged In Successfully ! Redirecting...'
+         );
+
          if (response.data.token) {
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('boongToken', response.data.token);
          }
+         window.location.reload();
       })
       .catch((err) => {
-         alert('error while sending otp', err);
+         // alert ('error while sending otp', err);
+         // toast.error('Email and Password NOT Matched', {
+         //    position: 'top-right',
+         //    autoClose: 5000,
+         //    hideProgressBar: false,
+         //    closeOnClick: true,
+         //    pauseOnHover: true,
+         //    draggable: true,
+         //    progress: undefined,
+         // });
+         makeToast('error', 'Email and Password NOT matched');
       });
 };
 
