@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Userstable from "../Components/Userstable";
-import { getUsers } from "../Pagesactions/usersactions";
+import {
+  getUsers,
+  addUsers,
+  editUsers,
+  activeUsers,
+} from "../Pagesactions/usersactions";
 import Chart from "react-apexcharts";
 import { Row, Col, Card } from "react-bootstrap";
 import amountSpent from "../Components/charts/analytics-amount-spent";
@@ -9,20 +14,53 @@ import profitProcessed from "../Components/charts/analytics-profit-processed";
 import View from "../Components/Userview";
 import "../Styles/adminpages.css";
 import "../Styles/adminuser.css";
+import Icon from "@material-ui/core/Icon";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+import Adduser from "../Components/Adduser";
+import Edituser from "../Components/Edituser";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+    notchedOutline: {
+      borderWidth: "1px",
+      borderColor: "yellow !important",
+    },
+  },
+}));
 
 const User = () => {
+  const classes = useStyles();
+  const [openAddUser, setOpenAddUser] = React.useState(false);
   const [users, setUsers] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [viewData, setViewData] = useState();
+  const [editData, setEditData] = useState();
+  const [openEdit, setOpenEdit] = useState(false);
+  const [totalActiveUsers, setTotalActiveUsers] = useState();
+  const [search, setSearch] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const [updateData, setUpdateData] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
       let allUsers;
+      let activeUsers;
       allUsers = await getUsers();
       console.log(allUsers);
       setUsers(allUsers);
+
+      activeUsers = allUsers.filter((user) => {
+        return user.active === true;
+      });
+      console.log(activeUsers);
+      setTotalActiveUsers(activeUsers.length);
     };
 
     fetchUsers();
@@ -32,6 +70,13 @@ const User = () => {
   const handleUpdateData = () => {
     console.log("i am yoooo");
     setUpdateData(true);
+  };
+
+  const handleToggleAddUser = () => {
+    setOpenAddUser(!openAddUser);
+  };
+  const handleToggleEditUser = () => {
+    setOpenEdit(!openEdit);
   };
 
   const handleClickOpen = () => {
@@ -47,16 +92,55 @@ const User = () => {
     handleClickOpen();
   };
 
+  const handleAddUser = async (data) => {
+    console.log(data);
+    let res = await addUsers(data);
+    setUpdateData(true);
+  };
+
+  const handleEditData = (data) => {
+    console.log(data);
+    setEditData(data);
+    handleToggleEditUser();
+  };
+
+  const handleEdit = async (data) => {
+    console.log(data);
+    let res;
+    res = await editUsers(data);
+    console.log(res);
+    setUpdateData(true);
+  };
+
+  const handleActiveChange = async (active, id) => {
+    console.log(active, id);
+    let res = await activeUsers(active, id);
+    setUpdateData(true);
+  };
+
+  // const handleSearchChange = (evt) => {
+  //   setSearch(evt.target.value);
+  // };
+
+  const handleSearchChange = (evt) => {
+    let yoo;
+    setSearchValue(evt.target.value);
+    console.log(evt.target.value);
+    yoo = users.filter((user) => user.name.includes(evt.target.value));
+    console.log(yoo);
+    setSearch(yoo);
+  };
+
   return (
     <div className="main user">
-      {console.log(users)}
-      <div className="conatiner">
+      {console.log(search)}
+      <div>
         <div className="row">
-          <div className="col-1 col-md-2"></div>
-          <div className="col-10 col-md-8">
+          <div className="col-1 col-md-1"></div>
+          <div className="col-10 col-md-10 ">
             <Row>
               {users ? (
-                <Col className="mb-4" md={6} xl={4}>
+                <Col className="mb-4" md={4} xl={4}>
                   <Card className="amount-card overflow-hidden">
                     <Card.Body>
                       <h2 className="f-w-400">{users.length}</h2>
@@ -69,10 +153,10 @@ const User = () => {
                 </Col>
               ) : null}
 
-              <Col className="mb-4" md={6} xl={4}>
+              <Col className="mb-4" md={4} xl={4}>
                 <Card className="amount-card overflow-hidden">
                   <Card.Body>
-                    <h2 className="f-w-400">2</h2>
+                    <h2 className="f-w-400">{totalActiveUsers}</h2>
                     <p className="text-muted f-w-600 f-16">
                       <span className="text-c-green">Active</span> Users
                     </p>
@@ -80,7 +164,7 @@ const User = () => {
                   <Chart {...amountSpent} />
                 </Card>
               </Col>
-              <Col className="mb-4" md={12} xl={4}>
+              <Col className="mb-4" md={4} xl={4}>
                 <Card className="amount-card overflow-hidden">
                   <Card.Body>
                     <h2 className="f-w-400">31</h2>
@@ -92,20 +176,77 @@ const User = () => {
                 </Card>
               </Col>
             </Row>
+            <div>
+              <div className="row">
+                <div className="col-12 col-md-8 d-flex justify-content-start">
+                  {" "}
+                  <div class="input-group ">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Search by Username"
+                      aria-label="Recipient's username"
+                      aria-describedby="basic-addon2"
+                      value={searchValue}
+                      onChange={handleSearchChange}
+                    />
+                    <div class="input-group-append">
+                      {/* <span class="input-group-text" id="basic-addon2">
+                        @example.com
+                      </span> */}
+                      <button className="btn btn-danger">Search</button>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-4 d-flex justify-content-end">
+                  <button
+                    className="btn  btn-sm btn-danger m-0"
+                    onClick={handleToggleAddUser}
+                  >
+                    Add{" "}
+                    <AddCircleIcon
+                      style={{
+                        margin: 0,
+                        padding: 0,
+                      }}
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
 
+            <br />
+            {console.log("i am users", search)}
             {users ? (
               <Userstable
                 className="mb-4"
-                data={users}
+                data={search.length > 0 ? search : users}
                 handleUpdateData={handleUpdateData}
                 handleView={handleView}
+                handleEdit={handleEditData}
+                handleActiveChange={handleActiveChange}
               />
             ) : null}
             {open ? (
               <View open={open} handleClose={handleClose} data={viewData} />
             ) : null}
+            {openAddUser ? (
+              <Adduser
+                open={openAddUser}
+                handleToggle={handleToggleAddUser}
+                handleAddUser={handleAddUser}
+              />
+            ) : null}
+            {openEdit ? (
+              <Edituser
+                open={openEdit}
+                handleEdit={handleEdit}
+                handleToggle={handleToggleEditUser}
+                data={editData}
+              />
+            ) : null}
           </div>
-          <div className="col-1 col-md-2 mb-4"></div>
+          <div className="col-1 col-md-1 mb-4"></div>
         </div>
       </div>
     </div>

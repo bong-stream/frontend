@@ -63,7 +63,7 @@ const Active = ({ label, handleChange, active }) => {
     handleChange(!active, label);
   };
   return (
-    <div className="d-inline-block" style={{ position: "absolute", right: 0 }}>
+    <div className="d-inline-block">
       {/* <div className="row"> */}
       {/* <div className="col-4"> */}
       <FormControlLabel

@@ -181,11 +181,15 @@ const Managehomepage = () => {
                       Manage Trending
                     </button>
                   </Link>
-                  <Active
-                    label="Trending"
-                    handleChange={handleChange}
-                    active={activeTrending}
-                  />
+                  <div
+                    style={{ position: "absolute", right: 0, bottom: "15px" }}
+                  >
+                    <Active
+                      label="Trending"
+                      handleChange={handleChange}
+                      active={activeTrending}
+                    />
+                  </div>
                 </Card.Body>
               </Card>
             ) : null}
@@ -208,11 +212,15 @@ const Managehomepage = () => {
                       Manage Populars
                     </button>
                   </Link>
-                  <Active
-                    label="Popular"
-                    handleChange={handleChange}
-                    active={activePopular}
-                  />
+                  <div
+                    style={{ position: "absolute", right: 0, bottom: "15px" }}
+                  >
+                    <Active
+                      label="Popular"
+                      handleChange={handleChange}
+                      active={activePopular}
+                    />
+                  </div>
                 </Card.Body>
               </Card>
             ) : null}
@@ -233,11 +241,15 @@ const Managehomepage = () => {
                       Manage Top Charts
                     </button>
                   </Link>
-                  <Active
-                    label="Topcharts"
-                    handleChange={handleChange}
-                    active={activeTopcharts}
-                  />
+                  <div
+                    style={{ position: "absolute", right: 0, bottom: "15px" }}
+                  >
+                    <Active
+                      label="Topcharts"
+                      handleChange={handleChange}
+                      active={activeTopcharts}
+                    />
+                  </div>
                 </Card.Body>
               </Card>
             ) : null}
@@ -262,11 +274,15 @@ const Managehomepage = () => {
                       Manage Playlist
                     </button>
                   </Link>
-                  <Active
-                    label="Bongplaylist"
-                    handleChange={handleChange}
-                    active={activeBongplaylist}
-                  />
+                  <div
+                    style={{ position: "absolute", right: 0, bottom: "15px" }}
+                  >
+                    <Active
+                      label="Bongplaylist"
+                      handleChange={handleChange}
+                      active={activeBongplaylist}
+                    />
+                  </div>
                 </Card.Body>
               </Card>
             ) : null}
@@ -287,11 +303,15 @@ const Managehomepage = () => {
                       Manage Top Artists
                     </button>
                   </Link>
-                  <Active
-                    label="Topartists"
-                    handleChange={handleChange}
-                    active={activeTopartists}
-                  />
+                  <div
+                    style={{ position: "absolute", right: 0, bottom: "15px" }}
+                  >
+                    <Active
+                      label="Topartists"
+                      handleChange={handleChange}
+                      active={activeTopartists}
+                    />
+                  </div>
                 </Card.Body>
               </Card>
             ) : null}
@@ -312,11 +332,15 @@ const Managehomepage = () => {
                       Manage Top ALbums
                     </button>
                   </Link>
-                  <Active
-                    label="Topalbums"
-                    handleChange={handleChange}
-                    active={activeTopalbums}
-                  />
+                  <div
+                    style={{ position: "absolute", right: 0, bottom: "15px" }}
+                  >
+                    <Active
+                      label="Topalbums"
+                      handleChange={handleChange}
+                      active={activeTopalbums}
+                    />
+                  </div>
                 </Card.Body>
               </Card>
             ) : null}
@@ -337,11 +361,15 @@ const Managehomepage = () => {
                       Manage Recommended List
                     </button>
                   </Link>
-                  <Active
-                    label="Recommended"
-                    handleChange={handleChange}
-                    active={activeRecommended}
-                  />
+                  <div
+                    style={{ position: "absolute", right: 0, bottom: "15px" }}
+                  >
+                    <Active
+                      label="Recommended"
+                      handleChange={handleChange}
+                      active={activeRecommended}
+                    />
+                  </div>
                 </Card.Body>
               </Card>
             ) : null}

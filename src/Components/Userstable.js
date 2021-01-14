@@ -11,6 +11,8 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { deleteUsers } from "../Pagesactions/usersactions";
 import Imageavatar from "./Imageavatar";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import EditIcon from "@material-ui/icons/Edit";
+import Active from "../Components/Active";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -36,9 +38,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Userstable({ data, handleUpdateData, handleView }) {
+export default function Userstable({
+  data,
+  handleUpdateData,
+  handleView,
+  handleEdit,
+  handleActiveChange,
+}) {
   const classes = useStyles();
   const [keys, setKeys] = useState([]);
+  const [active, setActive] = useState();
 
   const settingKeys = () => {
     let yoo = [];
@@ -56,6 +65,17 @@ export default function Userstable({ data, handleUpdateData, handleView }) {
     handleUpdateData();
   };
 
+  const handleEditButton = (data) => {
+    console.log(data);
+    handleEdit(data);
+  };
+
+  const handleActive = (active, id) => {
+    console.log(active, id);
+    // setActive(active)
+    handleActiveChange(active, id);
+  };
+
   useEffect(() => {
     settingKeys();
   }, [data]);
@@ -65,17 +85,16 @@ export default function Userstable({ data, handleUpdateData, handleView }) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            {/* {console.log(keys)}
-            {keys.map((key) => (
-              <StyledTableCell>{key}</StyledTableCell>
-            ))} */}
             <StyledTableCell> User Image</StyledTableCell>
             <StyledTableCell> User Name</StyledTableCell>
             <StyledTableCell> Age</StyledTableCell>
             <StyledTableCell> Gender</StyledTableCell>
             <StyledTableCell> Phone Number</StyledTableCell>
             <StyledTableCell> Email</StyledTableCell>
+            <StyledTableCell>Status</StyledTableCell>
+            <StyledTableCell> Deactivate Account</StyledTableCell>
             <StyledTableCell> Delete</StyledTableCell>
+            <StyledTableCell>Edit</StyledTableCell>
             <StyledTableCell> View</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -83,13 +102,53 @@ export default function Userstable({ data, handleUpdateData, handleView }) {
           {data.map((row, idx) => (
             <StyledTableRow key={row._id}>
               <StyledTableCell>
-                <Imageavatar imageSrc={row.image} />
+                <Imageavatar imageSrc={row.userimage} />
               </StyledTableCell>
               <StyledTableCell align="left">{row.name}</StyledTableCell>
               <StyledTableCell align="left">{row.age}</StyledTableCell>
               <StyledTableCell align="left">{row.gender}</StyledTableCell>
               <StyledTableCell align="left">{row.phoneNumber}</StyledTableCell>
               <StyledTableCell align="left">{row.email}</StyledTableCell>
+              <StyledTableCell align="left">
+                {row.active ? (
+                  <div style={{ position: "relative" }}>
+                    <div
+                      style={{
+                        backgroundColor: "#32EC5D",
+                        width: "5px",
+                        height: "5px",
+                        borderRadius: "50%",
+                        position: "absolute",
+                        right: "-1%",
+                        top: "-5px",
+                      }}
+                    ></div>
+                    Active
+                  </div>
+                ) : (
+                  <div style={{ position: "relative" }}>
+                    <div
+                      style={{
+                        backgroundColor: "#F91541",
+                        width: "5px",
+                        height: "5px",
+                        borderRadius: "50%",
+                        position: "absolute",
+                        right: "-1%",
+                        top: "-5px",
+                      }}
+                    ></div>
+                    Deactivated
+                  </div>
+                )}
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Active
+                  label={row._id}
+                  handleChange={handleActive}
+                  active={row.active}
+                />
+              </StyledTableCell>
 
               <StyledTableCell align="left">
                 <button
@@ -97,6 +156,24 @@ export default function Userstable({ data, handleUpdateData, handleView }) {
                   onClick={() => handleDelete(row._id)}
                 >
                   <DeleteForeverIcon />
+                </button>
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                <button
+                  className="btn btn-sm btn-primary"
+                  onClick={() =>
+                    handleEditButton({
+                      id: row._id,
+                      userimage: row.userimage,
+                      name: row.name,
+                      gender: row.gender,
+                      age: row.age,
+                      email: row.email,
+                      phoneNumber: row.phoneNumber,
+                    })
+                  }
+                >
+                  <EditIcon />
                 </button>
               </StyledTableCell>
               <StyledTableCell align="left">
@@ -110,7 +187,7 @@ export default function Userstable({ data, handleUpdateData, handleView }) {
                       age: row.age,
                       email: row.email,
                       phoneNumber: row.phoneNumber,
-                      image: row.image,
+                      image: row.userimage,
                     })
                   }
                 >
