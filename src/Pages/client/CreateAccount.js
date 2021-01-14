@@ -12,7 +12,11 @@ import MoodIcon from '@material-ui/icons/Mood';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+   makeStyles,
+   useTheme,
+   withStyles,
+} from '@material-ui/core/styles';
 import { Link, withRouter } from 'react-router-dom';
 import logo from '../../../src/assets/logo.png';
 import Form from './Form';
@@ -25,6 +29,8 @@ import { CloudCircle } from '@material-ui/icons';
 
 import { GlobalData } from '../../App';
 import { AuthContext } from '../../Contexts/AuthContext';
+
+import { genMediaQuery } from '../../Styles/constants';
 function TabPanel(props) {
    const { children, value, index, ...other } = props;
 
@@ -37,7 +43,12 @@ function TabPanel(props) {
          {...other}
       >
          {value === index && (
-            <Box p={3}>
+            <Box
+               p={3}
+               style={{
+                  padding: '10px 0',
+               }}
+            >
                <Typography>{children}</Typography>
             </Box>
          )}
@@ -59,6 +70,23 @@ function a11yProps(index) {
 }
 
 const useStyles = makeStyles((theme) => ({
+   root: {
+      // margin: window.screen.width >= 768 ? 'auto' : 'auto',
+      // width: window.screen.width >= 768 ? '70%' : '95%',
+      [genMediaQuery('sm')]: {
+         margin: 'auto',
+         width: '70%',
+      },
+      [genMediaQuery('xs')]: {
+         margin: 'auto',
+         width: '95%',
+      },
+   },
+   gridContainer: {
+      [genMediaQuery('xs')]: {
+         margin: '30px 20px',
+      },
+   },
    rootGrid: {
       backgroundColor: '#ffffff',
       padding: theme.spacing(2),
@@ -157,7 +185,6 @@ function CreateAccount(props) {
       signIn(newObj);
 
       console.log('changing Token');
-      changeToken('haha');
       // window.location.href = '/client/home';
    };
 
@@ -182,9 +209,10 @@ function CreateAccount(props) {
             justifyContent: 'center',
             alignContent: 'center',
             alignItems: 'center',
-            margin: window.screen.width >= 768 ? 'auto' : 'auto',
-            width: window.screen.width >= 768 ? '70%' : '95%',
+            // margin: window.screen.width >= 768 ? 'auto' : 'auto',
+            // width: window.screen.width >= 768 ? '70%' : '95%',
          }}
+         className={classes.root}
       >
          <Grid
             container
@@ -196,8 +224,10 @@ function CreateAccount(props) {
                borderRadius: 10,
                marginTop: theme.spacing(6),
 
-               width: window.screen.width >= 768 ? '70%' : '95%',
+               width: '100%',
+               // width: window.screen.width >= 768 ? '70%' : '95%',
             }}
+            className={classes.gridContainer}
          >
             <Grid item>
                <img src={logo} alt='logo' className={classes.logo} />
@@ -217,7 +247,12 @@ function CreateAccount(props) {
                   </Typography>
                )}
 
-               <Typography variant='body2' color='secondary'>
+               <Typography
+                  variant='body2'
+                  style={{
+                     color: '#F44040',
+                  }}
+               >
                   Welcome On board !
                </Typography>
             </Grid>
@@ -235,7 +270,9 @@ function CreateAccount(props) {
                      value={value}
                      onChange={handleChangeMobile}
                      indicatorColor='none'
-                     textColor='secondary'
+                     style={{
+                        color: '#F44040',
+                     }}
                      classes={{ flexContainer: classes.tabBtn }}
                   >
                      <Tab label='Email' {...a11yProps(0)} />
@@ -251,6 +288,9 @@ function CreateAccount(props) {
                      value={value}
                      index={0}
                      dir={theme.direction}
+                     style={{
+                        padding: '10px 0',
+                     }}
                   >
                      <Form
                         btnlabel={
