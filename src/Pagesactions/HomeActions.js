@@ -16,8 +16,8 @@ export const getRecentPlay = async () => {
 export const getRecomended = async () => {
    let recomended;
    recomended = await axios.get(`${API_BASE_URL}/recommended/`);
-   console.log(recomended);
-   return recomended.data;
+   console.log('recomended', recomended);
+   return recomended.data[0];
 };
 export const getPopular = async () => {
    let popualar;

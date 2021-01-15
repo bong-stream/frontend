@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
    root: {
       // margin: window.screen.width >= 768 ? 'auto' : 'auto',
       // width: window.screen.width >= 768 ? '70%' : '95%',
-      width: '70%',
+      width: '50%',
       margin: 'auto',
       [genMediaQuery('sm')]: {
          margin: 'auto',
