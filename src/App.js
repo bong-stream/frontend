@@ -4,6 +4,8 @@ import {
    getSongs,
    getBongPlaylist,
    fetchTopCharts,
+   getTrending,
+   getPopular,
 } from './Pagesactions/songsactions';
 
 import { getUsers } from './Pagesactions/usersactions';
@@ -28,6 +30,10 @@ import HomeScreen from './Pages/client/screens/HomeScreen';
 
 import { AuthContext } from './Contexts/AuthContext';
 import { getAlbums } from './Pagesactions/albumactions';
+import {
+   getRecentPlay,
+   getRecomended,
+} from './Pagesactions/HomeActions';
 export const GlobalData = React.createContext();
 
 function App() {
@@ -35,9 +41,15 @@ function App() {
    const [songs, setSongs] = useState();
    const [albums, setAlbums] = useState();
    const [users, setUsers] = useState();
+   const [trending, setTrending] = useState();
    const [topCharts, setTopCharts] = useState();
    const [bongplaylist, setbongplaylist] = useState();
+   const [popular, setPopular] = useState();
+   const [recentPlay, setRecentPlay] = useState();
+   const [recommended, setRecommended] = useState();
    const [loggedUser] = useState(undefined);
+   const [playlist, setPlaylist] = useState([]);
+
    // const [token, setToken] = useState(
    //    JSON.parse(window.localStorage.getItem('boongToken'))
    // );
@@ -48,12 +60,16 @@ function App() {
       albums: [],
       topCharts: [],
       bongplaylist: [],
+
+      recommended: [],
+      playlist: [],
+      popular: [],
    });
 
    const { token } = React.useContext(AuthContext);
 
-   // * Sync Songs,Albums,Top Charts .... with data
-   // * 1 Songs
+   // ~ Sync Songs,Albums,Top Charts .... with data
+   // ~ 1 Songs
    useEffect(() => {
       setData({
          ...data,
@@ -61,34 +77,85 @@ function App() {
       });
    }, [songs]);
 
-   // * 1 Songs
+   // ~ 2 Albums
    useEffect(() => {
       setData({
          ...data,
          albums: albums,
       });
    }, [albums]);
-   // * 1 Songs
+
+   // ~ 3 Top Charts
    useEffect(() => {
       setData({
          ...data,
          topCharts: topCharts,
       });
    }, [topCharts]);
-   // * 1 Songs
+
+   // ~ 4 BongPlaylist
    useEffect(() => {
       setData({
          ...data,
          bongplaylist: bongplaylist,
       });
    }, [bongplaylist]);
-   // * 1 Songs
+
+   // ~ 5 Artists
    useEffect(() => {
       setData({
          ...data,
          artists: artists,
       });
    }, [artists]);
+
+   // ~ 6 Trending
+   useEffect(() => {
+      setData({
+         ...data,
+         trending: trending,
+      });
+   }, [trending]);
+
+   // ~ 7 Recommended
+   useEffect(() => {
+      setData({
+         ...data,
+         recommended: recommended,
+      });
+   }, [recommended]);
+
+   // ~ 8 Recent Play / Playlist
+   useEffect(() => {
+      setData({
+         ...data,
+         playlist: playlist,
+      });
+   }, [trending]);
+
+   // ~ 9 Popular
+   useEffect(() => {
+      setData({
+         ...data,
+         popular: popular,
+      });
+   }, [popular]);
+
+   // ~ 10 Users
+   useEffect(() => {
+      setData({
+         ...data,
+         users: users,
+      });
+   }, [users]);
+
+   // // ~ 6 Trending
+   // useEffect(() => {
+   //    setData({
+   //       ...data,
+   //       trending: trending,
+   //    });
+   // }, [trending]);
 
    // * 1 Fetch Top Charts
    useEffect(() => {
@@ -124,6 +191,58 @@ function App() {
    useEffect(() => {
       fetchAlbums();
    }, []);
+
+   // * 7 Fetch Trending
+   useEffect(() => {
+      fetchTrending();
+   }, []);
+
+   // * 8 Fetch Recommended
+   useEffect(() => {
+      fetchRecommended();
+   }, []);
+
+   // * 9 Fetch Popular
+   useEffect(() => {
+      fetchPopular();
+   }, []);
+
+   // * 10 Fetch Recent Play
+   useEffect(() => {
+      fetchRecentPlay();
+   }, []);
+
+   const fetchRecentPlay = async () => {
+      let recentPlay;
+      recentPlay = await getRecentPlay();
+      console.log(recentPlay);
+      if (recentPlay.length > 0) {
+         console.log('recent');
+         setPlaylist(recentPlay[0].bongplaylist);
+      }
+   };
+
+   const fetchTrending = async () => {
+      let allSongs;
+      allSongs = await getTrending();
+      console.log(allSongs);
+      setTrending(allSongs);
+   };
+
+   const fetchPopular = async () => {
+      let popular;
+      popular = await getPopular();
+      console.log(popular);
+      console.log('recomended');
+      setPopular(popular[0].popular);
+   };
+
+   const fetchRecommended = async () => {
+      let allSongs;
+      allSongs = await getRecomended();
+      console.log(allSongs);
+      setRecommended(allSongs);
+   };
 
    const fetchbongplaylist = async () => {
       let allSongs;
