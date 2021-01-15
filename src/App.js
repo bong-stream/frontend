@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getArtists } from './Pagesactions/artistsactions';
-import { getSongs } from './Pagesactions/songsactions';
+import {
+   getSongs,
+   getBongPlaylist,
+   fetchTopCharts,
+} from './Pagesactions/songsactions';
+
 import { getUsers } from './Pagesactions/usersactions';
-import { getAlbums } from './Pagesactions/albumactions';
-import Sidedrawer from './Components/Sidedrawer';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AdminHome from './Pages/AdminHome';
@@ -11,32 +14,30 @@ import User from './Pages/User';
 import Artist from './Pages/Artist';
 import Songs from './Pages/Songs';
 import Albums from './Pages/Albums';
-import Signin from './Pages/Signin';
 import Admintrending from './Pages/Admintrending';
 import Adminpopular from './Pages/Adminpopular';
 import Admintopcharts from './Pages/Admintopcharts';
 import './App.css';
 import AdminRoute from './Components/AdminRoute';
 import ClientRoute from './Components/ClientRoute';
-import Trendingtable from './Components/Trendingtable';
 import CreateAccount from './Pages/client/CreateAccount';
 import ResetLogin from './Pages/client/ResetLogin';
 import DetailSignUp from './Pages/client/DetailSignUp';
 import BrowseMain from './Pages/client/screens/BrowseMain';
 import HomeScreen from './Pages/client/screens/HomeScreen';
-import { CloudCircle, DesktopWindowsSharp } from '@material-ui/icons';
 
-import { AuthProvider, AuthContext } from './Contexts/AuthContext';
+import { AuthContext } from './Contexts/AuthContext';
+import { getAlbums } from './Pagesactions/albumactions';
 export const GlobalData = React.createContext();
 
-function App(props) {
+function App() {
    const [artists, setArtists] = useState();
    const [songs, setSongs] = useState();
    const [albums, setAlbums] = useState();
    const [users, setUsers] = useState();
    const [topCharts, setTopCharts] = useState();
    const [bongplaylist, setbongplaylist] = useState();
-   const [loggedUser, setLoggedUser] = useState(undefined);
+   const [loggedUser] = useState(undefined);
    // const [token, setToken] = useState(
    //    JSON.parse(window.localStorage.getItem('boongToken'))
    // );
@@ -49,77 +50,125 @@ function App(props) {
       bongplaylist: [],
    });
 
-   const { token, changeToken } = React.useContext(AuthContext);
+   const { token } = React.useContext(AuthContext);
 
-   // useEffect(() => {
-   //   const topchart = fetchTopCharts();
-   //   if (topchart.length <= 0 || topchart === undefined) {
-   //     console.log("emptyarray");
-   //   } else {
-   //     setTopCharts(topchart);
-   //     setData({
-   //       ...data,
-   //       topCharts: topCharts,
-   //     });
-   //   }
-   // }, [topCharts]);
-   // useEffect(() => {
-   //   const playlist = fetchbongplaylist();
-   //   if (playlist.length <= 0 || playlist == undefined) {
-   //     console.log("bongplaylist is empty");
-   //   } else {
-   //     setbongplaylist(bongplaylist);
-   //     setData({
-   //       ...data,
-   //       bongplaylist: bongplaylist,
-   //     });
-   //   }
-   // }, [bongplaylist]);
+   // * Sync Songs,Albums,Top Charts .... with data
+   // * 1 Songs
+   useEffect(() => {
+      setData({
+         ...data,
+         songs: songs,
+      });
+   }, [songs]);
 
-   //   const fetchSongs = async () => {
-   //     let allSongs;
-   //     allSongs = await getSongs();
-   //     console.log(allSongs);
-   //     setSongs(allSongs);
-   //     setData({
-   //       ...data,
-   //       songs: allSongs,
-   //     });
-   //   };
+   // * 1 Songs
+   useEffect(() => {
+      setData({
+         ...data,
+         albums: albums,
+      });
+   }, [albums]);
+   // * 1 Songs
+   useEffect(() => {
+      setData({
+         ...data,
+         topCharts: topCharts,
+      });
+   }, [topCharts]);
+   // * 1 Songs
+   useEffect(() => {
+      setData({
+         ...data,
+         bongplaylist: bongplaylist,
+      });
+   }, [bongplaylist]);
+   // * 1 Songs
+   useEffect(() => {
+      setData({
+         ...data,
+         artists: artists,
+      });
+   }, [artists]);
 
-   //   const fetchArtists = async () => {
-   //     let allArtists;
-   //     allArtists = await getArtists();
-   //     console.log(allArtists);
-   //     setArtists(allArtists);
-   //     setData({
-   //       ...data,
-   //       artists: allArtists,
-   //     });
-   //   };
+   // * 1 Fetch Top Charts
+   useEffect(() => {
+      const topchart = fetchTopCharts();
+      if (topchart.length <= 0 || topchart === undefined) {
+         console.log('emptyarray');
+      } else {
+         setTopCharts(topchart);
+      }
+   }, []);
 
-   //   const fetchUsers = async () => {
-   //     let allUsers;
-   //     allUsers = await getUsers();
-   //     console.log(allUsers);
-   //     setUsers(allUsers);
-   //     setData({
-   //       ...data,
-   //       users: allUsers,
-   //     });
-   //   };
-   //   fetchUsers();
+   // * 2 Fetch BongPlaylist
+   useEffect(() => {
+      fetchbongplaylist();
+   }, []);
 
-   //   fetchArtists();
-   //   fetchAlbums();
-   //   fetchSongs();
-   // }, []);
+   // * 3 Fetch Songs
+   useEffect(() => {
+      fetchSongs();
+   }, []);
 
-   // setLoggedUser(currentUser);
-   // setToken(currentToken);
-   // const changedToken = (token) => {
-   //    setToken(token);
-   // };
+   // * 4 Fetch Artists
+   useEffect(() => {
+      fetchArtists();
+   }, []);
+
+   // * 5 Fetch Users
+   useEffect(() => {
+      fetchUsers();
+   }, []);
+
+   // * 6 Fetch Albums
+   useEffect(() => {
+      fetchAlbums();
+   }, []);
+
+   const fetchbongplaylist = async () => {
+      let allSongs;
+      allSongs = await getBongPlaylist();
+      console.log(allSongs);
+      setbongplaylist(allSongs);
+   };
+
+   const fetchSongs = async () => {
+      let allSongs;
+      allSongs = await getSongs();
+      console.log('allSongs', allSongs);
+      console.log('data.songs', data.songs);
+
+      setSongs(allSongs);
+
+      console.log('data.songs', data.songs);
+   };
+
+   const fetchAlbums = async () => {
+      let allSongs;
+      allSongs = await getAlbums();
+      console.log(allSongs);
+      setAlbums(allSongs);
+   };
+
+   const fetchArtists = async () => {
+      let allArtists;
+      allArtists = await getArtists();
+      console.log(allArtists);
+      setArtists(allArtists);
+   };
+
+   const fetchUsers = async () => {
+      let allUsers;
+      allUsers = await getUsers();
+      console.log(allUsers);
+      setUsers(allUsers);
+   };
+
+   // fetchUsers();
+
+   // fetchArtists();
+   // // fetchAlbums();
+   // fetchSongs();
 
    let routes;
    // console.clear();
@@ -142,7 +191,7 @@ function App(props) {
                path={'/client/Home'}
                component={HomeScreen}
             />
-            <AdminRoute exact path='/admin' component={AdminHome} />
+            <AdminRoute exact path='/=' component={AdminHome} />
             <AdminRoute exact path='/admin/users' component={User} />
             <AdminRoute
                exact
@@ -184,6 +233,7 @@ function App(props) {
             bongplaylist,
             topCharts,
             loggedUser,
+            data,
          }}
       >
          <div className='App'>
@@ -193,7 +243,8 @@ function App(props) {
                   <Switch>
                      {console.log('Inside Login Redirect')}
 
-                     <Redirect to='/client/home' />
+                     {routes}
+                     {/* <Redirect to='/client/home' /> */}
                   </Switch>
                ) : (
                   <Switch>
@@ -220,10 +271,12 @@ function App(props) {
                         path={'/client/detailSignup'}
                         component={DetailSignUp}
                      />
+
+                     <Route component={CreateAccount} />
                   </Switch>
                )}
 
-               {routes}
+               {/* {routes} */}
             </Router>
          </div>
       </GlobalData.Provider>
