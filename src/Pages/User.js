@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import orderBy from "lodash/orderBy";
 import Userstable from "../Components/Userstable";
 import {
   getUsers,
@@ -20,6 +21,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Adduser from "../Components/Adduser";
 import Edituser from "../Components/Edituser";
+import Filters from "../Components/Filters";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,10 +36,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const invertDirection = {
+  asc: "desc",
+  desc: "asc",
+};
+
 const User = () => {
   const classes = useStyles();
   const [openAddUser, setOpenAddUser] = React.useState(false);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState();
   const [open, setOpen] = React.useState(false);
   const [viewData, setViewData] = useState();
   const [editData, setEditData] = useState();
@@ -45,6 +52,8 @@ const User = () => {
   const [totalActiveUsers, setTotalActiveUsers] = useState();
   const [search, setSearch] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [sortType, setSortType] = useState();
+  const [sortColumn, setSortColumn] = useState();
 
   const [updateData, setUpdateData] = useState(false);
 
@@ -54,7 +63,7 @@ const User = () => {
       let activeUsers;
       allUsers = await getUsers();
       console.log(allUsers);
-      setUsers(allUsers);
+      setUsers({ users: allUsers, columnToSort: "", sortDirection: "" });
 
       activeUsers = allUsers.filter((user) => {
         return user.active === true;
@@ -118,22 +127,33 @@ const User = () => {
     setUpdateData(true);
   };
 
-  // const handleSearchChange = (evt) => {
-  //   setSearch(evt.target.value);
-  // };
-
   const handleSearchChange = (evt) => {
     let yoo;
     setSearchValue(evt.target.value);
     console.log(evt.target.value);
-    yoo = users.filter((user) => user.name.includes(evt.target.value));
+    yoo = users.users.filter((user) => user.name.includes(evt.target.value));
     console.log(yoo);
     setSearch(yoo);
   };
 
+  const handleSortType = (type, columnName) => {
+    setUsers({
+      ...users,
+      columnToSort: columnName,
+      sortDirection: type,
+    });
+    // this.setState((state) => ({
+    //   columnToSort: columnName,
+    //   sortDirection:
+    //     state.columnToSort === columnName
+    //       ? invertDirection[state.sortDirection]
+    //       : "asc",
+    // }));
+  };
+
   return (
     <div className="main user">
-      {console.log(search)}
+      {console.log(users)}
       <div>
         <div className="row">
           <div className="col-1 col-md-0"></div>
@@ -143,7 +163,7 @@ const User = () => {
                 <Col className="mb-4" md={4} xl={4}>
                   <Card className="amount-card overflow-hidden">
                     <Card.Body>
-                      <h2 className="f-w-400">{users.length}</h2>
+                      <h2 className="f-w-400">{users.users.length}</h2>
                       <p className="text-muted f-w-600 f-16">
                         <span className="text-c-blue">Registered</span> Users
                       </p>
@@ -199,6 +219,23 @@ const User = () => {
                   </div>
                 </div>
                 <div className="col-4 d-flex justify-content-end">
+                  <Filters
+                    handleSortType={handleSortType}
+                    filterName={{
+                      name1: "Username A-Z",
+                      name2: "Username Z-A",
+                      date1: "Date up",
+                      date2: "Date down",
+                    }}
+                    columnName={{
+                      name1: "name",
+                      name2: "date",
+                    }}
+                    type={{
+                      asc: "asc",
+                      desc: "desc",
+                    }}
+                  />
                   <button
                     className="btn  btn-sm btn-danger m-0"
                     onClick={handleToggleAddUser}
@@ -220,7 +257,15 @@ const User = () => {
             {users ? (
               <Userstable
                 className="mb-4"
-                data={searchValue.length > 0 ? search : users}
+                data={
+                  searchValue.length > 0
+                    ? orderBy(search, users.columnToSort, users.sortDirection)
+                    : orderBy(
+                        users.users,
+                        users.columnToSort,
+                        users.sortDirection
+                      )
+                }
                 handleUpdateData={handleUpdateData}
                 handleView={handleView}
                 handleEdit={handleEditData}

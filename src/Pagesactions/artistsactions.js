@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-// "http://localhost:3001"
+// let url = "http://localhost:3001";
 let url = "https://bong-backend.herokuapp.com";
 
 const getArtists = async () => {
@@ -19,6 +19,14 @@ const findArtist = async (id) => {
   // artists = await axios.get(`http://localhost:3001/api/artist`);
   console.log(artist);
   return artist.data;
+};
+
+const activeArtists = async (active, id) => {
+  let artists;
+  let data = { active, id };
+  artists = await axios.put(`${url}/api/artist/activeartists`, data);
+  console.log(artists);
+  return artists.data;
 };
 
 const addArtists = async (data, albums, songs) => {
@@ -65,4 +73,11 @@ const deleteArtists = async (id) => {
   // return artists.data;
 };
 
-export { getArtists, addArtists, deleteArtists, editArtists, findArtist };
+export {
+  getArtists,
+  addArtists,
+  deleteArtists,
+  editArtists,
+  findArtist,
+  activeArtists,
+};

@@ -12,6 +12,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Editartist from "../Components/Editartist";
 import Imageavatar from "../Components/Imageavatar.js";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import Active from "../Components/Active";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -43,6 +44,7 @@ export default function Artiststable({
   handleEdit,
   openEdit,
   handleView,
+  handleActiveChange,
 }) {
   const classes = useStyles();
   const [keys, setKeys] = useState([]);
@@ -71,6 +73,12 @@ export default function Artiststable({
     handleEdit(data);
   };
 
+  const handleActive = (active, id) => {
+    console.log(active, id);
+    // setActive(active)
+    handleActiveChange(active, id);
+  };
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -85,6 +93,11 @@ export default function Artiststable({
               <StyledTableCell>Artist Name</StyledTableCell>
               <StyledTableCell>Albums</StyledTableCell>
               <StyledTableCell>Songs</StyledTableCell>
+              <StyledTableCell>City</StyledTableCell>
+              <StyledTableCell>Country</StyledTableCell>
+              <StyledTableCell>Date of Birth</StyledTableCell>
+              <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell> Deactivate</StyledTableCell>
               <StyledTableCell>_id</StyledTableCell>
               <StyledTableCell>Delete</StyledTableCell>
               <StyledTableCell>Edit</StyledTableCell>
@@ -104,11 +117,54 @@ export default function Artiststable({
                 <StyledTableCell align="left">
                   {row.songs.length}
                 </StyledTableCell>
+                <StyledTableCell align="left">{row.city}</StyledTableCell>
+                <StyledTableCell align="left">{row.country}</StyledTableCell>
+                <StyledTableCell align="left">{row.dob}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {row.active ? (
+                    <div style={{ position: "relative" }}>
+                      <div
+                        style={{
+                          backgroundColor: "#32EC5D",
+                          width: "5px",
+                          height: "5px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          right: "-1%",
+                          top: "-5px",
+                        }}
+                      ></div>
+                      Active
+                    </div>
+                  ) : (
+                    <div style={{ position: "relative" }}>
+                      <div
+                        style={{
+                          backgroundColor: "#F91541",
+                          width: "5px",
+                          height: "5px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          right: "-1%",
+                          top: "-5px",
+                        }}
+                      ></div>
+                      Deactivated
+                    </div>
+                  )}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <Active
+                    label={row._id}
+                    handleChange={handleActive}
+                    active={row.active}
+                  />
+                </StyledTableCell>
                 <StyledTableCell>{row._id}</StyledTableCell>
 
                 <StyledTableCell align="left">
                   <button
-                    className="btn btn-sm btn-primary"
+                    className="btn btn-sm btn-danger"
                     onClick={() => hanldeDelete(row._id)}
                   >
                     <DeleteForeverIcon />
@@ -116,7 +172,7 @@ export default function Artiststable({
                 </StyledTableCell>
                 <StyledTableCell align="left">
                   <button
-                    className="btn btn-sm btn-danger"
+                    className="btn btn-sm btn-primary"
                     onClick={() =>
                       handleEditButton({
                         id: row._id,
@@ -124,6 +180,10 @@ export default function Artiststable({
                         artistname: row.artistname,
                         albums: row.albums,
                         songs: row.songs,
+                        city: row.city,
+                        country: row.country,
+                        dob: row.dob,
+                        lastname: row.lastname,
                       })
                     }
                   >
@@ -140,6 +200,10 @@ export default function Artiststable({
                         artistname: row.artistname,
                         albums: row.albums,
                         songs: row.songs,
+                        city: row.city,
+                        country: row.country,
+                        dob: row.dob,
+                        lastname: row.lastname,
                       });
                     }}
                   >

@@ -64,6 +64,7 @@ const Managehomepage = () => {
       await editPopular({ active, popular: popular });
       setActivePopular(active);
     } else if (label === "Bongplaylist") {
+      console.log(active, bongplaylist);
       await editBongplaylist({ active, bongplaylist: bongplaylist });
       setActiveBongplaylist(active);
     } else if (label === "Topalbums") {
@@ -100,6 +101,7 @@ const Managehomepage = () => {
       bongplaylist = await getBongplaylist();
       setActiveBongplaylist(bongplaylist[0].active);
       setBongplaylist(bongplaylist[0].bongplaylist);
+      console.log(bongplaylist[0].bongplaylist);
       recommended = await getRecommended();
       setActiveRecommended(recommended[0].active);
       setRecommended(recommended[0].recommended);
@@ -110,6 +112,7 @@ const Managehomepage = () => {
       setActiveTopartists(topartists[0].active);
       setTopartists(topartists[0].topartists);
       topcharts = await getTopcharts();
+      console.log(topcharts);
       setActiveTopcharts(topcharts[0].active);
       setTopcharts(topcharts[0].topcharts);
       console.log(topcharts[0].topcharts);

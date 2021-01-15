@@ -76,8 +76,8 @@ const Adminpopular = () => {
   };
 
   const handleNewSort = async (sortedArray) => {
-    // console.log(sortedArray);
-    await setSortedList({ popular: sortedArray });
+    console.log(sortedArray);
+    await setSortedList(sortedArray);
     setSortState(true);
   };
 
@@ -165,6 +165,7 @@ const Adminpopular = () => {
                             <h4 style={{ color: "black" }}>Popular List</h4>
                           </ListItem>
                         </List>
+                        {console.log(popular[0].popular[0].popular)}
                         {popular ? (
                           <Trendingtable
                             data={popular[0].popular}

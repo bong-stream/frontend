@@ -45,6 +45,10 @@ const Addartist = ({ open, addArtist, handleClose }) => {
   const [state, setState] = useState({
     artistname: "",
     artistimage: "",
+    dob: "",
+    lastname: "",
+    city: "",
+    country: "",
   });
   const [selectAlbums, setSelectAlbums] = useState([]);
   const [selectSongs, setSelectSongs] = useState([]);
@@ -77,11 +81,6 @@ const Addartist = ({ open, addArtist, handleClose }) => {
     evt.preventDefault();
     console.log(state);
     console.log(selectAlbums);
-    // await setState({
-    //   ...state,
-    //   albums: selectAlbums,
-    // });
-    // console.log(state);
     addArtist(state, selectAlbums, selectSongs);
     handleClose();
   });
@@ -126,16 +125,6 @@ const Addartist = ({ open, addArtist, handleClose }) => {
 
   return (
     <div>
-      {console.log(selectAlbums)}
-      {console.log(state)}
-      {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-        onSubmit={handleAddArtist}
-      >
-        <DialogTitle id="form-dialog-title">Add Artist</DialogTitle>
-      </Dialog> */}
       <Dialog
         fullScreen
         open={open}
@@ -170,72 +159,123 @@ const Addartist = ({ open, addArtist, handleClose }) => {
               />
             </div>
             <div className="col-12 col-md-8">
-              <h4>Artist Details</h4>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Artist Name"
-                type="text"
-                name="artistname"
-                value={state.artistname}
-                onChange={handleChange}
-              />
-              <br />
-              <br />
-              <br />
-
-              <div>
-                <div className="row">
-                  <div className="col-4">
-                    <h5>Add Albums </h5>
-                  </div>
-                  <div className="col-4">
-                    <a
-                      className="btn btn-outline-danger"
-                      onClick={handleOnAddAlbums}
-                    >
-                      {onAddAlbums ? "X" : "+"}
-                    </a>
-                  </div>
+              <div className="row">
+                <div className="col-12 col-md-6">
+                  <h4>Artist Details</h4>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Artist Name"
+                    type="text"
+                    name="artistname"
+                    value={state.artistname}
+                    onChange={handleChange}
+                  />
+                  <br />
+                  <TextField
+                    margin="dense"
+                    id="name"
+                    label="Last Name"
+                    type="text"
+                    name="lastname"
+                    value={state.lastname}
+                    onChange={handleChange}
+                  />
+                  <br />
+                  <TextField
+                    margin="dense"
+                    id="name"
+                    label="Artist City"
+                    type="text"
+                    name="city"
+                    value={state.city}
+                    onChange={handleChange}
+                  />
+                  <br />
+                  <TextField
+                    margin="dense"
+                    id="name"
+                    label="Artist Country"
+                    type="text"
+                    name="country"
+                    value={state.country}
+                    onChange={handleChange}
+                  />
+                  <br />
+                  <br />
+                  <TextField
+                    id="date"
+                    label="Date of Birth"
+                    type="date"
+                    defaultValue="2021-01-15"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    name="dob"
+                    value={state.dob}
+                    onChange={handleChange}
+                  />
+                  <br />
+                  <br />
                 </div>
 
-                {onAddAlbums ? (
-                  <div>
-                    {fetchedAlbums ? (
-                      <Selectalbumforartist
-                        data={fetchedAlbums}
-                        selectAlbums={handleAlbums}
-                      />
-                    ) : null}
+                <div className="col-12 col-md-6">
+                  <br />
+                  <br />
+                  <br />
+                  <div className="row">
+                    <div className="col-8">
+                      <h5>Add Albums </h5>
+                    </div>
+                    <div className="col-4">
+                      <a
+                        className="btn btn-outline-danger"
+                        onClick={handleOnAddAlbums}
+                      >
+                        {onAddAlbums ? "X" : "+"}
+                      </a>
+                    </div>
                   </div>
-                ) : null}
 
-                <br />
-                <div className="row">
-                  <div className="col-4">
-                    <h5>Add Songs </h5>
+                  {onAddAlbums ? (
+                    <div>
+                      {fetchedAlbums ? (
+                        <Selectalbumforartist
+                          data={fetchedAlbums}
+                          selectAlbums={handleAlbums}
+                        />
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  <br />
+                  <div className="row">
+                    <div className="col-8">
+                      <h5>Add Songs </h5>
+                    </div>
+                    <div className="col-4">
+                      <a
+                        className="btn btn-outline-danger"
+                        onClick={handleOnAddSongs}
+                      >
+                        {onAddSongs ? "X" : "+"}
+                      </a>
+                    </div>
                   </div>
-                  <div className="col-4">
-                    <a
-                      className="btn btn-outline-danger"
-                      onClick={handleOnAddSongs}
-                    >
-                      {onAddSongs ? "X" : "+"}
-                    </a>
-                  </div>
+
+                  {onAddSongs ? (
+                    <div>
+                      {fetchedAlbums ? (
+                        <Selectsongsforartist
+                          data={fetchedSongs}
+                          selectSongs={handleSongs}
+                        />
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
-
-                {onAddSongs ? (
-                  <div>
-                    {fetchedAlbums ? (
-                      <Selectsongsforartist
-                        data={fetchedSongs}
-                        selectSongs={handleSongs}
-                      />
-                    ) : null}
-                  </div>
-                ) : null}
               </div>
             </div>
           </div>

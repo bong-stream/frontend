@@ -35,6 +35,7 @@ const DragHandle = sortableHandle(() => (
 const SortableItem = sortableElement(
   ({ value, name, classes, handleDelete }) => (
     <ListItem alignItems="flex-start" width="100%">
+      {console.log(value)}
       <ListItemAvatar>
         <Avatar alt="Remy Sharp" src={value.songimage} />
       </ListItemAvatar>

@@ -62,7 +62,8 @@ const Bongplaylist = () => {
 
   const handleDeleteSong = async (id) => {
     console.log(id);
-    let trendingSongs = trending[0].trending;
+    console.log(id, trending);
+    let trendingSongs = trending[0].bongplaylist;
     let filterSongs;
     filterSongs = await trendingSongs.filter((song) => {
       return song._id !== id;
