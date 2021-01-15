@@ -177,22 +177,49 @@ function BrowseMain() {
             </Grid>
             <Grid item style={{ paddingTop: theme.spacing(3) }}>
                <Carousel
-                  itemsToShow={window.screen.width >= 768 ? 6 : 2}
-                  itemsToScroll={window.screen.width >= 768 ? 6 : 2}
+                  itemsToShow={1}
+                  itemsToScroll={1}
+                  // itemsToShow={window.screen.width >= 768 ? 6 : 2}
+                  // itemsToScroll={window.screen.width >= 768 ? 6 : 2}
                >
                   {tutorialSteps.map((item) => (
                      <div
                         style={{
                            display: 'block',
-                           paddingLeft: theme.spacing(3),
+                           // paddingLeft: theme.spacing(3),
                            // flexWrap: "nowrap",
                            flexDirection: 'row',
                            zIndex: 1,
                         }}
                      >
                         <Grid container justify='center' spacing={2}>
-                           {[0, 1, 2, 3].map((value) => (
-                              <Grid key={value} item>
+                           {[
+                              0,
+                              1,
+                              2,
+                              3,
+                              4,
+                              5,
+                              6,
+                              7,
+                              8,
+                              1,
+                              2,
+                              2,
+                              2,
+                              2,
+                              2,
+                              2,
+                              2,
+                              2,
+                           ].map((value) => (
+                              <Grid
+                                 key={value}
+                                 item
+                                 xs={6}
+                                 sm={3}
+                                 md={2}
+                              >
                                  <MusicCard
                                     imgPath={item.imgPath}
                                     title={item.title}

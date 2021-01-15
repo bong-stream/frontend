@@ -20,7 +20,6 @@ import playstore from '../../../assets/goo.png';
 import { GlobalData } from '../../../App';
 
 const breakPoints = [
-   { width: 313, itemsToShow: 1, itemsToScroll: 1 },
    { width: 346, itemsToShow: 2, itemsToScroll: 2 },
    { width: 532, itemsToShow: 4, itemsToScroll: 4 },
    { width: 750, itemsToShow: 5, itemToScroll: 5 },
