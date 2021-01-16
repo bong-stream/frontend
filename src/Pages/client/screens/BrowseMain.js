@@ -1,3 +1,4 @@
+/* eslint-disable no-extend-native */
 import { Divider, Grid, MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
 
@@ -151,6 +152,8 @@ const BrowseMain = (props) => {
    const [allChunks, setAllChunks] = useState([]);
    const [trending, setTrending] = useState();
 
+   const [isFetching, setIsFetching] = useState(true);
+
    React.useEffect(() => {
       try {
          Object.defineProperty(Array.prototype, 'chunk', {
@@ -202,22 +205,22 @@ const BrowseMain = (props) => {
       // console.clear();
       if (slug.toLowerCase() === 'trending') {
          console.log('data[slug]', data['trending']);
-         setAllChunks(trending.chunk(17));
+         setAllChunks(trending.chunk(18));
       } else if (slug.toLowerCase() === 'popular') {
          console.log('data[slug]', data['popular']);
-         setAllChunks(data['popular'].chunk(17));
+         setAllChunks(data['popular'].chunk(18));
       } else if (slug.toLowerCase() === 'all') {
          console.log('data[slug]', data['popular']);
-         setAllChunks(data['popular'].chunk(17));
+         setAllChunks(data['popular'].chunk(18));
          let trendingChunks = [];
          if (trending && trending.length > 0) {
-            trendingChunks = trending.chunk(17);
+            trendingChunks = trending.chunk(18);
          }
-         const allChunksNew = all.chunk(17);
+         const allChunksNew = all.chunk(18);
          setAllChunks([...allChunksNew, ...trendingChunks]);
       } else if (slug.toLowerCase() === 'albums') {
       }
-      // console.log(data[slug].chunk(17));
+      // console.log(data[slug].chunk(18));
    }, [slug]);
 
    React.useEffect(() => {
@@ -227,8 +230,14 @@ const BrowseMain = (props) => {
       console.log('<<<<<<<<<<<<');
       console.log('<<<<<<<<<<<<');
       console.log('all', all);
-      setAllChunks(all.chunk(17));
+      setAllChunks(all.chunk(18));
    }, [all]);
+
+   React.useEffect(() => {
+      if (allChunks && allChunks.length > 0) {
+         setIsFetching(false);
+      }
+   }, [allChunks]);
 
    React.useEffect(() => {
       setAll([...data.popular]);
@@ -241,6 +250,7 @@ const BrowseMain = (props) => {
       e.preventDefault();
       setSlug(item);
    };
+
    return (
       <div
          style={{
@@ -304,49 +314,53 @@ const BrowseMain = (props) => {
                </div>
             </Grid>
             <Grid item style={{ paddingTop: theme.spacing(3) }}>
-               <Carousel
-                  itemsToShow={1}
-                  itemsToScroll={1}
-                  showArrows={false}
-                  // itemsToShow={window.screen.width >= 768 ? 6 : 2}
-                  // itemsToScroll={window.screen.width >= 768 ? 6 : 2}
-               >
-                  {allChunks &&
-                     allChunks.length > 0 &&
-                     allChunks.map((item) => (
-                        <div
-                           style={{
-                              display: 'block',
-                              // paddingLeft: theme.spacing(3),
-                              // flexWrap: "nowrap",
-                              flexDirection: 'row',
-                              zIndex: 1,
-                           }}
-                        >
-                           <Grid
-                              container
-                              justify='flex-start'
-                              spacing={2}
+               {isFetching ? (
+                  <div className='loader'></div>
+               ) : (
+                  <Carousel
+                     itemsToShow={1}
+                     itemsToScroll={1}
+                     showArrows={false}
+                     // itemsToShow={window.screen.width >= 768 ? 6 : 2}
+                     // itemsToScroll={window.screen.width >= 768 ? 6 : 2}
+                  >
+                     {allChunks &&
+                        allChunks.length > 0 &&
+                        allChunks.map((item) => (
+                           <div
+                              style={{
+                                 display: 'block',
+                                 // paddingLeft: theme.spacing(3),
+                                 // flexWrap: "nowrap",
+                                 flexDirection: 'row',
+                                 zIndex: 1,
+                              }}
                            >
-                              {item.map((value) => (
-                                 <Grid
-                                    key={value}
-                                    item
-                                    xs={6}
-                                    sm={3}
-                                    md={2}
-                                 >
-                                    <MusicCard
-                                       imgPath={value.songimage}
-                                       title={value.songname}
-                                       label={value.label}
-                                    />
-                                 </Grid>
-                              ))}
-                           </Grid>
-                        </div>
-                     ))}
-               </Carousel>
+                              <Grid
+                                 container
+                                 justify='flex-start'
+                                 spacing={2}
+                              >
+                                 {item.map((value) => (
+                                    <Grid
+                                       key={value}
+                                       item
+                                       xs={6}
+                                       sm={3}
+                                       md={2}
+                                    >
+                                       <MusicCard
+                                          imgPath={value.songimage}
+                                          title={value.songname}
+                                          label={value.label}
+                                       />
+                                    </Grid>
+                                 ))}
+                              </Grid>
+                           </div>
+                        ))}
+                  </Carousel>
+               )}
             </Grid>
             <Grid item justify='center'>
                <div
