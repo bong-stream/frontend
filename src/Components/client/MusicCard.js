@@ -24,9 +24,9 @@ const useStyles = makeStyles({
    media: {
       height: isHomePage ? 190 : 110,
 
-      [genMediaQuery('lg')]: {
-         height: isBrowsePage && '201.86px !important',
-      },
+      // [genMediaQuery('lg')]: {
+      //    height: isBrowsePage && '201.86px !important',
+      // },
       [genMediaQuery('md')]: {
          height: isBrowsePage && '133.91px !important',
       },
@@ -42,8 +42,14 @@ const useStyles = makeStyles({
    },
    title: {
       color: '#fff',
-      fontSize: '0.8rem',
       paddingLeft: 10,
+      fontSize: '1em',
+      [genMediaQuery('xs')]: {
+         fontSize: '2.5em',
+      },
+      // [genMediaQuery('xs', 375)]: {
+      //    // fontSize: '2.3em',
+      // },
    },
 });
 

@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
       '& .MuiAppBar-colorPrimary': {
          backgroundColor: '#193459',
       },
+      minHeight: 56,
+      [genMediaQuery('xs')]: {
+         minHeight: 110,
+      },
    },
    menuButton: {
       marginRight: theme.spacing(2),
@@ -67,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
       color: 'inherit',
    },
    inputInput: {
+      fontSize: '1.3em',
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
@@ -114,9 +119,14 @@ const useStyles = makeStyles((theme) => ({
       width: 100,
       height: 60,
       objectFit: 'contain',
+      [genMediaQuery('xs')]: {
+         width: 200,
+         height: 100,
+      },
    },
+   Toolbar: {},
    menuList: {
-      fontSize: '0.8rem',
+      // fontSize: '1.3rem',
    },
    auth: {
       color: '#fff',
@@ -216,6 +226,14 @@ const useStyles = makeStyles((theme) => ({
          fontSize: '3.5em',
       },
    },
+   expandBtn: {
+      '& svg': {
+         fontSize: '1.5em',
+         [genMediaQuery('xs')]: {
+            fontSize: '3em',
+         },
+      },
+   },
 }));
 
 export default function PrimarySearchAppBar() {
@@ -297,7 +315,7 @@ export default function PrimarySearchAppBar() {
                <div className={classes.searchIcon}>
                   <SearchIcon
                      style={{
-                        fontSize: '1.2em',
+                        fontSize: '3.2em',
                      }}
                   />
                </div>
@@ -396,7 +414,7 @@ export default function PrimarySearchAppBar() {
    return (
       <div className={classes.grow}>
          <AppBar position='fixed'>
-            <Toolbar>
+            <Toolbar className={classes.Toolbar}>
                <img src={logo} alt='logo' className={classes.logo} />
                <div className={classes.sectionNavLinks}>
                   <div style={{ display: 'flex' }}>
@@ -498,6 +516,7 @@ export default function PrimarySearchAppBar() {
                      aria-haspopup='true'
                      onClick={handleMobileMenuOpen}
                      color='inherit'
+                     className={classes.expandBtn}
                   >
                      <MoreIcon />
                   </IconButton>

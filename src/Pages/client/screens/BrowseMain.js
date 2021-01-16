@@ -5,6 +5,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MusicCard from '../../../Components/client/MusicCard';
 import Carousel from 'react-elastic-carousel';
 import '../../../assets/BrowseStyle.css';
+import { genMediaQuery } from '../../../Styles/constants';
 
 const tutorialSteps = [
    {
@@ -71,8 +72,14 @@ const tutorialSteps = [
 
 const useStyles = makeStyles((theme) => ({
    menuList: {
-      fontSize: '0.8rem',
+      fontSize: '1.2em',
+      [genMediaQuery('xs')]: {
+         fontSize: '2.5em',
+      },
       color: '#fff',
+      [genMediaQuery('xs', 375)]: {
+         fontSize: '2.5em',
+      },
       '&:hover': {
          color: '#b33458',
          backgroundColor: '#1b3870',
@@ -80,7 +87,13 @@ const useStyles = makeStyles((theme) => ({
       },
    },
    menuList2: {
-      fontSize: '0.9rem',
+      fontSize: '1.2em',
+      [genMediaQuery('xs')]: {
+         fontSize: '2.5em',
+      },
+      [genMediaQuery('xs', 375)]: {
+         fontSize: '2.5em',
+      },
       color: '#fff',
       '&:hover': {
          //  // color: "#b33458",
@@ -89,6 +102,26 @@ const useStyles = makeStyles((theme) => ({
          borderBottom: 2,
          borderColor: '#0984e3',
          borderBottomStyle: 'solid',
+      },
+   },
+   SecondNav: {
+      display: 'flex',
+      height: '5%',
+      // flexWrap: 'wrap',
+      justifyContent: 'space-around',
+
+      [genMediaQuery('lg', 2440)]: {
+         paddingLeft: 'unset',
+         overflowX: 'unset',
+         maxWidth: 'unset',
+      },
+      [genMediaQuery('xs')]: {
+         paddingLeft: 700,
+         overflowX: 'scroll',
+         maxWidth: 800,
+         '& li': {
+            minWidth: 'fit-content',
+         },
       },
    },
 }));
@@ -139,7 +172,7 @@ function BrowseMain() {
             }}
          >
             <Grid item>
-               <div style={{ display: 'flex', height: '5%' }}>
+               <div className={classes.SecondNav}>
                   {Lists.map((list) => (
                      <MenuItem
                         value={slug}
@@ -157,6 +190,8 @@ function BrowseMain() {
                      height: '5%',
                      paddingLeft: '2%',
                      paddingTop: '1%',
+                     // flexWrap: 'wrap',
+                     justifyContent: 'space-around',
                   }}
                >
                   {list2.map((list) => (
