@@ -9,6 +9,7 @@ import '../../../assets/BrowseStyle.css';
 import { genMediaQuery } from '../../../Styles/constants';
 import { GlobalData } from '../../../App';
 import { getTrending } from '../../../Pagesactions/songsactions';
+import ArtistsCard from '../../../Components/client/ArtistsCards';
 
 const tutorialSteps = [
    {
@@ -75,7 +76,7 @@ const tutorialSteps = [
 
 const useStyles = makeStyles((theme) => ({
    menuList: {
-      fontSize: '1.2em',
+      fontSize: '1em',
       [genMediaQuery('xs')]: {
          fontSize: '2.5em',
       },
@@ -90,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
       },
    },
    menuList2: {
-      fontSize: '1.2em',
+      fontSize: '1em',
       [genMediaQuery('xs')]: {
          fontSize: '2.5em',
       },
@@ -117,8 +118,10 @@ const useStyles = makeStyles((theme) => ({
          paddingLeft: 'unset',
          overflowX: 'unset',
          maxWidth: 'unset',
+         margin: '10px 0',
       },
       [genMediaQuery('xs')]: {
+         margin: '20px 0',
          paddingLeft: 700,
          overflowX: 'scroll',
          maxWidth: 800,
@@ -151,6 +154,7 @@ const BrowseMain = (props) => {
    const [list2Item, setList2Item] = useState('All');
    const [allChunks, setAllChunks] = useState([]);
    const [trending, setTrending] = useState();
+   const [showArtists, setShowArtists] = useState(false);
 
    const [isFetching, setIsFetching] = useState(true);
 
@@ -218,7 +222,12 @@ const BrowseMain = (props) => {
          }
          const allChunksNew = all.chunk(18);
          setAllChunks([...allChunksNew, ...trendingChunks]);
-      } else if (slug.toLowerCase() === 'albums') {
+      } else if (slug.toLowerCase() === 'artists') {
+         setShowArtists(true);
+      }
+
+      if (slug.toLowerCase() !== 'artists') {
+         setShowArtists(false);
       }
       // console.log(data[slug].chunk(18));
    }, [slug]);
@@ -259,7 +268,7 @@ const BrowseMain = (props) => {
             alignContent: 'center',
             alignItems: 'center',
             margin: window.screen.width >= 768 ? 'auto' : 10,
-            width: window.screen.width >= 768 ? '85%' : '98%',
+            // width: window.screen.width >= 768 ? '85%' : '98%',
          }}
       >
          <Grid
@@ -324,7 +333,33 @@ const BrowseMain = (props) => {
                      // itemsToShow={window.screen.width >= 768 ? 6 : 2}
                      // itemsToScroll={window.screen.width >= 768 ? 6 : 2}
                   >
-                     {allChunks &&
+                     {showArtists === true ? (
+                        <Grid
+                           container
+                           justify='flex-start'
+                           spacing={2}
+                        >
+                           {data.artists &&
+                              data.artists.length > 0 &&
+                              data.artists.map((artist) => (
+                                 <Grid
+                                    key={artist._id}
+                                    item
+                                    xs={6}
+                                    sm={3}
+                                    md={2}
+                                 >
+                                    <ArtistsCard
+                                       imgPath={artist.artistimage}
+                                       title={artist.artistname}
+                                       label={artist.label}
+                                       isArtist={true}
+                                    />
+                                 </Grid>
+                              ))}
+                        </Grid>
+                     ) : (
+                        allChunks &&
                         allChunks.length > 0 &&
                         allChunks.map((item) => (
                            <div
@@ -353,12 +388,14 @@ const BrowseMain = (props) => {
                                           imgPath={value.songimage}
                                           title={value.songname}
                                           label={value.label}
+                                          isArtist={false}
                                        />
                                     </Grid>
                                  ))}
                               </Grid>
                            </div>
-                        ))}
+                        ))
+                     )}
                   </Carousel>
                )}
             </Grid>
