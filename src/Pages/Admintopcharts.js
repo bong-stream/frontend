@@ -40,7 +40,7 @@ const Admintopcharts = () => {
   };
 
   const handleId = async (id) => {
-    console.log(id);
+    // console.log(id);
     setId(id);
   };
 
@@ -57,7 +57,7 @@ const Admintopcharts = () => {
     // addTrending(data);
     let res;
     res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
+    // console.log(res);
 
     setUpdateData(true);
   };
@@ -72,13 +72,13 @@ const Admintopcharts = () => {
     let topcharts = [...filterCharts];
     let res;
     res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
+    // console.log(res);
     setId();
     setUpdateData(true);
   };
 
   const handleAddNewList = async (data) => {
-    console.log(data);
+    // console.log(data);
     fetchedTopcharts.map((value) => {
       if (value.id === id) {
         value.topchart = data;
@@ -88,7 +88,7 @@ const Admintopcharts = () => {
     let topcharts = [...yoo];
     let res;
     res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
@@ -102,12 +102,12 @@ const Admintopcharts = () => {
     let topcharts = [...yoo];
     let res;
     res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
   const handleNewSort = (sortedArray) => {
-    console.log(sortedArray);
+    // console.log(sortedArray);
     setSortedList(sortedArray);
     setSortState(true);
   };
@@ -123,7 +123,7 @@ const Admintopcharts = () => {
     let topcharts = [...yoo];
     let res;
     res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
@@ -143,7 +143,7 @@ const Admintopcharts = () => {
     let topcharts = [...yoo];
     let res;
     res = await editTopcharts({ topcharts: topcharts, active: active });
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
@@ -151,7 +151,7 @@ const Admintopcharts = () => {
     const fetchTopcharts = async () => {
       let allTopcharts;
       allTopcharts = await getTopcharts();
-      console.log(allTopcharts);
+      // console.log(allTopcharts);
       setFetchedTopcharts(allTopcharts[0].topcharts);
       setActive(allTopcharts[0].active);
       setSortedList(allTopcharts[0].topcharts);
@@ -168,7 +168,7 @@ const Admintopcharts = () => {
         <br />
         <br />
         <div className="row">
-          {console.log(fetchedTopcharts)}
+          {/* {console.log(fetchedTopcharts)} */}
           <div className="col-12 col-md-8">
             {fetchedTopcharts ? (
               <Tabsvertical

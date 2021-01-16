@@ -8,7 +8,7 @@ const getArtists = async () => {
 
   artists = await axios.get(`${url}/api/artist`);
   // artists = await axios.get(`http://localhost:3001/api/artist`);
-  console.log(artists);
+  // console.log(artists);
   return artists.data;
 };
 
@@ -17,7 +17,7 @@ const findArtist = async (id) => {
 
   artist = await axios.get(`${url}/api/artist/${id}`);
   // artists = await axios.get(`http://localhost:3001/api/artist`);
-  console.log(artist);
+  // console.log(artist);
   return artist.data;
 };
 
@@ -25,13 +25,13 @@ const activeArtists = async (active, id) => {
   let artists;
   let data = { active, id };
   artists = await axios.put(`${url}/api/artist/activeartists`, data);
-  console.log(artists);
+  // console.log(artists);
   return artists.data;
 };
 
 const addArtists = async (data, albums, songs) => {
   let artists;
-  console.log(data, albums, songs);
+  // console.log(data, albums, songs);
   let artistsData = {
     data,
     albums,
@@ -40,25 +40,25 @@ const addArtists = async (data, albums, songs) => {
 
   artists = await axios.post(`${url}/api/artist`, artistsData);
   // artists = await axios.post(`http://localhost:3001/api/artist`, artistsData);
-  console.log(artists.data);
+  // console.log(artists.data);
   return artists.data;
 };
 
 const editArtists = async (data) => {
   let artists;
 
-  console.log(data);
+  // console.log(data);
 
   artists = await axios.put(`${url}/api/artist`, data);
   // artists = await axios.put(`http://localhost:3001/api/artist`, data);
-  console.log(artists.data);
+  // console.log(artists.data);
   return artists.data;
 };
 
 const deleteArtists = async (id) => {
   let artists;
 
-  console.log(id);
+  // console.log(id);
 
   const response = await axios({
     method: `DELETE`,
@@ -68,7 +68,7 @@ const deleteArtists = async (id) => {
       id: id,
     },
   });
-  console.log(response);
+  // console.log(response);
   // console.log(artists.data);
   // return artists.data;
 };

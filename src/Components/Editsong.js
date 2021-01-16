@@ -65,7 +65,7 @@ export default function Editsong({
   });
   const classes = useStyles();
 
-  console.log(open, data);
+  // console.log(open, data);
 
   const [allArtists, setAllArtists] = useState([]);
   const [foundArtists, setFoundArtists] = useState([]);
@@ -80,7 +80,7 @@ export default function Editsong({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(state);
+    // console.log(state);
     handleEditSong(state);
     handleCloseEdit();
     // setState({
@@ -103,7 +103,7 @@ export default function Editsong({
   };
 
   const handleRelatedSongsToggle = () => {
-    console.log("yoo");
+    // console.log("yoo");
     setEditRelatedSongs(!editRelatedSongs);
     setAddRelatedSongs(false);
   };
@@ -130,14 +130,14 @@ export default function Editsong({
 
   const handleSelectedAddArtists = (data) => {
     let yoo;
-    console.log(foundArtists);
-    console.log(data);
+    // console.log(foundArtists);
+    // console.log(data);
 
     yoo = data.map((artist) => {
       return artist._id;
     });
 
-    console.log(yoo);
+    // console.log(yoo);
 
     setFoundArtists(data);
     setState({
@@ -148,8 +148,8 @@ export default function Editsong({
 
   const handleSelectedAddSongs = (data) => {
     let ids = [];
-    console.log(foundSongs);
-    console.log(data);
+    // console.log(foundSongs);
+    // console.log(data);
     // foundAlbums.map((yoo) => {
     //   dub = data.filter((subData) => {
     //     return subData._id !== yoo;
@@ -167,12 +167,12 @@ export default function Editsong({
       songs: ids,
     });
 
-    console.log(ids);
-    console.log(data);
+    // console.log(ids);
+    // console.log(data);
   };
 
   const deleteAlbumArtists = async (id) => {
-    console.log(id);
+    // console.log(id);
 
     await setFoundArtists("");
     await setState({
@@ -194,7 +194,7 @@ export default function Editsong({
         ids.push(song._id);
       }
     });
-    console.log(ids);
+    // console.log(ids);
     await setFoundSongs(yoo);
     await setState({
       ...state,
@@ -208,7 +208,7 @@ export default function Editsong({
       let filterArtists = [];
       allArtists = await getArtists();
       setAllArtists(allArtists);
-      console.log(allArtists);
+      // console.log(allArtists);
 
       state.artists.map((artistId) => {
         allArtists.filter((artist) => {
@@ -218,7 +218,7 @@ export default function Editsong({
         });
       });
 
-      console.log(filterArtists);
+      // console.log(filterArtists);
       await setFoundArtists(filterArtists);
     };
 
@@ -226,7 +226,7 @@ export default function Editsong({
       let allSongs;
       let filterSongs = [];
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setFetchedSongs(allSongs);
 
       state.relatedSongs.map((songId) => {
@@ -237,7 +237,7 @@ export default function Editsong({
         });
       });
 
-      console.log(filterSongs);
+      // console.log(filterSongs);
       await setFoundSongs(filterSongs);
     };
 
@@ -247,7 +247,7 @@ export default function Editsong({
 
   return (
     <div>
-      {console.log(state)}
+      {/* {console.log(state)} */}
       <Dialog
         open={open}
         onClose={handleCloseEdit}
@@ -416,7 +416,7 @@ export default function Editsong({
                       </div>
                     </div>
                     <div>
-                      {console.log(foundArtists)}
+                      {/* {console.log(foundArtists)} */}
                       {editArtists ? (
                         <List>
                           {foundArtists.map((artist) => {
@@ -426,7 +426,7 @@ export default function Editsong({
                                   primary={artist.artistname}
                                   // secondary={secondary ? "Secondary text" : null}
                                 />
-                                {console.log(artist.artistname)}
+                                {/* {console.log(artist.artistname)} */}
                                 <ListItemSecondaryAction>
                                   <IconButton edge="end" aria-label="delete">
                                     <DeleteForeverIcon
@@ -478,7 +478,7 @@ export default function Editsong({
                       </div>
                     </div> */}
                     {/* <div>
-                      {console.log(foundArtists)}
+                      // {console.log(foundArtists)}
                       {editArtists ? (
                         <List>
                           {foundArtists.map((artist) => {
@@ -488,7 +488,7 @@ export default function Editsong({
                                   primary={artist.artistname}
                                   // secondary={secondary ? "Secondary text" : null}
                                 />
-                                {console.log(artist.artistname)}
+                                // {console.log(artist.artistname)}
                                 <ListItemSecondaryAction>
                                   <IconButton edge="end" aria-label="delete">
                                     <DeleteForeverIcon

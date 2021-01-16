@@ -41,7 +41,7 @@ export default function Selectsongsforartist({ data, selectArtists }) {
   //   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setChecked(event.target.value);
   };
 
@@ -57,11 +57,11 @@ export default function Selectsongsforartist({ data, selectArtists }) {
         // value={checked}
         onChange={handleChange}
       >
-        {console.log(data)}
+        {/* {console.log(data)} */}
         {data.map((value) => {
           const labelId = `checkbox-list-label-${value}`;
-          console.log(labelId);
-          console.log(value);
+          // console.log(labelId);
+          // console.log(value);
 
           return (
             <FormControlLabel

@@ -21,16 +21,16 @@ const Topalbums = () => {
   };
 
   const handleClose = () => {
-    console.log("i am running");
+    // console.log("i am running");
     setOpen(false);
   };
 
   const handleAddTrending = async (data) => {
-    console.log(data);
+    // console.log(data);
     // addTrending(data);
     let res;
     res = await editTopalbums({ topalbums: data, active: active });
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
@@ -42,19 +42,19 @@ const Topalbums = () => {
   };
 
   const handleDeleteSong = async (id) => {
-    console.log(id);
+    // console.log(id);
     let trendingSongs = trending[0].trending;
     let filterSongs;
     filterSongs = await trendingSongs.filter((song) => {
       return song._id !== id;
     });
-    console.log(filterSongs);
+    // console.log(filterSongs);
     // setTrending(filterSongs)
     let res;
     res = await editTopalbums({ topalbums: filterSongs, active: active });
-    console.log(res);
+    // console.log(res);
     if (res) {
-      console.log("i am running");
+      // console.log("i am running");
       setUpdateData(true);
     }
   };
@@ -66,8 +66,8 @@ const Topalbums = () => {
   };
 
   const handleSortList = async () => {
-    console.log("hello g");
-    console.log(sortedList);
+    // console.log("hello g");
+    // console.log(sortedList);
     setSortState(false);
     let res;
     res = await editTopalbums({ topalbums: sortedList, active: active });
@@ -78,7 +78,7 @@ const Topalbums = () => {
     const fetchTrending = async () => {
       let allTrending;
       allTrending = await getTopalbums();
-      console.log(allTrending);
+      // console.log(allTrending);
       setTrending(allTrending);
       setActive(allTrending[0].active);
       setSortedList(allTrending);
@@ -137,7 +137,7 @@ const Topalbums = () => {
                       " Top Albums List is Empty"
                     ) : (
                       <div style={{ width: "100%" }}>
-                        {console.log(trending[0].topalbums)}
+                        {/* {console.log(trending[0].topalbums)} */}
                         {trending ? (
                           <Topalbumtable
                             data={trending[0].topalbums}

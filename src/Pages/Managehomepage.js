@@ -55,7 +55,7 @@ const Managehomepage = () => {
   const [users, setUsers] = useState(undefined);
 
   const handleChange = async (active, label) => {
-    console.log(active, label);
+    // console.log(active, label);
 
     if (label === "Trending") {
       await editTrending({ active, trending: trending });
@@ -64,7 +64,7 @@ const Managehomepage = () => {
       await editPopular({ active, popular: popular });
       setActivePopular(active);
     } else if (label === "Bongplaylist") {
-      console.log(active, bongplaylist);
+      // console.log(active, bongplaylist);
       await editBongplaylist({ active, bongplaylist: bongplaylist });
       setActiveBongplaylist(active);
     } else if (label === "Topalbums") {
@@ -92,7 +92,7 @@ const Managehomepage = () => {
       topcharts;
     const fetch = async () => {
       trending = await getTrending();
-      console.log("helo trending", trending);
+      // console.log("helo trending", trending);
       setActiveTrending(trending[0].active);
       setTrending(trending[0].trending);
       popular = await getPopular();
@@ -101,7 +101,7 @@ const Managehomepage = () => {
       bongplaylist = await getBongplaylist();
       setActiveBongplaylist(bongplaylist[0].active);
       setBongplaylist(bongplaylist[0].bongplaylist);
-      console.log(bongplaylist[0].bongplaylist);
+      // console.log(bongplaylist[0].bongplaylist);
       recommended = await getRecommended();
       setActiveRecommended(recommended[0].active);
       setRecommended(recommended[0].recommended);
@@ -112,40 +112,40 @@ const Managehomepage = () => {
       setActiveTopartists(topartists[0].active);
       setTopartists(topartists[0].topartists);
       topcharts = await getTopcharts();
-      console.log(topcharts);
+      // console.log(topcharts);
       setActiveTopcharts(topcharts[0].active);
       setTopcharts(topcharts[0].topcharts);
-      console.log(topcharts[0].topcharts);
+      // console.log(topcharts[0].topcharts);
       setFetchDone(true);
-      console.log("i am done");
+      // console.log("i am done");
     };
     fetch();
 
     const fetchAlbums = async () => {
       let allAlbums;
       allAlbums = await getAlbums();
-      console.log(allAlbums);
+      // console.log(allAlbums);
       setAlbums(allAlbums);
     };
 
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setSongs(allSongs);
     };
 
     const fetchArtists = async () => {
       let allArtists;
       allArtists = await getArtists();
-      console.log(allArtists);
+      // console.log(allArtists);
       setArtists(allArtists);
     };
 
     const fetchUsers = async () => {
       let allUsers;
       allUsers = await getUsers();
-      console.log(allUsers);
+      // console.log(allUsers);
       setUsers(allUsers);
     };
 

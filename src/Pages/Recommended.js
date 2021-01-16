@@ -25,11 +25,11 @@ const Recommended = () => {
   };
 
   const handleAddTrending = async (data) => {
-    console.log(data);
+    // console.log(data);
     // addTrending(data);
     let res;
     res = await editRecommended({ recommended: data, active: active });
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
@@ -41,32 +41,32 @@ const Recommended = () => {
   };
 
   const handleDeleteSong = async (id) => {
-    console.log(id);
+    // console.log(id);
     let trendingSongs = trending[0].trending;
     let filterSongs;
     filterSongs = await trendingSongs.filter((song) => {
       return song._id !== id;
     });
-    console.log(filterSongs);
+    // console.log(filterSongs);
     // setTrending(filterSongs)
     let res;
     res = await editRecommended({ recommended: filterSongs, active: active });
-    console.log(res);
+    // console.log(res);
     if (res) {
-      console.log("i am running");
+      // console.log("i am running");
       setUpdateData(true);
     }
   };
 
   const handleNewSort = (sortedArray) => {
-    // console.log(sortedArray);
+    console.log(sortedArray);
     setSortedList(sortedArray);
     setSortState(true);
   };
 
   const handleSortList = async () => {
-    console.log("hello g");
-    console.log(sortedList);
+    // console.log("hello g");
+    // console.log(sortedList);
     setSortState(false);
     let res;
     res = await editRecommended({ recommended: sortedList, active: active });
@@ -77,7 +77,7 @@ const Recommended = () => {
     const fetchTrending = async () => {
       let allTrending;
       allTrending = await getRecommended();
-      console.log(allTrending);
+      // console.log(allTrending);
       setTrending(allTrending);
       setActive(allTrending[0].active);
       setSortedList(allTrending);
@@ -136,7 +136,7 @@ const Recommended = () => {
                       " Recommended List is Empty"
                     ) : (
                       <div style={{ width: "100%" }}>
-                        {console.log(trending[0].recommended)}
+                        {/* {console.log(trending[0].recommended)} */}
                         {trending ? (
                           <Trendingtable
                             data={trending[0].recommended}

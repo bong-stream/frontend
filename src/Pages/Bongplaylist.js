@@ -45,11 +45,11 @@ const Bongplaylist = () => {
   };
 
   const handleAddTrending = async (data) => {
-    console.log(data);
+    // console.log(data);
     // addTrending(data);
     let res;
     res = await editBongplaylist({ bongplaylist: data, active: active });
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
@@ -61,33 +61,33 @@ const Bongplaylist = () => {
   };
 
   const handleDeleteSong = async (id) => {
-    console.log(id);
-    console.log(id, trending);
+    // console.log(id);
+    // console.log(id, trending);
     let trendingSongs = trending[0].bongplaylist;
     let filterSongs;
     filterSongs = await trendingSongs.filter((song) => {
       return song._id !== id;
     });
-    console.log(filterSongs);
+    // console.log(filterSongs);
     // setTrending(filterSongs)
     let res;
     res = await editBongplaylist({ bongplaylist: filterSongs, active: active });
-    console.log(res);
+    // console.log(res);
     if (res) {
-      console.log("i am running");
+      // console.log("i am running");
       setUpdateData(true);
     }
   };
 
   const handleNewSort = (sortedArray) => {
-    // console.log(sortedArray);
+    console.log(sortedArray);
     setSortedList(sortedArray);
     setSortState(true);
   };
 
   const handleSortList = async () => {
-    console.log("hello g");
-    console.log(sortedList);
+    // console.log("hello g");
+    // console.log(sortedList);
     setSortState(false);
     let res;
     res = await editBongplaylist({ bongplaylist: sortedList, active: active });
@@ -98,7 +98,7 @@ const Bongplaylist = () => {
     const fetchTrending = async () => {
       let allTrending;
       allTrending = await getBongplaylist();
-      console.log(allTrending);
+      // console.log(allTrending);
       setTrending(allTrending);
       setActive(allTrending[0].active);
       setSortedList(allTrending);
@@ -157,7 +157,7 @@ const Bongplaylist = () => {
                       " Bongplaylist List is Empty"
                     ) : (
                       <div style={{ width: "100%" }}>
-                        {console.log(trending[0].bongplaylist)}
+                        {/* {console.log(trending[0].bongplaylist)} */}
                         <List className={classes.root}>
                           <ListItem button>
                             <ListItemAvatar>

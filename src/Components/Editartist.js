@@ -54,7 +54,7 @@ export default function Editartist({
     country: data.country,
     lastname: data.lastname,
   });
-  console.log(data);
+  // console.log(data);
   const classes = useStyles();
 
   const [allAlbums, setAllAlbums] = useState([]);
@@ -93,7 +93,7 @@ export default function Editartist({
         ids.push(album._id);
       }
     });
-    console.log(ids);
+    // console.log(ids);
     await setFoundAlbums(yoo);
     await setState({
       ...state,
@@ -114,7 +114,7 @@ export default function Editartist({
         ids.push(song._id);
       }
     });
-    console.log(ids);
+    // console.log(ids);
     await setFoundSongs(yoo);
     await setState({
       ...state,
@@ -144,8 +144,8 @@ export default function Editartist({
 
   const handleSelectedAddAlbums = (data) => {
     let ids = [];
-    console.log(foundAlbums);
-    console.log(data);
+    // console.log(foundAlbums);
+    // console.log(data);
     // foundAlbums.map((yoo) => {
     //   dub = data.filter((subData) => {
     //     return subData._id !== yoo;
@@ -163,14 +163,14 @@ export default function Editartist({
       albums: ids,
     });
 
-    console.log(ids);
-    console.log(data);
+    // console.log(ids);
+    // console.log(data);
   };
 
   const handleSelectedAddSongs = (data) => {
     let ids = [];
-    console.log(foundSongs);
-    console.log(data);
+    // console.log(foundSongs);
+    // console.log(data);
     // foundAlbums.map((yoo) => {
     //   dub = data.filter((subData) => {
     //     return subData._id !== yoo;
@@ -188,13 +188,13 @@ export default function Editartist({
       songs: ids,
     });
 
-    console.log(ids);
-    console.log(data);
+    // console.log(ids);
+    // console.log(data);
   };
 
-  const handleDeleteAlbum = useMemo(() => console.log(foundSongs), [
-    foundSongs,
-  ]);
+  // const handleDeleteAlbum = useMemo(() => console.log(foundSongs), [
+  //   foundSongs,
+  // ]);
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -202,7 +202,7 @@ export default function Editartist({
       let filterAlbums = [];
       allAlbums = await getAlbums();
       setAllAlbums(allAlbums);
-      console.log(allAlbums);
+      // console.log(allAlbums);
       state.albums.map((albumId) => {
         allAlbums.filter((album) => {
           if (album._id === albumId) {
@@ -219,7 +219,7 @@ export default function Editartist({
       let filterSongs = [];
       allSongs = await getSongs();
       setAllSongs(allSongs);
-      console.log(allSongs);
+      // console.log(allSongs);
       state.songs.map((songId) => {
         allSongs.filter((song) => {
           if (song._id === songId) {
@@ -371,7 +371,7 @@ export default function Editartist({
                               {foundAlbums.map((album) => {
                                 return (
                                   <ListItem key={album._id}>
-                                    {console.log()}
+                                    {/* {console.log()} */}
                                     <ListItemText
                                       primary={album.albumname}
                                       // secondary={secondary ? "Secondary text" : null}

@@ -20,11 +20,11 @@ export default function Selectalbumfortopalbums({ data, selectAlbums }) {
   const [checked, setChecked] = React.useState([]);
 
   const handleToggle = (value) => async () => {
-    console.log(value);
+    // console.log(value);
     const currentIndex = checked.indexOf(value);
-    console.log(currentIndex);
+    // console.log(currentIndex);
     const newChecked = [...checked];
-    console.log(newChecked);
+    // console.log(newChecked);
 
     if (currentIndex === -1) {
       newChecked.push(value);
@@ -47,8 +47,8 @@ export default function Selectalbumfortopalbums({ data, selectAlbums }) {
           <List className={classes.root}>
             {data.map((value) => {
               const labelId = `checkbox-list-label-${value}`;
-              console.log(labelId);
-              console.log(value);
+              // console.log(labelId);
+              // console.log(value);
 
               return (
                 <ListItem

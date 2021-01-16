@@ -41,38 +41,38 @@ const Songs = () => {
 
   const handleClickOpenEdit = (data) => {
     setOpenEdit(true);
-    console.log(data);
+    // console.log(data);
     setEditSongData(data);
   };
 
   const handleCloseEdit = () => {
     setOpenEdit(false);
     setEditSongData();
-    console.log(editSongData);
+    // console.log(editSongData);
   };
 
   const handleEditSong = async (data) => {
-    console.log(data);
+    // console.log(data);
     let res;
     res = await editSongs(data);
     setUpdateData(true);
   };
 
   const addSong = async (data) => {
-    console.log(data);
+    // console.log(data);
     let res;
     res = await addSongs(data);
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
   // const editSong = (data) => {
-  //   console.log(data);
+  // console.log(data);
   //   editSongs(data);
   //   setUpdateData(true);
   // };
   const deleteSong = async (id) => {
-    console.log(id);
+    // console.log(id);
     let res;
     res = await deleteSongs(id);
     setUpdateData(true);
@@ -82,14 +82,14 @@ const Songs = () => {
     let allSongs = [];
     const fetchSongs = async () => {
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setSongs(allSongs);
 
       let count = 0;
       allSongs.map((song) => {
         count += song.noofplays;
       });
-      console.log(count);
+      // console.log(count);
       // setTotalPlays(count);
     };
     // const countPlays = () => {

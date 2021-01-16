@@ -23,7 +23,7 @@ const Tabsvertical = ({ data, handleDeleteSong, handleNewSort, handleId }) => {
   const [color, setColor] = useState(false);
 
   const handleClick = (id) => {
-    console.log(id);
+    // console.log(id);
     setId(id);
     handleId(id);
     setColor(true);
@@ -31,7 +31,7 @@ const Tabsvertical = ({ data, handleDeleteSong, handleNewSort, handleId }) => {
   };
   return (
     <div>
-      {console.log(data)}
+      {/* {console.log(data)} */}
       <div class="row">
         <div className="col-2"></div>
         <div class="col-3">
@@ -71,7 +71,7 @@ const Tabsvertical = ({ data, handleDeleteSong, handleNewSort, handleId }) => {
             <div className="col-10 col-md-12">
               {active ? (
                 <div class="tab-content" id="v-pills-tabContent">
-                  {console.log(data.length)}
+                  {/* {console.log(data.length)} */}
                   {data.map((value) => (
                     <div
                       class={`tab-pane fade show  ${

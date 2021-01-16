@@ -71,8 +71,8 @@ const Addsong = ({ open, addSong, handleClose }) => {
 
   const handleAddSong = useCallback(async (evt) => {
     evt.preventDefault();
-    console.log(state);
-    console.log(file);
+    // console.log(state);
+    // console.log(file);
 
     const data = new FormData();
     data.append("songname", state.songname);
@@ -109,7 +109,7 @@ const Addsong = ({ open, addSong, handleClose }) => {
   }
 
   const handleArtists = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
@@ -121,11 +121,11 @@ const Addsong = ({ open, addSong, handleClose }) => {
   });
 
   const handleSongs = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
-    console.log(ids);
+    // console.log(ids);
     await setSelectSongs(ids);
     setState({
       ...state,
@@ -134,7 +134,7 @@ const Addsong = ({ open, addSong, handleClose }) => {
   });
 
   const handleImage = (id, image) => {
-    console.log(image);
+    // console.log(image);
     setState({
       ...state,
       songimage: image,
@@ -149,21 +149,21 @@ const Addsong = ({ open, addSong, handleClose }) => {
     const fetchAlbums = async () => {
       let allAlbums;
       allAlbums = await getAlbums();
-      console.log(allAlbums);
+      // console.log(allAlbums);
       setFetchedAlbums(allAlbums);
     };
 
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setFetchedSongs(allSongs);
     };
 
     const fetchArtists = async () => {
       let allArtists;
       allArtists = await getArtists();
-      console.log(allArtists);
+      // console.log(allArtists);
       setFetchedArtists(allArtists);
     };
 
@@ -174,7 +174,7 @@ const Addsong = ({ open, addSong, handleClose }) => {
 
   return (
     <div>
-      {console.log(state)}
+      {/* {console.log(state)} */}
       <Dialog
         open={open}
         onClose={handleClose}

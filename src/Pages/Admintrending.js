@@ -47,12 +47,12 @@ const Admintrending = () => {
   };
 
   const handleAddTrending = async (data) => {
-    console.log(data);
+    // console.log(data);
     // addTrending(data);
     let res;
-    console.log(trending);
+    // console.log(trending);
     res = await editTrending({ trending: data, active: active });
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
@@ -65,35 +65,35 @@ const Admintrending = () => {
   };
 
   const handleDeleteSong = async (id) => {
-    console.log(id);
+    // console.log(id);
     let trendingSongs = trending[0].trending;
     let filterSongs;
     filterSongs = await trendingSongs.filter((song) => {
       return song._id !== id;
     });
-    console.log(filterSongs);
+    // console.log(filterSongs);
     // setTrending(filterSongs)
     let res;
     res = await editTrending({
       trending: filterSongs,
       active: active,
     });
-    console.log(res);
+    // console.log(res);
     if (res) {
-      console.log("i am running");
+      // console.log("i am running");
       setUpdateData(true);
     }
   };
 
   const handleNewSort = (sortedArray) => {
-    // console.log(sortedArray);
+    console.log(sortedArray);
     setSortedList(sortedArray);
     setSortState(true);
   };
 
   const handleSortList = async () => {
-    console.log("hello g");
-    console.log(sortedList);
+    // console.log("hello g");
+    // console.log(sortedList);
     setSortState(false);
     let res;
     res = await editTrending({ trending: sortedList, active: active });
@@ -104,7 +104,7 @@ const Admintrending = () => {
     const fetchTrending = async () => {
       let allTrending;
       allTrending = await getTrending();
-      console.log(allTrending);
+      // console.log(allTrending);
       setTrending(allTrending);
       setActive(allTrending[0].active);
       setSortedList(allTrending);
@@ -164,7 +164,7 @@ const Admintrending = () => {
                       " Trending List is Empty"
                     ) : (
                       <div style={{ width: "100%" }}>
-                        {console.log(trending[0].trending)}
+                        {/* {console.log(trending[0].trending)} */}
                         <List className={classes.root}>
                           <ListItem button>
                             <ListItemAvatar>

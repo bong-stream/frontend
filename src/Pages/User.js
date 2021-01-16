@@ -62,13 +62,13 @@ const User = () => {
       let allUsers;
       let activeUsers;
       allUsers = await getUsers();
-      console.log(allUsers);
+      // console.log(allUsers);
       setUsers({ users: allUsers, columnToSort: "", sortDirection: "" });
 
       activeUsers = allUsers.filter((user) => {
         return user.active === true;
       });
-      console.log(activeUsers);
+      // console.log(activeUsers);
       setTotalActiveUsers(activeUsers.length);
     };
 
@@ -77,7 +77,7 @@ const User = () => {
   }, [updateData]);
 
   const handleUpdateData = () => {
-    console.log("i am yoooo");
+    // console.log("i am yoooo");
     setUpdateData(true);
   };
 
@@ -102,27 +102,27 @@ const User = () => {
   };
 
   const handleAddUser = async (data) => {
-    console.log(data);
+    // console.log(data);
     let res = await addUsers(data);
     setUpdateData(true);
   };
 
   const handleEditData = (data) => {
-    console.log(data);
+    // console.log(data);
     setEditData(data);
     handleToggleEditUser();
   };
 
   const handleEdit = async (data) => {
-    console.log(data);
+    // console.log(data);
     let res;
     res = await editUsers(data);
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
   const handleActiveChange = async (active, id) => {
-    console.log(active, id);
+    // console.log(active, id);
     let res = await activeUsers(active, id);
     setUpdateData(true);
   };
@@ -130,9 +130,9 @@ const User = () => {
   const handleSearchChange = (evt) => {
     let yoo;
     setSearchValue(evt.target.value);
-    console.log(evt.target.value);
+    // console.log(evt.target.value);
     yoo = users.users.filter((user) => user.name.includes(evt.target.value));
-    console.log(yoo);
+    // console.log(yoo);
     setSearch(yoo);
   };
 
@@ -153,7 +153,7 @@ const User = () => {
 
   return (
     <div className="main user">
-      {console.log(users)}
+      {/* {console.log(users)} */}
       <div>
         <div className="row">
           <div className="col-1 col-md-0"></div>
@@ -253,7 +253,7 @@ const User = () => {
             </div>
 
             <br />
-            {console.log("i am users", search)}
+            {/* {console.log("i am users", search)} */}
             {users ? (
               <Userstable
                 className="mb-4"

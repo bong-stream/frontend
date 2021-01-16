@@ -7,14 +7,14 @@ const getUsers = async () => {
   let users;
 
   users = await axios.get(`${url}/api/users`);
-  console.log(users);
+  // console.log(users);
   return users.data;
 };
 const addUsers = async (data) => {
   let users;
 
   users = await axios.post(`${url}/api/users/adduser`, data);
-  console.log(users);
+  // console.log(users);
   return users.data;
 };
 
@@ -22,7 +22,7 @@ const editUsers = async (data) => {
   let users;
 
   users = await axios.put(`${url}/api/users/`, data);
-  console.log(users);
+  // console.log(users);
   return users.data;
 };
 
@@ -30,12 +30,12 @@ const activeUsers = async (active, id) => {
   let users;
   let data = { active, id };
   users = await axios.put(`${url}/api/users/activeusers`, data);
-  console.log(users);
+  // console.log(users);
   return users.data;
 };
 
 const deleteUsers = async (id) => {
-  console.log(id);
+  // console.log(id);
 
   const response = await axios({
     method: "DELETE",
@@ -44,7 +44,7 @@ const deleteUsers = async (id) => {
       id: id,
     },
   });
-  console.log(response);
+  // console.log(response);
   // const data = await response.data;
   // console.log(data);
 };

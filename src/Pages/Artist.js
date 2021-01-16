@@ -44,25 +44,25 @@ const Artist = () => {
       let allArtists;
       let activeArtists;
       allArtists = await getArtists();
-      console.log(allArtists);
+      // console.log(allArtists);
       setArtists({ artists: allArtists, columnToSort: "", sortDirection: "" });
       activeArtists = allArtists.filter((user) => {
         return user.active === true;
       });
-      console.log(activeArtists);
+      // console.log(activeArtists);
       setTotalActiveArtists(activeArtists.length);
     };
     const fetchAlbums = async () => {
       let allAlbums;
       allAlbums = await getAlbums();
-      console.log(allAlbums);
+      // console.log(allAlbums);
       setAlbums(allAlbums);
     };
 
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setSongs(allSongs);
     };
 
@@ -89,34 +89,34 @@ const Artist = () => {
   const handleCloseEdit = () => {
     setOpenEdit(false);
     setEditArtistData();
-    console.log(editArtistData);
+    // console.log(editArtistData);
   };
 
   const addArtist = async (data, albums, songs) => {
-    console.log(data, albums, songs);
+    // console.log(data, albums, songs);
     let res;
     res = await addArtists(data, albums, songs);
     setUpdateData(true);
   };
 
   const deleteArtist = async (id) => {
-    console.log(id);
+    // console.log(id);
     let res;
     res = await deleteArtists(id);
     setUpdateData(true);
   };
 
   const editArtist = async (data) => {
-    console.log(data);
+    // console.log(data);
     await setEditArtistData(data);
     setOpenEdit(true);
   };
 
   const handleEditArtist = async (data) => {
-    console.log(data);
+    // console.log(data);
     let res;
     res = await editArtists(data);
-    console.log(res);
+    // console.log(res);
     setUpdateData(true);
   };
 
@@ -125,7 +125,7 @@ const Artist = () => {
   };
 
   const handleView = (data) => {
-    console.log(data);
+    // console.log(data);
     setViewData(data);
     handleToggleView();
   };
@@ -133,13 +133,13 @@ const Artist = () => {
   const handleSearchChange = (evt) => {
     let yoo;
     setSearchValue(evt.target.value);
-    console.log(evt.target.value);
+    // console.log(evt.target.value);
     yoo = artists.artists.filter((user) => {
       return user.artistname
         .toLowerCase()
         .includes(evt.target.value.toLowerCase());
     });
-    console.log(yoo);
+    // console.log(yoo);
     setSearch(yoo);
   };
   const handleSortType = (type, columnName) => {
@@ -157,7 +157,7 @@ const Artist = () => {
     // }));
   };
   const handleActiveChange = async (active, id) => {
-    console.log(active, id);
+    // console.log(active, id);
     let res = await activeArtists(active, id);
     setUpdateData(true);
   };
@@ -289,7 +289,7 @@ const Artist = () => {
               </div>
             </div>
             <br />
-            {console.log(artists)}
+            {/* {console.log(artists)} */}
             {artists ? (
               <Artiststable
                 // data={searchValue.length > 0 ? search : artists.artists}

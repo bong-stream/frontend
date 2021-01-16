@@ -42,7 +42,7 @@ export default function Addtrending({
   const [selectSongs, setSelectSongs] = useState();
 
   const handleSelectSongs = (data) => {
-    console.log(data);
+    // console.log(data);
     setSelectSongs(data);
     handleAddTrending(data);
   };
@@ -51,7 +51,7 @@ export default function Addtrending({
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setFetchedSongs(allSongs);
     };
     fetchSongs();
@@ -59,7 +59,7 @@ export default function Addtrending({
 
   return (
     <div>
-      {console.log(fetchedSongs)}
+      {/* {console.log(fetchedSongs)} */}
       <Dialog
         fullScreen
         open={open}

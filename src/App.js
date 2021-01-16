@@ -91,7 +91,7 @@ function App() {
   return (
     <GlobalData.Provider value={(artists, songs, albums, users)}>
       <div className="App">
-        {console.log(users, artists, songs, albums)}
+        {/* {console.log(users, artists, songs, albums)} */}
 
         <Router>
           <Sidedrawer />

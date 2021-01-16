@@ -49,8 +49,8 @@ export default function Viewartist({
   songs,
 }) {
   const classes = useStyles();
-  console.log(data);
-  console.log(songs);
+  // console.log(data);
+  // console.log(songs);
 
   const [filterAlbums, setFilterAlbums] = useState();
   const [filterSongs, setFilterSongs] = useState();
@@ -74,9 +74,9 @@ export default function Viewartist({
       });
     });
 
-    console.log(yoo);
+    // console.log(yoo);
     setFilterAlbums(yoo);
-    console.log(yoo2);
+    // console.log(yoo2);
     setFilterSongs(yoo2);
   }, []);
 

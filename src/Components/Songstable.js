@@ -46,7 +46,7 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
   const settingKeys = () => {
     let yoo = [];
     for (let key in data[0]) {
-      console.log(key);
+      // console.log(key);
       yoo.push(key);
     }
     setKeys(yoo);
@@ -56,7 +56,7 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
     const fetchArtists = async () => {
       let allArtists;
       allArtists = await getArtists();
-      console.log(allArtists);
+      // console.log(allArtists);
       setArtists(allArtists);
     };
 
@@ -65,18 +65,18 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
   }, [data]);
 
   const hanldeDelete = (id) => {
-    console.log(id);
+    // console.log(id);
     handleDelete(id);
   };
 
   const handleEditButton = (data) => {
-    console.log(data);
+    // console.log(data);
     handleEdit(data);
   };
 
   const findArtistName = (id) => {
     let name;
-    console.log(artists);
+    // console.log(artists);
     name = artists.filter((artist) => {
       return artist._id === id;
     });
@@ -89,7 +89,7 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              {console.log(data)}
+              {/* {console.log(data)} */}
               {/* {keys.map((key) => (
                 <StyledTableCell>{key}</StyledTableCell>
               ))} */}
@@ -110,7 +110,7 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
           <TableBody>
             {data.map((row, idx) => (
               <StyledTableRow key={row._id}>
-                {console.log(row)}
+                {/* {console.log(row)} */}
                 <StyledTableCell align="left">
                   {" "}
                   <Imageavatar imageSrc={row.songimage} />

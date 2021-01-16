@@ -35,7 +35,7 @@ const DragHandle = sortableHandle(() => (
 const SortableItem = sortableElement(
   ({ value, name, classes, handleDelete }) => (
     <ListItem alignItems="flex-start" width="100%">
-      {console.log(value)}
+      {/* {console.log(value)} */}
       <ListItemAvatar>
         <Avatar alt="Remy Sharp" src={value.songimage} />
       </ListItemAvatar>
@@ -74,11 +74,11 @@ const SortableContainer = sortableContainer(({ children, classes }) => {
 
 const Trendingtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
   const classes = useStyles();
-  console.log(data);
+  // console.log(data);
   const [state, setState] = useState(data);
-  console.log(state);
+  // console.log(state);
   const handleDelete = (id) => {
-    console.log(name);
+    // console.log(name);
     handleDeleteSong(id, name);
   };
 
@@ -92,7 +92,7 @@ const Trendingtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
 
   return (
     <SortableContainer onSortEnd={onSortEnd} useDragHandle classes={classes}>
-      {console.log(state)}
+      {/* {console.log(state)} */}
       {state.map((value, index) => (
         <SortableItem
           key={`item-${value._id}`}

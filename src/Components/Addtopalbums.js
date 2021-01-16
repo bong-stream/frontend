@@ -42,7 +42,7 @@ export default function Addtopalbums({
   const [selectAlbums, setSelectAlbums] = useState();
 
   const handleSelectAlbums = (data) => {
-    console.log(data);
+    // console.log(data);
     setSelectAlbums(data);
     handleAddTrending(data);
     handleClose();
@@ -52,7 +52,7 @@ export default function Addtopalbums({
     const fetchAlbums = async () => {
       let allAlbums;
       allAlbums = await getAlbums();
-      console.log(allAlbums);
+      // console.log(allAlbums);
       setFetchedAlbums(allAlbums);
     };
     fetchAlbums();
@@ -60,7 +60,7 @@ export default function Addtopalbums({
 
   return (
     <div>
-      {console.log(fetchedAlbums)}
+      {/* {console.log(fetchedAlbums)} */}
       <Dialog
         fullScreen
         open={open}

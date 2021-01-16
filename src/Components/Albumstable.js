@@ -12,6 +12,7 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import Imageavatar from "../Components/Imageavatar.js";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import Active from "../Components/Active";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -42,6 +43,7 @@ export default function Albumstable({
   handleDelete,
   handleEdit,
   handleView,
+  handleActiveChange,
 }) {
   const classes = useStyles();
   const [keys, setKeys] = useState([]);
@@ -52,7 +54,7 @@ export default function Albumstable({
   const settingKeys = () => {
     let yoo = [];
     for (let key in data[0]) {
-      console.log(key);
+      // console.log(key);
       yoo.push(key);
     }
     setKeys(yoo);
@@ -62,7 +64,7 @@ export default function Albumstable({
     const fetchArtists = async () => {
       let allArtists;
       allArtists = await getArtists();
-      console.log(allArtists);
+      // console.log(allArtists);
       setArtists(allArtists);
     };
 
@@ -71,22 +73,28 @@ export default function Albumstable({
   }, [data]);
 
   const hanldeDelete = (id) => {
-    console.log(id);
+    // console.log(id);
     handleDelete(id);
   };
 
   const handleEditButton = (data) => {
-    console.log(data);
+    // console.log(data);
     handleEdit(data);
   };
 
   const findArtistName = (id) => {
     let name;
-    console.log(artists);
+    // console.log(artists);
     name = artists.filter((artist) => {
       return artist._id === id;
     });
     // return name;
+  };
+
+  const handleActive = (active, id) => {
+    // console.log(active, id);
+    // setActive(active)
+    handleActiveChange(active, id);
   };
 
   return (
@@ -95,7 +103,7 @@ export default function Albumstable({
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              {console.log(data)}
+              {/* {console.log(data)} */}
               <StyledTableCell>Albums Image</StyledTableCell>
               <StyledTableCell>Albums Name</StyledTableCell>
               <StyledTableCell>Artist</StyledTableCell>
@@ -107,7 +115,11 @@ export default function Albumstable({
               <StyledTableCell>Label</StyledTableCell>
               <StyledTableCell>Genres</StyledTableCell>
               <StyledTableCell>Year</StyledTableCell>
+
               <StyledTableCell>_id</StyledTableCell>
+              <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell> Deactivate</StyledTableCell>
+
               <StyledTableCell>Delete</StyledTableCell>
               <StyledTableCell>Edit</StyledTableCell>
               <StyledTableCell>View</StyledTableCell>
@@ -140,7 +152,49 @@ export default function Albumstable({
                 <StyledTableCell>{row.label}</StyledTableCell>
                 <StyledTableCell>{row.genres}</StyledTableCell>
                 <StyledTableCell>{row.year}</StyledTableCell>
+
                 <StyledTableCell>{row._id}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {/* {console.log(row.active)} */}
+                  {row.active ? (
+                    <div style={{ position: "relative" }}>
+                      <div
+                        style={{
+                          backgroundColor: "#32EC5D",
+                          width: "5px",
+                          height: "5px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          right: "-1%",
+                          top: "-5px",
+                        }}
+                      ></div>
+                      Active
+                    </div>
+                  ) : (
+                    <div style={{ position: "relative" }}>
+                      <div
+                        style={{
+                          backgroundColor: "#F91541",
+                          width: "5px",
+                          height: "5px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          right: "-1%",
+                          top: "-5px",
+                        }}
+                      ></div>
+                      Deactivated
+                    </div>
+                  )}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <Active
+                    label={row._id}
+                    handleChange={handleActive}
+                    active={row.active}
+                  />
+                </StyledTableCell>
 
                 <StyledTableCell align="left">
                   <button

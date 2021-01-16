@@ -8,14 +8,14 @@ const getSongs = async () => {
 
   // songs = await axios.get("https://bong-backend.herokuapp.com/api/song");
   songs = await axios.get(`${url}/api/song`);
-  console.log(songs);
+  // console.log(songs);
   return songs.data;
 };
 
 const addSongs = async (data) => {
   let artists;
 
-  console.log(data);
+  // console.log(data);
 
   // axios
   //   .post("https://httpbin.org/anything", data)
@@ -27,23 +27,23 @@ const addSongs = async (data) => {
   //   data
   // );
   artists = await axios.post(`${url}/api/song`, data);
-  console.log(artists.data);
+  // console.log(artists.data);
   return artists.data;
 };
 
 const editSongs = async (data) => {
   let songs;
 
-  console.log(data);
+  // console.log(data);
 
   // songs = await axios.put("https://bong-backend.herokuapp.com/api/song", data);
   songs = await axios.put(`${url}/api/song`, data);
-  console.log(songs.data);
+  // console.log(songs.data);
   return songs.data;
 };
 
 const deleteSongs = async (id) => {
-  console.log(id);
+  // console.log(id);
 
   const response = await axios({
     method: "DELETE",
@@ -53,8 +53,8 @@ const deleteSongs = async (id) => {
       id: id,
     },
   });
-  console.log(response);
-  console.log(response.data);
+  // console.log(response);
+  // console.log(response.data);
   return response.data;
 };
 
@@ -63,7 +63,7 @@ const getTrending = async () => {
 
   // trending = await axios.get("https://bong-backend.herokuapp.com/api/trending");
   trending = await axios.get(`${url}/api/trending`);
-  console.log(trending);
+  // console.log(trending);
   return trending.data;
 };
 
@@ -84,10 +84,10 @@ const editTrending = async (data) => {
   //   "https://bong-backend.herokuapp.com/api/trending",
   //   data
   // );
-  console.log(data);
+  // console.log(data);
 
   trending = await axios.put(`${url}/api/trending`, data);
-  console.log(trending.data);
+  // console.log(trending.data);
   return trending.data;
 };
 
@@ -96,7 +96,7 @@ const getPopular = async () => {
   //
   // popular = await axios.get("https://bong-backend.herokuapp.com/api/popular");
   popular = await axios.get(`${url}/api/popular`);
-  console.log(popular);
+  // console.log(popular);
   return popular.data;
 };
 
@@ -116,7 +116,7 @@ const editPopular = async (data) => {
   //   data
   // );
   popular = await axios.put(`${url}/api/popular`, data);
-  console.log(popular.data);
+  // console.log(popular.data);
   return popular.data;
 };
 
@@ -127,19 +127,19 @@ const getTopcharts = async () => {
   // topchart = await axios.get(
   //   "https://bong-backend.herokuapp.com/api/topcharts"
   // );
-  console.log(topchart);
+  // console.log(topchart);
   return topchart.data;
 };
 
 const editTopcharts = async (data) => {
-  console.log(data);
+  // console.log(data);
   let topchart;
   // topchart = await axios.put(
   //   "https://bong-backend.herokuapp.com/api/topcharts",
   //   data
   // );
   topchart = await axios.put(`${url}/api/topcharts`, data);
-  console.log(topchart.data);
+  // console.log(topchart.data);
   return topchart.data;
 };
 
@@ -150,7 +150,7 @@ const getBongplaylist = async () => {
   //   "https://bong-backend.herokuapp.com/api/bongplaylist"
   // );
   Bongplaylist = await axios.get(`${url}/api/bongplaylist`);
-  console.log(Bongplaylist);
+  // console.log(Bongplaylist);
   return Bongplaylist.data;
 };
 
@@ -161,7 +161,7 @@ const editBongplaylist = async (data) => {
   //   data
   // );
   Bongplaylist = await axios.put(`${url}/api/bongplaylist`, data);
-  console.log(Bongplaylist.data);
+  // console.log(Bongplaylist.data);
   return Bongplaylist.data;
 };
 
@@ -172,7 +172,7 @@ const getRecommended = async () => {
   //   "https://bong-backend.herokuapp.com/api/recommended"
   // );
   Recommended = await axios.get(`${url}/api/recommended`);
-  console.log(Recommended);
+  // console.log(Recommended);
   return Recommended.data;
 };
 
@@ -182,10 +182,10 @@ const editRecommended = async (data) => {
   //   "https://bong-backend.herokuapp.com/api/recommended",
   //   data
   // );
-  console.log(data);
+  // console.log(data);
   Recommended = await axios.put(`${url}/api/recommended`, data);
   // console.log(Recommended.data);
-  // return Recommended.data;
+  return Recommended.data;
 };
 
 const getTopalbums = async () => {
@@ -195,7 +195,7 @@ const getTopalbums = async () => {
   //   "https://bong-backend.herokuapp.com/api/topalbums"
   // );
   Topalbums = await axios.get(`${url}/api/topalbums`);
-  console.log(Topalbums);
+  // console.log(Topalbums);
   return Topalbums.data;
 };
 
@@ -206,7 +206,7 @@ const editTopalbums = async (data) => {
   //   data
   // );
   Topalbums = await axios.put(`${url}/api/Topalbums`, data);
-  console.log(Topalbums.data);
+  // console.log(Topalbums.data);
   return Topalbums.data;
 };
 
@@ -217,7 +217,7 @@ const getTopartists = async () => {
   //   "https://bong-backend.herokuapp.com/api/topartists"
   // );
   Topartists = await axios.get(`${url}/api/topartists`);
-  console.log(Topartists);
+  // console.log(Topartists);
   return Topartists.data;
 };
 
@@ -228,7 +228,7 @@ const editTopartists = async (data) => {
   //   data
   // );
   Topartists = await axios.put(`${url}/api/Topartists`, data);
-  console.log(Topartists.data);
+  // console.log(Topartists.data);
   return Topartists.data;
 };
 

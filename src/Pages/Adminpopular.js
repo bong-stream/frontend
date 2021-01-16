@@ -46,9 +46,9 @@ const Adminpopular = () => {
   };
 
   const handleAddPopular = async (data) => {
-    console.log(data);
+    // console.log(data);
     // addPopular(data);
-    // console.log("yoo");
+    console.log("yoo");
     let res;
 
     res = await editPopular({ popular: data, active: active });
@@ -63,27 +63,27 @@ const Adminpopular = () => {
   };
 
   const handleDeleteSong = async (id) => {
-    console.log(id);
+    // console.log(id);
     let popularSongs = popular[0].popular;
     let filterSongs;
     filterSongs = popularSongs.filter((song) => {
       return song._id !== id;
     });
-    console.log(filterSongs);
+    // console.log(filterSongs);
     // setpopular(filterSongs)
     await editPopular({ popular: filterSongs, active: active });
     setUpdateData(true);
   };
 
   const handleNewSort = async (sortedArray) => {
-    console.log(sortedArray);
+    // console.log(sortedArray);
     await setSortedList(sortedArray);
     setSortState(true);
   };
 
   const handleSortList = async () => {
-    console.log("hello g");
-    console.log(sortedList);
+    // console.log("hello g");
+    // console.log(sortedList);
     setSortState(false);
 
     let res;
@@ -95,7 +95,7 @@ const Adminpopular = () => {
     const fetchPopular = async () => {
       let allPopular;
       allPopular = await getPopular();
-      console.log(allPopular);
+      // console.log(allPopular);
       setPopular(allPopular);
       setActive(allPopular[0].active);
       setSortedList(allPopular);
@@ -165,7 +165,7 @@ const Adminpopular = () => {
                             <h4 style={{ color: "black" }}>Popular List</h4>
                           </ListItem>
                         </List>
-                        {console.log(popular[0].popular[0].popular)}
+                        {/* {console.log(popular[0].popular[0].popular)} */}
                         {popular ? (
                           <Trendingtable
                             data={popular[0].popular}

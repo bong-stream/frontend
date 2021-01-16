@@ -43,7 +43,7 @@ const Addchart = ({
   const [selectSongs, setSelectSongs] = useState();
 
   const handleSelectSongs = (data) => {
-    console.log(data);
+    // console.log(data);
     setSelectSongs(data);
     handleAddCharts(data, listName);
   };
@@ -52,7 +52,7 @@ const Addchart = ({
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setFetchedSongs(allSongs);
     };
     fetchSongs();
@@ -60,7 +60,7 @@ const Addchart = ({
 
   return (
     <div>
-      {console.log(fetchedSongs)}
+      {/* {console.log(fetchedSongs)} */}
       <Dialog
         fullScreen
         open={open}

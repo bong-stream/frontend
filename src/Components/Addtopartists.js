@@ -42,7 +42,7 @@ export default function Addtopartists({
   const [selectArtists, setSelectArtists] = useState();
 
   const handleSelectAlbums = (data) => {
-    console.log(data);
+    // console.log(data);
     setSelectArtists(data);
     handleAddTrending(data);
     handleClose();
@@ -52,7 +52,7 @@ export default function Addtopartists({
     const fetchArtists = async () => {
       let allArtists;
       allArtists = await getArtists();
-      console.log(allArtists);
+      // console.log(allArtists);
       setFetchedArtists(allArtists);
     };
     fetchArtists();
@@ -60,7 +60,7 @@ export default function Addtopartists({
 
   return (
     <div>
-      {console.log(fetchedArtists)}
+      {/* {console.log(fetchedArtists)} */}
       <Dialog
         fullScreen
         open={open}

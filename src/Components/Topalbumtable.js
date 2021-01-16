@@ -75,11 +75,11 @@ const SortableContainer = sortableContainer(({ children, classes }) => {
 
 const Topalbumtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
   const classes = useStyles();
-  console.log(data);
+  // console.log(data);
   const [state, setState] = useState(data);
-  console.log(state);
+  // console.log(state);
   const handleDelete = (id) => {
-    console.log(name);
+    // console.log(name);
     handleDeleteSong(id, name);
   };
 
@@ -93,7 +93,7 @@ const Topalbumtable = ({ data, handleDeleteSong, name, handleNewSort }) => {
 
   return (
     <SortableContainer onSortEnd={onSortEnd} useDragHandle classes={classes}>
-      {console.log(state)}
+      {/* {console.log(state)} */}
       {state.map((value, index) => (
         <SortableItem
           key={`item-${value._id}`}

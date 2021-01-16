@@ -26,7 +26,7 @@ const Upload = ({ handleFile }) => {
       />
       {file ? <p>{file.name}</p> : null}
 
-      {console.log(file)}
+      {/* {console.log(file)} */}
       <button
         className={`btn btn-sm btn-danger`}
         type="button"

@@ -20,11 +20,11 @@ export default function Selectartistforsong({ data, selectArtists }) {
   const [checked, setChecked] = React.useState([]);
 
   const handleToggle = (value) => async () => {
-    console.log(value);
+    // console.log(value);
     const currentIndex = checked.indexOf(value);
-    console.log(currentIndex);
+    // console.log(currentIndex);
     const newChecked = [...checked];
-    console.log(newChecked);
+    // console.log(newChecked);
 
     if (currentIndex === -1) {
       newChecked.push(value);
@@ -36,17 +36,17 @@ export default function Selectartistforsong({ data, selectArtists }) {
   };
 
   const handleAddAlbums = () => {
-    console.log(checked);
+    // console.log(checked);
     selectArtists(checked);
   };
 
   return (
     <List className={classes.root}>
-      {console.log(data)}
+      {/* {console.log(data)} */}
       {data.map((value) => {
         const labelId = `checkbox-list-label-${value}`;
-        console.log(labelId);
-        console.log(value._id);
+        // console.log(labelId);
+        // console.log(value._id);
 
         return (
           <ListItem

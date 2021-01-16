@@ -53,7 +53,7 @@ export default function Artiststable({
   const settingKeys = () => {
     let yoo = [];
     for (let key in data[0]) {
-      console.log(key);
+      // console.log(key);
       yoo.push(key);
     }
     setKeys(yoo);
@@ -64,17 +64,17 @@ export default function Artiststable({
   }, [data]);
 
   const hanldeDelete = (id) => {
-    console.log(id);
+    // console.log(id);
     handleDelete(id);
   };
 
   const handleEditButton = (data) => {
-    console.log(data);
+    // console.log(data);
     handleEdit(data);
   };
 
   const handleActive = (active, id) => {
-    console.log(active, id);
+    // console.log(active, id);
     // setActive(active)
     handleActiveChange(active, id);
   };

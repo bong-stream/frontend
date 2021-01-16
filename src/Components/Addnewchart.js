@@ -52,19 +52,19 @@ export default function Addnewchart({
   const [image, setImage] = useState();
 
   const handleSelectSongs = (data) => {
-    console.log(data);
+    // console.log(data);
     setSelectSongs(data);
     handleAddTopcharts(data, name, image);
     handleClose();
   };
 
   const handleNameChange = (evt) => {
-    console.log(evt.target.value);
+    // console.log(evt.target.value);
     setName(evt.target.value);
   };
 
   const handleImage = (id, image) => {
-    console.log(image);
+    // console.log(image);
     setImage(image);
   };
 
@@ -72,7 +72,7 @@ export default function Addnewchart({
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setFetchedSongs(allSongs);
     };
     fetchSongs();
@@ -80,7 +80,7 @@ export default function Addnewchart({
 
   return (
     <div>
-      {console.log(fetchedSongs)}
+      {/* {console.log(fetchedSongs)} */}
       <Dialog
         fullScreen
         open={open}

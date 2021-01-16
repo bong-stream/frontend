@@ -62,14 +62,14 @@ const Addartist = ({ open, addArtist, handleClose }) => {
     const fetchAlbums = async () => {
       let allAlbums;
       allAlbums = await getAlbums();
-      console.log(allAlbums);
+      // console.log(allAlbums);
       setFetchedAlbums(allAlbums);
     };
 
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setFetchedSongs(allSongs);
     };
 
@@ -79,8 +79,8 @@ const Addartist = ({ open, addArtist, handleClose }) => {
 
   const handleAddArtist = useCallback(async (evt) => {
     evt.preventDefault();
-    console.log(state);
-    console.log(selectAlbums);
+    // console.log(state);
+    // console.log(selectAlbums);
     addArtist(state, selectAlbums, selectSongs);
     handleClose();
   });
@@ -94,7 +94,7 @@ const Addartist = ({ open, addArtist, handleClose }) => {
   }
 
   const handleAlbums = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
@@ -102,7 +102,7 @@ const Addartist = ({ open, addArtist, handleClose }) => {
   });
 
   const handleSongs = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
@@ -116,7 +116,7 @@ const Addartist = ({ open, addArtist, handleClose }) => {
     setOnAddSongs(!onAddSongs);
   };
   const handleImage = (id, image) => {
-    console.log(image);
+    // console.log(image);
     setState({
       ...state,
       artistimage: image,

@@ -45,7 +45,7 @@ export default function Adduser({ open, handleToggle, handleAddUser }) {
   }
 
   const handleImage = (id, image) => {
-    console.log(image);
+    // console.log(image);
     setState({
       ...state,
       userimage: image,

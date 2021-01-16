@@ -29,34 +29,34 @@ const AdminHome = () => {
   const [users, setUsers] = useState(undefined);
 
   const data = useContext(GlobalData);
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     const fetchAlbums = async () => {
       let allAlbums;
       allAlbums = await getAlbums();
-      console.log(allAlbums);
+      // console.log(allAlbums);
       setAlbums(allAlbums);
     };
 
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setSongs(allSongs);
     };
 
     const fetchArtists = async () => {
       let allArtists;
       allArtists = await getArtists();
-      console.log(allArtists);
+      // console.log(allArtists);
       setArtists(allArtists);
     };
 
     const fetchUsers = async () => {
       let allUsers;
       allUsers = await getUsers();
-      console.log(allUsers);
+      // console.log(allUsers);
       setUsers(allUsers);
     };
 
@@ -69,8 +69,8 @@ const AdminHome = () => {
 
   return (
     <div className="main">
-      <div className="container admin">
-        {console.log(users, artists, songs, albums)}
+      <div className=" admin">
+        {/* {console.log(users, artists, songs, albums)} */}
         <Row>
           <Col className="mb-4" xl={3} md={6}>
             {users ? (

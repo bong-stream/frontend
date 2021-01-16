@@ -27,7 +27,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Edituser({ open, handleToggle, handleEdit, data }) {
   const classes = useStyles();
-  console.log(data);
+  // console.log(data);
   const [state, setState] = useState({
     name: data.name,
     email: data.email,
@@ -47,7 +47,7 @@ export default function Edituser({ open, handleToggle, handleEdit, data }) {
   }
 
   const handleImage = (id, image) => {
-    console.log(image);
+    // console.log(image);
     setState({
       ...state,
       userimage: image,

@@ -100,7 +100,7 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   };
 
   const handleArtists = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
 
     await setSelectArtists(data);
     setState({
@@ -110,11 +110,11 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   });
 
   const handleSongs = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
-    console.log(ids);
+    // console.log(ids);
 
     await setSelectSongs(ids);
 
@@ -125,11 +125,11 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   });
 
   const handleOtherAlbums = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
-    console.log(ids);
+    // console.log(ids);
 
     await setSelectOtherAlbums(ids);
 
@@ -140,11 +140,11 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   });
 
   const handleRelatedAlbums = useCallback(async (data) => {
-    console.log(data);
+    // console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
-    console.log(ids);
+    // console.log(ids);
 
     await setSelectRelatedAlbums(ids);
 
@@ -155,7 +155,7 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   });
 
   const handleImage = (id, image) => {
-    console.log(image);
+    // console.log(image);
     setState({
       ...state,
       albumimage: image,
@@ -166,21 +166,21 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
     const fetchArtists = async () => {
       let allArtists;
       allArtists = await getArtists();
-      console.log(allArtists);
+      // console.log(allArtists);
       setFetchedArtists(allArtists);
     };
 
     const fetchSongs = async () => {
       let allSongs;
       allSongs = await getSongs();
-      console.log(allSongs);
+      // console.log(allSongs);
       setFetchedSongs(allSongs);
     };
 
     const fetchAlbums = async () => {
       let allAlbums;
       allAlbums = await getAlbums();
-      console.log(allAlbums);
+      // console.log(allAlbums);
       setFetchedAlbums(allAlbums);
     };
 

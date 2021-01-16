@@ -12,7 +12,7 @@ const [sortedList, setSortedList] = useState();
 const [sortedListName, setSortedListName] = useState();
 
 const handleClickOpen = (name) => {
-  console.log(name);
+  // console.log(name);
   setListName(name);
   setOpen(true);
 };
@@ -22,7 +22,7 @@ const handleClose = () => {
 };
 
 const handleAddCharts = async (topchart, name) => {
-  // console.log(data, name);
+  console.log(data, name);
   let data;
   let res;
   if (name === "top20") {
@@ -83,7 +83,7 @@ const handleDeleteList = async (name) => {
 };
 
 const handleDeleteSong = async (id, name) => {
-  console.log(id, name);
+  // console.log(id, name);
   let data;
   let res;
   let filterCharts;
@@ -127,24 +127,24 @@ const handleDeleteSong = async (id, name) => {
 };
 
 const handleNewSort = (sortedArray, name) => {
-  console.log(sortedArray, name);
-  // console.log(sortedArray);
+  // console.log(sortedArray, name);
+  console.log(sortedArray);
   setSortedList(sortedArray);
   setSortedListName(name);
 
   let data;
   if (name === "top20") {
-    console.log("top20 running");
+    // console.log("top20 running");
     setSortStateTop20(true);
     setSortStateTop50(false);
     setSortStateTop100(false);
   } else if (name === "top50") {
-    console.log("top 50 runing");
+    // console.log("top 50 runing");
     setSortStateTop20(false);
     setSortStateTop50(true);
     setSortStateTop100(false);
   } else if (name === "top100") {
-    console.log("top 100 running");
+    // console.log("top 100 running");
     setSortStateTop20(false);
     setSortStateTop50(false);
     setSortStateTop100(true);
@@ -152,12 +152,12 @@ const handleNewSort = (sortedArray, name) => {
 };
 
 const handleSortList = async () => {
-  // console.log("hello g");
-  // console.log(sortedList);
+  console.log("hello g");
+  console.log(sortedList);
   // setSortState(false);
   // await editPopular(sortedList);
   // setUpdateData(true);
-  console.log(sortedList, sortedListName);
+  // console.log(sortedList, sortedListName);
   let data;
   if (sortedListName === "top20") {
     data = {
@@ -193,7 +193,7 @@ useEffect(() => {
   const fetchTopcharts = async () => {
     let allTopcharts;
     allTopcharts = await getTopcharts();
-    console.log(allTopcharts);
+    // console.log(allTopcharts);
     setTopcharts(allTopcharts);
     allTopcharts.map((top) => {
       if (top.name === "top20") {
