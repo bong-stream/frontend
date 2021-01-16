@@ -122,7 +122,7 @@ const editTopcharts = async (data) => {
 
 const getBongPlaylist = async (data) => {
    let topchart;
-   topchart = await axios.put(`${API_BASE_URL}/bongplaylist`, data);
+   topchart = await axios.get(`${API_BASE_URL}/bongplaylist`, data);
    console.log(topchart.data);
    return topchart.data;
 };

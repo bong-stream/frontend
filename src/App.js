@@ -6,6 +6,7 @@ import {
    fetchTopCharts,
    getTrending,
    getPopular,
+   getTopcharts,
 } from './Pagesactions/songsactions';
 
 import { getUsers } from './Pagesactions/usersactions';
@@ -159,7 +160,7 @@ function App() {
 
    // * 1 Fetch Top Charts
    useEffect(() => {
-      const topchart = fetchTopCharts();
+      const topchart = getTopcharts();
       if (topchart.length <= 0 || topchart === undefined) {
          console.log('emptyarray');
       } else {
