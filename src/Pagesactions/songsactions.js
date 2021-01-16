@@ -63,7 +63,7 @@ const getTrending = async () => {
    let trending;
 
    trending = await axios.get(`${API_BASE_URL}/trending`);
-   console.log(trending);
+
    return trending.data;
 };
 
@@ -86,6 +86,7 @@ const getPopular = async () => {
    let popular;
 
    popular = await axios.get(`${API_BASE_URL}/popular`);
+
    console.log(popular);
    return popular.data;
 };

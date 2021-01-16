@@ -6,6 +6,8 @@ import MusicCard from '../../../Components/client/MusicCard';
 import Carousel from 'react-elastic-carousel';
 import '../../../assets/BrowseStyle.css';
 import { genMediaQuery } from '../../../Styles/constants';
+import { GlobalData } from '../../../App';
+import { getTrending } from '../../../Pagesactions/songsactions';
 
 const tutorialSteps = [
    {
@@ -138,11 +140,102 @@ const Lists = [
    'Albums',
 ];
 
-function BrowseMain() {
+// refresh page if experimenting and you already defined Array.prototype.chunk
+
+const BrowseMain = (props) => {
+   const data = React.useContext(GlobalData);
    const classes = useStyles();
    const theme = useTheme();
    const [slug, setSlug] = useState('New Music');
    const [list2Item, setList2Item] = useState('All');
+   const [allChunks, setAllChunks] = useState([]);
+   const [trending, setTrending] = useState();
+
+   React.useEffect(() => {
+      try {
+         Object.defineProperty(Array.prototype, 'chunk', {
+            value: function (chunkSize) {
+               var R = [];
+               for (var i = 0; i < this.length; i += chunkSize)
+                  R.push(this.slice(i, i + chunkSize));
+               return R;
+            },
+         });
+      } catch (err) {
+         console.log('err', err);
+         // window.location.reload();
+      }
+   }, []);
+
+   const [all, setAll] = useState([...data.popular]);
+
+   React.useEffect(() => {
+      if (trending && trending.length > 0) {
+         console.clear();
+         console.log('^^^^^^^^^');
+         console.log('^^^^^^^^^');
+         console.log('^^^^^^^^^');
+         console.log('^^^^^^^^^');
+         console.log('trending', trending);
+         setAll([...all, ...trending]);
+      }
+   }, [trending]);
+
+   const fetchTrending = async () => {
+      let allSongs;
+      allSongs = await getTrending();
+
+      console.log('&&&&&&');
+      console.log('&&&&&&');
+      console.log('&&&&&&');
+      console.log('&&&&&&');
+      console.log('&&&&&&');
+      console.log(allSongs[0].trending);
+      setTrending(allSongs[0].trending);
+   };
+
+   React.useEffect(() => {
+      fetchTrending();
+   }, []);
+
+   React.useEffect(() => {
+      // console.clear();
+      if (slug.toLowerCase() === 'trending') {
+         console.log('data[slug]', data['trending']);
+         setAllChunks(trending.chunk(17));
+      } else if (slug.toLowerCase() === 'popular') {
+         console.log('data[slug]', data['popular']);
+         setAllChunks(data['popular'].chunk(17));
+      } else if (slug.toLowerCase() === 'all') {
+         console.log('data[slug]', data['popular']);
+         setAllChunks(data['popular'].chunk(17));
+         let trendingChunks = [];
+         if (trending && trending.length > 0) {
+            trendingChunks = trending.chunk(17);
+         }
+         const allChunksNew = all.chunk(17);
+         setAllChunks([...allChunksNew, ...trendingChunks]);
+      } else if (slug.toLowerCase() === 'albums') {
+      }
+      // console.log(data[slug].chunk(17));
+   }, [slug]);
+
+   React.useEffect(() => {
+      console.log('<<<<<<<<<<<<');
+      console.log('<<<<<<<<<<<<');
+      console.log('<<<<<<<<<<<<');
+      console.log('<<<<<<<<<<<<');
+      console.log('<<<<<<<<<<<<');
+      console.log('all', all);
+      setAllChunks(all.chunk(17));
+   }, [all]);
+
+   React.useEffect(() => {
+      setAll([...data.popular]);
+      if (trending && trending.length > 0) {
+         setAll([...all, ...trending]);
+      }
+   }, [data]);
 
    const handleSlug = (e, item) => {
       e.preventDefault();
@@ -217,54 +310,41 @@ function BrowseMain() {
                   // itemsToShow={window.screen.width >= 768 ? 6 : 2}
                   // itemsToScroll={window.screen.width >= 768 ? 6 : 2}
                >
-                  {tutorialSteps.map((item) => (
-                     <div
-                        style={{
-                           display: 'block',
-                           // paddingLeft: theme.spacing(3),
-                           // flexWrap: "nowrap",
-                           flexDirection: 'row',
-                           zIndex: 1,
-                        }}
-                     >
-                        <Grid container justify='center' spacing={2}>
-                           {[
-                              0,
-                              1,
-                              2,
-                              3,
-                              4,
-                              5,
-                              6,
-                              7,
-                              8,
-                              1,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                           ].map((value) => (
-                              <Grid
-                                 key={value}
-                                 item
-                                 xs={6}
-                                 sm={3}
-                                 md={2}
-                              >
-                                 <MusicCard
-                                    imgPath={item.imgPath}
-                                    title={item.title}
-                                    label={item.label}
-                                 />
-                              </Grid>
-                           ))}
-                        </Grid>
-                     </div>
-                  ))}
+                  {allChunks &&
+                     allChunks.length > 0 &&
+                     allChunks.map((item) => (
+                        <div
+                           style={{
+                              display: 'block',
+                              // paddingLeft: theme.spacing(3),
+                              // flexWrap: "nowrap",
+                              flexDirection: 'row',
+                              zIndex: 1,
+                           }}
+                        >
+                           <Grid
+                              container
+                              justify='flex-start'
+                              spacing={2}
+                           >
+                              {item.map((value) => (
+                                 <Grid
+                                    key={value}
+                                    item
+                                    xs={6}
+                                    sm={3}
+                                    md={2}
+                                 >
+                                    <MusicCard
+                                       imgPath={value.songimage}
+                                       title={value.songname}
+                                       label={value.label}
+                                    />
+                                 </Grid>
+                              ))}
+                           </Grid>
+                        </div>
+                     ))}
                </Carousel>
             </Grid>
             <Grid item justify='center'>
@@ -280,6 +360,6 @@ function BrowseMain() {
          </Grid>
       </div>
    );
-}
+};
 
 export default BrowseMain;
