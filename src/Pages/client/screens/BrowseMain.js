@@ -307,6 +307,7 @@ const BrowseMain = (props) => {
                <Carousel
                   itemsToShow={1}
                   itemsToScroll={1}
+                  showArrows={false}
                   // itemsToShow={window.screen.width >= 768 ? 6 : 2}
                   // itemsToScroll={window.screen.width >= 768 ? 6 : 2}
                >

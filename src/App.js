@@ -37,7 +37,7 @@ import {
 } from './Pagesactions/HomeActions';
 export const GlobalData = React.createContext();
 
-function App() {
+export const App = () => {
    const [artists, setArtists] = useState();
    const [songs, setSongs] = useState();
    const [albums, setAlbums] = useState();
@@ -62,6 +62,7 @@ function App() {
       topCharts: [],
       bongplaylist: [],
 
+      trending: [],
       recommended: [],
       playlist: [],
       popular: [],
@@ -112,10 +113,14 @@ function App() {
 
    // ~ 6 Trending
    useEffect(() => {
+      // console.clear();
+
       setData({
          ...data,
          trending: trending,
       });
+
+      console.log('data.trending', data.trending);
    }, [trending]);
 
    // ~ 7 Recommended
@@ -134,6 +139,16 @@ function App() {
       });
    }, [trending]);
 
+   useEffect(() => {
+      // console.clear();
+      console.log('********');
+      console.log('********');
+      console.log('********');
+      console.log('********');
+      console.log('trending', trending);
+      console.log('data.trending', data.trending);
+   }, [data]);
+
    // ~ 9 Popular
    useEffect(() => {
       setData({
@@ -149,6 +164,12 @@ function App() {
          users: users,
       });
    }, [users]);
+
+   // ~ 10 Users
+   useEffect(() => {
+      // console.clear();
+      console.log('data', data);
+   }, [data]);
 
    // // ~ 6 Trending
    // useEffect(() => {
@@ -226,16 +247,18 @@ function App() {
    const fetchTrending = async () => {
       let allSongs;
       allSongs = await getTrending();
+
       console.log(allSongs);
-      setTrending(allSongs);
+      setTrending(allSongs[0].trending);
    };
 
    const fetchPopular = async () => {
       let popular;
       popular = await getPopular();
-      console.log(popular);
-      console.log('recomended');
+      // console.log(popular);
+      console.log('PAPULAR', popular[0].popular);
       setPopular(popular[0].popular);
+      console.log('PAPLAR', popular);
    };
 
    const fetchRecommended = async () => {
@@ -344,18 +367,7 @@ function App() {
    }
 
    return (
-      <GlobalData.Provider
-         value={{
-            artists,
-            songs,
-            albums,
-            users,
-            bongplaylist,
-            topCharts,
-            loggedUser,
-            data,
-         }}
-      >
+      <GlobalData.Provider value={data}>
          <div className='App'>
             <Router>
                {console.log('token ROUTE', token)}
@@ -401,6 +413,4 @@ function App() {
          </div>
       </GlobalData.Provider>
    );
-}
-
-export default App;
+};

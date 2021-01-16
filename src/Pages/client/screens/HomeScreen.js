@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 function HomeScreen() {
    const classes = useStyles();
    const theme = useTheme();
-   const { data } = useContext(GlobalData);
+   const data = useContext(GlobalData);
 
    return (
       <div
