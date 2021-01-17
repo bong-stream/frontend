@@ -20,6 +20,8 @@ import Bongplaylist from "./Pages/Bongplaylist";
 import Topartists from "./Pages/Topartists";
 import Topalbums from "./Pages/Topalbums";
 import Recommended from "./Pages/Recommended";
+import Genres from "./Pages/Genres";
+import Category from "./Pages/Category";
 import "./App.css";
 
 export const GlobalData = React.createContext();
@@ -158,6 +160,16 @@ function App() {
               exact
               path="/admin/recommended"
               render={(routeProps) => <Recommended />}
+            />
+            <Route
+              exact
+              path="/admin/genres"
+              render={(routeProps) => <Genres />}
+            />
+            <Route
+              exact
+              path="/admin/category"
+              render={(routeProps) => <Category />}
             />
           </Switch>
         </Router>

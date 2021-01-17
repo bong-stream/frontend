@@ -21,6 +21,8 @@ import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import totalLead from "../Components/charts/crm-total-lead";
 import totalVendor from "../Components/charts/crm-total-vendor";
 import totalInvoice from "../Components/charts/crm-total-invoice";
+import ArtTrackIcon from "@material-ui/icons/ArtTrack";
+import CategoryIcon from "@material-ui/icons/Category";
 
 const AdminHome = () => {
   const [artists, setArtists] = useState(undefined);
@@ -150,6 +152,46 @@ const AdminHome = () => {
                   >
                     <button className="btn btn-danger btn-sm btn-round">
                       Explore Songs
+                    </button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            ) : null}
+          </Col>
+          <Col className="mb-4" md={6}>
+            {songs ? (
+              <Card>
+                <Card.Body className="text-center">
+                  {/* <i className="feather icon-briefcase text-c-red d-block f-40" /> */}
+                  <ArtTrackIcon style={{ color: "#f44040" }} />
+                  <h4 className="m-t-20"> {songs.length} Genres</h4>
+                  <p className="m-b-20">Lists of Genres</p>
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to="/admin/genres"
+                  >
+                    <button className="btn btn-danger btn-sm btn-round">
+                      Explore Genres
+                    </button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            ) : null}
+          </Col>
+          <Col className="mb-4" md={6}>
+            {songs ? (
+              <Card>
+                <Card.Body className="text-center">
+                  {/* <i className="feather icon-briefcase text-c-red d-block f-40" /> */}
+                  <CategoryIcon style={{ color: "#f44040" }} />
+                  <h4 className="m-t-20"> {songs.length} Categories</h4>
+                  <p className="m-b-20">Amazing lists of Categories</p>
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to="/admin/category"
+                  >
+                    <button className="btn btn-danger btn-sm btn-round">
+                      Explore Categories
                     </button>
                   </Link>
                 </Card.Body>
