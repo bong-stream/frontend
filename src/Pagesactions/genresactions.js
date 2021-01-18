@@ -12,6 +12,15 @@ const getGenres = async () => {
   return Genres.data;
 };
 
+const findGenres = async (id) => {
+  let Genres;
+
+  Genres = await axios.get(`${url}/api/genres/id`);
+  // Genres = await axios.get(`http://localhost:3001/api/`);
+  // console.log(Genres);
+  return Genres.data;
+};
+
 const activeGenres = async (active, id) => {
   let Genres;
   let data = { active, id };

@@ -1,13 +1,22 @@
 import React from "react";
 import axios from "axios";
-// let url = "http://localhost:3001";
-let url = "https://bong-backend.herokuapp.com";
+let url = "http://localhost:3001";
+// let url = "https://bong-backend.herokuapp.com";
 
 const getSongs = async () => {
   let songs;
 
   // songs = await axios.get("https://bong-backend.herokuapp.com/api/song");
   songs = await axios.get(`${url}/api/song`);
+  // console.log(songs);
+  return songs.data;
+};
+
+const activeSongs = async (active, id) => {
+  let songs;
+  let data = { active, id };
+  console.log(data);
+  songs = await axios.put(`${url}/api/song/activesongs`, data);
   // console.log(songs);
   return songs.data;
 };
@@ -235,6 +244,7 @@ const editTopartists = async (data) => {
 export {
   addTrending,
   getSongs,
+  activeSongs,
   addSongs,
   editSongs,
   getTrending,

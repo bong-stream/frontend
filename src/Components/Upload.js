@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
-const Upload = ({ handleFile }) => {
+const Upload = ({ handleFile, type, disable }) => {
   const [file, setFile] = useState();
   const filePickerRef = useRef();
 
@@ -31,8 +31,9 @@ const Upload = ({ handleFile }) => {
         className={`btn btn-sm btn-danger`}
         type="button"
         onClick={pickImagehandler}
+        disabled={disable}
       >
-        Upload Song
+        Upload Song {type}
       </button>
     </div>
   );

@@ -11,6 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import Imageavatar from "./Imageavatar";
+import Active from "../Components/Active";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -36,7 +38,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Albumstable({ data, handleDelete, handleEdit }) {
+export default function Albumstable({
+  data,
+  handleDelete,
+  handleEdit,
+  handleActiveChange,
+  handleView,
+}) {
   const classes = useStyles();
   const [keys, setKeys] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -83,6 +91,12 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
     // return name;
   };
 
+  const handleActive = (active, id) => {
+    // console.log(active, id);
+    // setActive(active)
+    handleActiveChange(active, id);
+  };
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -97,14 +111,17 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
               <StyledTableCell>Song Image</StyledTableCell>
               <StyledTableCell>Song Name</StyledTableCell>
               <StyledTableCell>Artists</StyledTableCell>
-              <StyledTableCell>Genres</StyledTableCell>
+              <StyledTableCell>Albums</StyledTableCell>
               <StyledTableCell>Poets</StyledTableCell>
               <StyledTableCell>Mix and Master</StyledTableCell>
               <StyledTableCell>Producer</StyledTableCell>
               <StyledTableCell>Label</StyledTableCell>
               <StyledTableCell>Year</StyledTableCell>
+              <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell> Deactivate</StyledTableCell>
               <StyledTableCell>Delete</StyledTableCell>
               <StyledTableCell>Edit</StyledTableCell>
+              <StyledTableCell>View</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -119,28 +136,55 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
                 <StyledTableCell align="left">
                   {row.artists.length}
                 </StyledTableCell>
-
-                {/* {artists ? (
-                  <>
-                    {row.artists.map((artist) => {
-                      return artists.map((foundArtist) => {
-                        return artist === foundArtist._id ? (
-                          <StyledTableCell align="right">
-                            {foundArtist.artistname}
-                          </StyledTableCell>
-                        ) : null;
-                      });
-                    })}
-                  </>
-                ) : null} */}
-
-                <StyledTableCell align="left">{row.genres}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {row.albums.length}
+                </StyledTableCell>
                 <StyledTableCell align="left">{row.poet}</StyledTableCell>
                 <StyledTableCell align="left">{row.mixmaster}</StyledTableCell>
                 <StyledTableCell align="left">{row.producer}</StyledTableCell>
                 <StyledTableCell align="left">{row.label}</StyledTableCell>
                 <StyledTableCell align="left">{row.year}</StyledTableCell>
 
+                <StyledTableCell align="left">
+                  {row.active ? (
+                    <div style={{ position: "relative" }}>
+                      <div
+                        style={{
+                          backgroundColor: "#32EC5D",
+                          width: "5px",
+                          height: "5px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          right: "-1%",
+                          top: "-5px",
+                        }}
+                      ></div>
+                      Active
+                    </div>
+                  ) : (
+                    <div style={{ position: "relative" }}>
+                      <div
+                        style={{
+                          backgroundColor: "#F91541",
+                          width: "5px",
+                          height: "5px",
+                          borderRadius: "50%",
+                          position: "absolute",
+                          right: "-1%",
+                          top: "-5px",
+                        }}
+                      ></div>
+                      Deactivated
+                    </div>
+                  )}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <Active
+                    label={row._id}
+                    handleChange={handleActive}
+                    active={row.active}
+                  />
+                </StyledTableCell>
                 <StyledTableCell align="left">
                   <button
                     onClick={() => hanldeDelete(row._id)}
@@ -160,6 +204,8 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
                         noofplays: row.noofplays,
                         artists: row.artists,
                         genres: row.genres,
+                        albums: row.albums,
+                        category: row.category,
                         poet: row.poet,
                         mixmaster: row.mixmaster,
                         producer: row.producer,
@@ -173,6 +219,32 @@ export default function Albumstable({ data, handleDelete, handleEdit }) {
                     className="btn btn-sm btn-primary"
                   >
                     <EditIcon />
+                  </button>
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  <button
+                    disabled
+                    className="btn btn-sm btn-success"
+                    onClick={() => {
+                      handleView({
+                        id: row._id,
+                        songname: row.songname,
+                        songimage: row.songimage,
+                        noofplays: row.noofplays,
+                        artists: row.artists,
+                        genres: row.genres,
+                        poet: row.poet,
+                        mixmaster: row.mixmaster,
+                        producer: row.producer,
+                        label: row.label,
+                        year: row.year,
+                        summary: row.summary,
+                        lyrics: row.lyrics,
+                        relatedSongs: row.relatedSongs,
+                      });
+                    }}
+                  >
+                    <VisibilityIcon />
                   </button>
                 </StyledTableCell>
               </StyledTableRow>

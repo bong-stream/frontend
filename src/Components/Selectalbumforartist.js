@@ -41,10 +41,11 @@ export default function Selectalbumforartist({ data, selectAlbums }) {
 
   return (
     <List className={classes.root}>
+      {console.log(data)}
       {data.map((value) => {
         const labelId = `checkbox-list-label-${value}`;
         // console.log(labelId);
-        // console.log(value);
+        console.log(value);
 
         return (
           <ListItem

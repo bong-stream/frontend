@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { getArtists } from "../Pagesactions/artistsactions";
+import { getAlbums } from "../Pagesactions/albumactions";
+import { getGenres } from "../Pagesactions/genresactions";
+import { getCategory } from "../Pagesactions/categoryactions";
 import { getSongs } from "../Pagesactions/songsactions";
 import { makeStyles } from "@material-ui/core/styles";
 import Selectartistforsong from "../Components/Selectartistforsong";
@@ -54,6 +57,8 @@ export default function Editsong({
     artists: data.artists,
     songs: data.songs,
     genres: data.genres,
+    albums: data.albums,
+    category: data.category,
     poet: data.poet,
     label: data.label,
     mixmaster: data.mixmaster,
@@ -74,7 +79,15 @@ export default function Editsong({
   const [addRelatedSongs, setAddRelatedSongs] = useState(false);
   const [addArtists, setAddArtists] = useState(false);
   const [fetchedSongs, setFetchedSongs] = useState([]);
+  const [fetchedAlbums, setFetchedAlbums] = useState([]);
+  const [fetchedGenres, setFetchedGenres] = useState([]);
+  const [fetchedCategory, setFetchedCategory] = useState([]);
+
   const [foundSongs, setFoundSongs] = useState([]);
+  const [foundAlbums, setFoundAlbums] = useState([]);
+  const [foundGenres, setFoundGenres] = useState([]);
+  const [foundCategory, setFoundCategory] = useState([]);
+
   const [editSongs, setEditSongs] = useState(false);
   const [addSongs, setAddSongs] = useState(false);
 
@@ -171,13 +184,18 @@ export default function Editsong({
     // console.log(data);
   };
 
-  const deleteAlbumArtists = async (id) => {
-    // console.log(id);
+  const deleteSongArtists = async (id) => {
+    console.log(id);
+    // console.log(foundArtists);
+    let filterArtists;
+    filterArtists = foundArtists.filter((artist) => {
+      return id !== artist._id;
+    });
 
-    await setFoundArtists("");
+    await setFoundArtists(filterArtists);
     await setState({
       ...state,
-      artists: "",
+      artists: filterArtists,
     });
   };
 
@@ -241,6 +259,64 @@ export default function Editsong({
       await setFoundSongs(filterSongs);
     };
 
+    const fetchAlbums = async () => {
+      let allAlbums;
+      let filterAlbums = [];
+      allAlbums = await getAlbums();
+      // console.log(allAlbums);
+      setFetchedAlbums(allAlbums);
+
+      state.albums.map((songId) => {
+        allAlbums.filter((song) => {
+          if (songId === song._id) {
+            filterAlbums.push(song);
+          }
+        });
+      });
+
+      // console.log(filterAlbums);
+      await setFoundAlbums(filterAlbums);
+    };
+    const fetchGenres = async () => {
+      let allSongs;
+      let filterSongs = [];
+      allSongs = await getSongs();
+      // console.log(allSongs);
+      setFetchedSongs(allSongs);
+
+      state.relatedSongs.map((songId) => {
+        allSongs.filter((song) => {
+          if (songId === song._id) {
+            filterSongs.push(song);
+          }
+        });
+      });
+
+      // console.log(filterSongs);
+      await setFoundSongs(filterSongs);
+    };
+    const fetchCategory = async () => {
+      let allSongs;
+      let filterSongs = [];
+      allSongs = await getSongs();
+      // console.log(allSongs);
+      setFetchedSongs(allSongs);
+
+      state.relatedSongs.map((songId) => {
+        allSongs.filter((song) => {
+          if (songId === song._id) {
+            filterSongs.push(song);
+          }
+        });
+      });
+
+      // console.log(filterSongs);
+      await setFoundSongs(filterSongs);
+    };
+
+    fetchAlbums();
+    fetchGenres();
+    fetchCategory();
     fetchArtists();
     fetchSongs();
   }, []);
@@ -431,7 +507,69 @@ export default function Editsong({
                                   <IconButton edge="end" aria-label="delete">
                                     <DeleteForeverIcon
                                       onClick={() =>
-                                        deleteAlbumArtists(artist._id)
+                                        deleteSongArtists(artist._id)
+                                      }
+                                    />
+                                  </IconButton>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            );
+                          })}
+                        </List>
+                      ) : null}
+                    </div>
+                    {addArtists ? (
+                      <Selectartistforsong
+                        data={allArtists}
+                        selectArtists={handleSelectedAddArtists}
+                      />
+                    ) : null}
+                    {/* 
+                    <div className="row">
+                      <div className="col-8">
+                        <span style={{ fontSize: "25px" }}>Album</span>
+                      </div>
+                      <div className="col-4">
+                        <button
+                          style={{ marginLeft: "20px", marginBottom: "7px" }}
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={handleArtistsToggle}
+                        >
+                          {editArtists ? "X" : <EditIcon />}
+                        </button>
+                        <span>
+                          {editArtists || addArtists ? (
+                            <button
+                              style={{
+                                marginLeft: "20px",
+                                marginBottom: "7px",
+                              }}
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={handleAddArtists}
+                            >
+                              {addArtists ? "X" : "+"}
+                            </button>
+                          ) : null}
+                        </span>
+                      </div>
+                    </div> */}
+                    <div>
+                      {/* {console.log(foundArtists)} */}
+                      {editArtists ? (
+                        <List>
+                          {foundArtists.map((artist) => {
+                            return (
+                              <ListItem>
+                                <ListItemText
+                                  primary={artist.artistname}
+                                  // secondary={secondary ? "Secondary text" : null}
+                                />
+                                {/* {console.log(artist.artistname)} */}
+                                <ListItemSecondaryAction>
+                                  <IconButton edge="end" aria-label="delete">
+                                    <DeleteForeverIcon
+                                      onClick={() =>
+                                        deleteSongArtists(artist._id)
                                       }
                                     />
                                   </IconButton>

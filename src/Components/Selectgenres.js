@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Selectsongsforartist({ data, selectArtists }) {
+export default function Selectgenres({ data, selectGenres }) {
   const classes = useStyles();
   const [state, setState] = useState([]);
   const [checked, setChecked] = React.useState();
@@ -39,7 +39,7 @@ export default function Selectsongsforartist({ data, selectArtists }) {
   };
 
   const handleAddArtist = () => {
-    selectArtists(checked);
+    selectGenres(checked);
   };
 
   return (
@@ -60,13 +60,13 @@ export default function Selectsongsforartist({ data, selectArtists }) {
             <FormControlLabel
               value={value._id}
               control={<Radio />}
-              label={value.artistname}
+              label={value.genresname}
             />
           );
         })}
       </RadioGroup>
       <button className="btn btn-sm btn-danger" onClick={handleAddArtist}>
-        Add Artist
+        Add Genre
       </button>
       {/* {console.log(data)}
       {data.map((value) => {

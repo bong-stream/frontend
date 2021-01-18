@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import { getAlbums } from "../Pagesactions/albumactions";
 import { getSongs } from "../Pagesactions/songsactions";
 import { getArtists } from "../Pagesactions/artistsactions";
+import { getGenres } from "../Pagesactions/genresactions";
+import { getCategory } from "../Pagesactions/categoryactions";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -20,6 +22,9 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import Selectsongsforartist from "./Selectsongsforartist";
+import Selectalbumforartist from "./Selectalbumforartist";
+import Selectgenres from "./Selectgenres";
+import Selectcategory from "./Selectcategory";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -49,6 +54,8 @@ const Addsong = ({ open, addSong, handleClose }) => {
     songname: "",
     songimage: "",
     artists: [],
+    albums: [],
+    category: "",
     genres: "",
     lyrics: "",
     poet: "",
@@ -63,10 +70,21 @@ const Addsong = ({ open, addSong, handleClose }) => {
   const [fetchedAlbums, setFetchedAlbums] = useState();
   const [fetchedSongs, setFetchedSongs] = useState();
   const [fetchedArtists, setFetchedArtists] = useState();
+  const [fetchedGenres, setFetchedGenres] = useState();
+  const [fetchedCategory, setFetchedCategory] = useState();
+
   const [selectArtists, setSelectArtists] = useState();
   const [selectSongs, setSelectSongs] = useState([]);
+  const [selectAlbums, setSelectAlbums] = useState([]);
+  const [selectGenres, setSelectGenres] = useState([]);
+  const [selectCategory, setSelectCategory] = useState([]);
+
   const [onAddArtists, setOnAddArtists] = useState(false);
   const [onAddRelatedSongs, setOnAddRelatedSongs] = useState(false);
+  const [onAddAlbums, setOnAddAlbums] = useState(false);
+  const [onAddGenres, setOnAddGenres] = useState(false);
+  const [onAddCategory, setOnAddCategory] = useState(false);
+
   const [file, setFile] = useState();
 
   const handleAddSong = useCallback(async (evt) => {
@@ -78,7 +96,9 @@ const Addsong = ({ open, addSong, handleClose }) => {
     data.append("songname", state.songname);
     data.append("songimage", state.songimage);
     data.append("artists", state.artists);
+    data.append("albums", state.albums);
     data.append("genres", state.genres);
+    data.append("category", state.category);
     data.append("lyrics", state.lyrics);
     data.append("poet", state.poet);
     data.append("mixmaster", state.mixmaster);
@@ -99,6 +119,16 @@ const Addsong = ({ open, addSong, handleClose }) => {
   const handleOnAddRelatedSongs = () => {
     setOnAddRelatedSongs(!onAddRelatedSongs);
   };
+  const handleOnAddAlbums = () => {
+    setOnAddAlbums(!onAddAlbums);
+  };
+  const handleOnAddGenres = () => {
+    setOnAddGenres(!onAddGenres);
+  };
+
+  const handleOnAddCategory = () => {
+    setOnAddCategory(!onAddCategory);
+  };
 
   function handleChange(evt) {
     const value = evt.target.value;
@@ -117,6 +147,36 @@ const Addsong = ({ open, addSong, handleClose }) => {
     setState({
       ...state,
       artists: ids,
+    });
+  });
+
+  const handleAlbums = useCallback(async (data) => {
+    // console.log(data);
+    let ids = [];
+    await data.map((subData) => ids.push(subData._id));
+
+    await setSelectAlbums(data);
+    setState({
+      ...state,
+      albums: ids,
+    });
+  });
+  const handleGenres = useCallback(async (data) => {
+    // console.log(data);
+
+    await setSelectGenres(data);
+    setState({
+      ...state,
+      genres: data,
+    });
+  });
+  const handleCategory = useCallback(async (data) => {
+    // console.log(data);
+
+    await setSelectCategory(data);
+    setState({
+      ...state,
+      category: data,
     });
   });
 
@@ -149,7 +209,7 @@ const Addsong = ({ open, addSong, handleClose }) => {
     const fetchAlbums = async () => {
       let allAlbums;
       allAlbums = await getAlbums();
-      // console.log(allAlbums);
+      console.log(allAlbums);
       setFetchedAlbums(allAlbums);
     };
 
@@ -166,6 +226,23 @@ const Addsong = ({ open, addSong, handleClose }) => {
       // console.log(allArtists);
       setFetchedArtists(allArtists);
     };
+    const fetchGenres = async () => {
+      let allGenres;
+      allGenres = await getGenres();
+      // console.log(allGenres);
+      setFetchedGenres(allGenres);
+    };
+
+    const fetchCategory = async () => {
+      let allCategory;
+      allCategory = await getCategory();
+      // console.log(allCategory);
+      setFetchedCategory(allCategory);
+    };
+
+    fetchCategory();
+
+    fetchGenres();
 
     fetchAlbums();
     fetchSongs();
@@ -219,7 +296,19 @@ const Addsong = ({ open, addSong, handleClose }) => {
               </div>
               <br />
               <div className="flex">
-                <Upload handleFile={handleFile} />
+                <Upload
+                  handleFile={handleFile}
+                  type="128 Kbps"
+                  disable={false}
+                />
+              </div>
+              <br />
+              <div className="flex">
+                <Upload
+                  handleFile={handleFile}
+                  type="320 Kbps"
+                  disable={true}
+                />
               </div>
             </div>
             <div className="col-12 col-md-8">
@@ -234,15 +323,6 @@ const Addsong = ({ open, addSong, handleClose }) => {
                     type="text"
                     name="songname"
                     value={state.songname}
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    margin="dense"
-                    id="name"
-                    label="Genres"
-                    type="text"
-                    name="genres"
-                    value={state.genres}
                     onChange={handleChange}
                   />
 
@@ -312,7 +392,7 @@ const Addsong = ({ open, addSong, handleClose }) => {
                     id="name"
                     multiline
                     rows={8}
-                    label="Summary"
+                    label="Description"
                     type="text"
                     name="summary"
                     value={state.summary}
@@ -341,6 +421,81 @@ const Addsong = ({ open, addSong, handleClose }) => {
                           <Selectartistforsong
                             data={fetchedArtists}
                             selectArtists={handleArtists}
+                          />
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </div>
+                  <br />
+                  <div className="row">
+                    <div className="col-8">
+                      <h5>Add Albums </h5>
+                    </div>
+                    <div className="col-4">
+                      <a
+                        className="btn btn-outline-danger"
+                        onClick={handleOnAddAlbums}
+                      >
+                        {onAddAlbums ? "X" : "+"}
+                      </a>
+                    </div>
+                    {console.log(fetchedAlbums)}
+                    {onAddAlbums ? (
+                      <div>
+                        {fetchedAlbums ? (
+                          <Selectalbumforartist
+                            data={fetchedAlbums}
+                            selectAlbums={handleAlbums}
+                          />
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </div>
+                  <br />
+                  <div className="row">
+                    <div className="col-8">
+                      <h5>Select Genre </h5>
+                    </div>
+                    <div className="col-4">
+                      <a
+                        className="btn btn-outline-danger"
+                        onClick={handleOnAddGenres}
+                      >
+                        {onAddGenres ? "X" : "+"}
+                      </a>
+                    </div>
+                    {console.log(fetchedGenres)}
+                    {onAddGenres ? (
+                      <div>
+                        {fetchedGenres ? (
+                          <Selectgenres
+                            data={fetchedGenres}
+                            selectGenres={handleGenres}
+                          />
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </div>
+                  <br />
+                  <div className="row">
+                    <div className="col-8">
+                      <h5>Select Category </h5>
+                    </div>
+                    <div className="col-4">
+                      <a
+                        className="btn btn-outline-danger"
+                        onClick={handleOnAddCategory}
+                      >
+                        {onAddCategory ? "X" : "+"}
+                      </a>
+                    </div>
+                    {console.log(fetchedCategory)}
+                    {onAddCategory ? (
+                      <div>
+                        {fetchedCategory ? (
+                          <Selectcategory
+                            data={fetchedCategory}
+                            selectCategory={handleCategory}
                           />
                         ) : null}
                       </div>

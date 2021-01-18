@@ -4,6 +4,8 @@ import { getArtists } from "../Pagesactions/artistsactions";
 import { getSongs } from "../Pagesactions/songsactions";
 import { getUsers } from "../Pagesactions/usersactions";
 import { getAlbums } from "../Pagesactions/albumactions";
+import { getGenres } from "../Pagesactions/genresactions";
+import { getCategory } from "../Pagesactions/categoryactions";
 import { GlobalData } from "../App.js";
 import "../Styles/adminpages.css";
 import "../Styles/adminhome.css";
@@ -164,7 +166,7 @@ const AdminHome = () => {
                 <Card.Body className="text-center">
                   {/* <i className="feather icon-briefcase text-c-red d-block f-40" /> */}
                   <ArtTrackIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20"> {songs.length} Genres</h4>
+                  <h4 className="m-t-20"> Genres</h4>
                   <p className="m-b-20">Lists of Genres</p>
                   <Link
                     style={{ textDecoration: "none", color: "black" }}
@@ -184,7 +186,7 @@ const AdminHome = () => {
                 <Card.Body className="text-center">
                   {/* <i className="feather icon-briefcase text-c-red d-block f-40" /> */}
                   <CategoryIcon style={{ color: "#f44040" }} />
-                  <h4 className="m-t-20"> {songs.length} Categories</h4>
+                  <h4 className="m-t-20"> Categories</h4>
                   <p className="m-b-20">Amazing lists of Categories</p>
                   <Link
                     style={{ textDecoration: "none", color: "black" }}
