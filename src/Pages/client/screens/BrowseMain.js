@@ -9,6 +9,7 @@ import { genMediaQuery } from '../../../Styles/constants';
 import { GlobalData } from '../../../App';
 import { getTrending } from '../../../Pagesactions/songsactions';
 import BrowseCarousel from './BrowseCarousel';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
    menuList: {
@@ -75,9 +76,18 @@ const useStyles = makeStyles((theme) => ({
          },
       },
    },
+   newListBtn: {
+      backgroundColor: '#fff',
+      color: '#0E284E',
+      borderRadius: 20,
+      marginLeft: 'auto',
+   },
 }));
 
-const list2 = ['All', 'Trending', 'Popular', 'Albums', 'Featured'];
+const list2 = {
+   list1: ['All', 'Trending', 'Popular', 'Albums', 'Featured'],
+   list2: ['Music Playlist', 'Video Playlist'],
+};
 
 const origin = window.location.origin;
 const Lists = [
@@ -97,8 +107,10 @@ const BrowseMain = (props) => {
    const data = React.useContext(GlobalData);
    const classes = useStyles();
    const theme = useTheme();
-   const [slug, setSlug] = useState('New Music');
-   const [list2Item, setList2Item] = useState('All');
+   const [topSlug, setTopSlug] = useState('New Music');
+   const [bottomSlug, setBottomSlug] = useState('All');
+
+   const [currentList, setCurrentList] = useState('list1');
    const [allChunks, setAllChunks] = useState([]);
    const [trending, setTrending] = useState();
    const [showArtists, setShowArtists] = useState(false);
@@ -122,6 +134,13 @@ const BrowseMain = (props) => {
    }, []);
 
    const [all, setAll] = useState([...data.popular]);
+
+   React.useEffect(() => {
+      if (topSlug.toLowerCase() === 'playlists') {
+         setCurrentList('list2');
+         setBottomSlug('Music Playlist');
+      }
+   }, [topSlug]);
 
    React.useEffect(() => {
       if (trending && trending.length > 0) {
@@ -155,27 +174,28 @@ const BrowseMain = (props) => {
 
    React.useEffect(() => {
       // console.clear();
-      if (slug.toLowerCase() === 'trending') {
-         console.log('data[slug]', data['trending']);
+      if (bottomSlug.toLowerCase() === 'trending') {
+         console.log('data[bottomSlug]', data['trending']);
          setAllChunks(trending.chunk(18));
-      } else if (slug.toLowerCase() === 'popular') {
-         console.log('data[slug]', data['popular']);
+      } else if (bottomSlug.toLowerCase() === 'popular') {
+         console.log('data[bottomSlug]', data['popular']);
          setAllChunks(data['popular'].chunk(18));
-      } else if (slug.toLowerCase() === 'all') {
+      } else if (bottomSlug.toLowerCase() === 'all') {
          if (trending && trending.length > 0) {
             setAll([...data['popular'], ...trending]);
          } else {
             setAll(...data['popular']);
          }
-      } else if (slug.toLowerCase() === 'artists') {
+      } else if (bottomSlug.toLowerCase() === 'artists') {
          setShowArtists(true);
       }
 
-      if (slug.toLowerCase() !== 'artists') {
+      if (bottomSlug.toLowerCase() !== 'artists') {
          setShowArtists(false);
       }
-      // console.log(data[slug].chunk(18));
-   }, [slug]);
+
+      // console.log(data[bottomSlug].chunk(18));
+   }, [bottomSlug]);
 
    React.useEffect(() => {
       console.log('<<<<<<<<<<<<');
@@ -202,9 +222,18 @@ const BrowseMain = (props) => {
       }
    }, [data.popular]);
 
-   const handleSlug = (e, item) => {
+   const handleTopSlug = (e, item) => {
       e.preventDefault();
-      setSlug(item);
+      if (item === 'playlist') {
+      }
+      setTopSlug(item);
+   };
+
+   const handleBottomSlug = (e, item) => {
+      e.preventDefault();
+      if (item === 'playlist') {
+      }
+      setBottomSlug(item);
    };
 
    return (
@@ -235,13 +264,13 @@ const BrowseMain = (props) => {
                <div className={classes.SecondNav}>
                   {Lists.map((list) => (
                      <MenuItem
-                        value={slug}
-                        onClick={(e) => handleSlug(e, list.text)}
+                        value={topSlug}
+                        onClick={(e) => handleTopSlug(e, list.text)}
                         className={classes.menuList}
                         style={{
-                           color: slug === list.text && '#fff',
+                           color: topSlug === list.text && '#fff',
                            borderBottom:
-                              slug === list.text &&
+                              topSlug === list.text &&
                               '1px solid #F44040',
                         }}
                      >
@@ -260,20 +289,25 @@ const BrowseMain = (props) => {
                      // justifyContent: 'space-around',
                   }}
                >
-                  {list2.map((list) => (
+                  {/* {list3.map((list) => ( */}
+                  {list2[currentList].map((list) => (
                      <MenuItem
-                        value={slug}
-                        onClick={(e) => handleSlug(e, list)}
+                        value={bottomSlug}
+                        onClick={(e) => handleBottomSlug(e, list)}
                         className={classes.menuList2}
                         style={{
                            backgroundColor:
-                              list2Item === list && '#F44040',
-                           borderRadius: list2Item === list && 20,
+                              bottomSlug === list && '#F44040',
+                           borderRadius: bottomSlug === list && 20,
                         }}
                      >
                         {list}
                      </MenuItem>
                   ))}
+                  <MenuItem className={classes.newListBtn}>
+                     <AddIcon />
+                     Create Playlist
+                  </MenuItem>
                </div>
             </Grid>
             <Grid item style={{ paddingTop: theme.spacing(3) }}>
@@ -282,6 +316,7 @@ const BrowseMain = (props) => {
                   allChunks={allChunks}
                   classes={classes}
                   data={data}
+                  slug={'playlist'}
                />
             </Grid>
             <Grid item justify='center'>
