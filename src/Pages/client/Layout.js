@@ -16,7 +16,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CloseIcon from '@material-ui/icons/Close';
 
-import logo from '../../../src/assets/logo.png';
+import logo from '../../../src/assets/logo2.png';
 import { Avatar, Button } from '@material-ui/core';
 import { AuthContext } from '../../Contexts/AuthContext';
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
    grow: {
       flexGrow: 1,
       '& .MuiAppBar-colorPrimary': {
-         backgroundColor: '#193459',
+         backgroundColor: '#1B3862',
       },
       minHeight: 56,
       [genMediaQuery('xs')]: {
@@ -45,18 +45,29 @@ const useStyles = makeStyles((theme) => ({
    search: {
       width: 'fit-content',
       position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: '#1b3863',
+      borderRight: 25,
+      color: '#8793A4',
+      maxWidth: '70%',
+
+      borderRadius: 20,
+
+      backgroundColor: ' #132D52',
       '&:hover': {
          backgroundColor: fade(theme.palette.common.white, 0.25),
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
       // width: '100%',
-      [theme.breakpoints.up('sm')]: {
+      [genMediaQuery('xs')]: {
+         height: '100%',
+         fontSize: '0.6em',
+      },
+      [theme.breakpoints.up('md')]: {
          marginLeft: theme.spacing(3),
          // width: 'auto',
       },
+      margin: 'auto',
+      height: 35,
    },
    searchIcon: {
       padding: theme.spacing(0, 2),
@@ -66,6 +77,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      right: 0,
+      [genMediaQuery('xs')]: {
+         fontSize: '1.5em',
+      },
    },
    inputRoot: {
       color: 'inherit',
@@ -74,9 +89,14 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.3em',
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+      paddingLeft: `calc(1em + ${theme.spacing(1)}px)`,
       transition: theme.transitions.create('width'),
       width: '100%',
+
+      [genMediaQuery('sm')]: {
+         fontSize: '1.2em',
+      },
+
       [theme.breakpoints.up('md')]: {
          width: '20ch',
       },
@@ -97,8 +117,15 @@ const useStyles = makeStyles((theme) => ({
    },
    sectionNavLinks: {
       display: 'flex',
+      paddingLeft: 40,
       [genMediaQuery('xs')]: {
          display: 'none',
+      },
+      '& .MuiMenuItem-root': {
+         fontSize: '1rem',
+         [genMediaQuery('sm')]: {
+            fontSize: '0.9em',
+         },
       },
    },
    navLinks: {
@@ -120,11 +147,18 @@ const useStyles = makeStyles((theme) => ({
       height: 60,
       objectFit: 'contain',
       [genMediaQuery('xs')]: {
-         width: 200,
-         height: 100,
+         width: window.location.href.includes('browse') ? 200 : 100,
+         height: window.location.href.includes('browse') ? 100 : 50,
       },
    },
-   Toolbar: {},
+   Toolbar: {
+      paddingLeft: 85,
+      paddingRight: 55,
+      [genMediaQuery('sm')]: {
+         paddingLeft: 20,
+         paddingRight: 20,
+      },
+   },
    menuList: {
       // fontSize: '1.3rem',
    },
@@ -160,7 +194,7 @@ const useStyles = makeStyles((theme) => ({
          right: '0 ',
          background: '#193459',
          '& p': {
-            color: '#fff !important',
+            color: '#fff ',
          },
          '& path': {
             color: '#fff !important',
@@ -180,6 +214,11 @@ const useStyles = makeStyles((theme) => ({
          },
       },
    },
+   nestedNavLinks: {
+      [genMediaQuery('xs')]: {
+         fontSize: '3em',
+      },
+   },
    moreNavLinks: {
       [genMediaQuery('xs')]: {
          fontSize: '3em',
@@ -188,12 +227,26 @@ const useStyles = makeStyles((theme) => ({
          marginRight: 30,
          color: 'black',
          fontFamily: 'calibri',
+         '& .MuiAvatar-root': {
+            [genMediaQuery('xs')]: {
+               width: '70px',
+               height: '70px',
+            },
+         },
+         overflow: 'visible',
+         '& .MuiBadge-badge': {
+            [genMediaQuery('xs')]: {
+               width: '40px',
+               fontSize: '1.2em',
+               height: '40px',
+            },
+         },
       },
    },
    notificationBtn: {
       [genMediaQuery('xs')]: {
          position: 'absolute',
-         right: '52%',
+         right: '100%',
       },
    },
    extraNavLinks: {
@@ -201,6 +254,27 @@ const useStyles = makeStyles((theme) => ({
       width: 'fit-content',
       [genMediaQuery('xs')]: {
          width: '100% ',
+      },
+      [genMediaQuery('xs')]: {
+         margin: 'auto',
+         textAlign: 'right',
+         marginRight: 30,
+         color: 'black',
+         fontFamily: 'calibri',
+         '& .MuiAvatar-root': {
+            [genMediaQuery('xs')]: {
+               width: '70px',
+               height: '70px',
+            },
+         },
+         overflow: 'visible',
+         '& .MuiBadge-badge': {
+            [genMediaQuery('xs')]: {
+               width: '40px',
+               fontSize: '1.2em',
+               height: '40px',
+            },
+         },
       },
    },
    notificationSM: {
@@ -211,9 +285,15 @@ const useStyles = makeStyles((theme) => ({
       },
    },
    moreProfileBtn: {
+      paddingLeft: 0,
       [genMediaQuery('xs')]: {
          position: 'absolute',
-         right: '26%',
+         right: '20%',
+         '& svg': {
+            position: 'absolute',
+            right: '150px',
+            fontSize: '3em',
+         },
       },
    },
    closeBtn: {
@@ -222,7 +302,7 @@ const useStyles = makeStyles((theme) => ({
          display: 'block',
          position: 'absolute',
          top: '5%',
-         right: '2%',
+         right: '7%',
          fontSize: '3.5em',
       },
    },
@@ -230,7 +310,8 @@ const useStyles = makeStyles((theme) => ({
       '& svg': {
          fontSize: '1.5em',
          [genMediaQuery('xs')]: {
-            fontSize: '3em',
+            fontSize:
+               window.location.href.includes('browse') && '3em',
          },
       },
    },
@@ -281,10 +362,18 @@ export default function PrimarySearchAppBar() {
          open={isMenuOpen}
          onClose={handleMenuClose}
       >
-         <MenuItem onClick={handleMenuClose}>
+         <MenuItem
+            onClick={handleMenuClose}
+            className={classes.nestedNavLinks}
+         >
             Account Setting
          </MenuItem>
-         <MenuItem onClick={logoutUser}>Log Out</MenuItem>
+         <MenuItem
+            onClick={logoutUser}
+            className={classes.nestedNavLinks}
+         >
+            Log Out
+         </MenuItem>
       </Menu>
    );
 
@@ -306,12 +395,7 @@ export default function PrimarySearchAppBar() {
                marginTop: 10,
             }}
          >
-            <div
-               className={classes.search}
-               style={{
-                  maxWidth: '70%',
-               }}
-            >
+            <div className={classes.search} style={{}}>
                <div className={classes.searchIcon}>
                   <SearchIcon
                      style={{
@@ -342,7 +426,19 @@ export default function PrimarySearchAppBar() {
             className={classes.navLinks}
             onClick={() => (window.location.href = '/client/browse')}
          >
-            <p>Browse</p>
+            <p
+               style={{
+                  color:
+                     window.location.href.includes('browse') &&
+                     '#F44040',
+
+                  borderBottom:
+                     window.location.href.includes('browse') &&
+                     '1px solid #F44040',
+               }}
+            >
+               Browse
+            </p>
          </MenuItem>
          <MenuItem
             className={classes.navLinks}
@@ -350,19 +446,55 @@ export default function PrimarySearchAppBar() {
                (window.location.href = '/client/discover')
             }
          >
-            <p>Discover</p>
+            <p
+               style={{
+                  color:
+                     window.location.href.includes('discover') &&
+                     '#F44040 ',
+
+                  borderBottom:
+                     window.location.href.includes('discover') &&
+                     '1px solid #F44040',
+               }}
+            >
+               Discover
+            </p>
          </MenuItem>
          <MenuItem
             className={classes.navLinks}
             onClick={() => (window.location.href = '/client/radio')}
          >
-            <p>Radio</p>
+            <p
+               style={{
+                  color:
+                     window.location.href.includes('radio') &&
+                     '#F44040 ',
+
+                  borderBottom:
+                     window.location.href.includes('radio') &&
+                     '1px solid #F44040',
+               }}
+            >
+               Radio
+            </p>
          </MenuItem>
          <MenuItem
             className={classes.navLinks}
             onClick={() => (window.location.href = '/client/library')}
          >
-            <p>My Library</p>
+            <p
+               style={{
+                  color:
+                     window.location.href.includes('library') &&
+                     '#F44040 ',
+
+                  borderBottom:
+                     window.location.href.includes('library') &&
+                     '1px solid #F44040',
+               }}
+            >
+               My Library
+            </p>
          </MenuItem>
          <MenuItem
             className={`${classes.notificationItem} ${classes.extraNavLinks} ${classes.notificationSM}`}
@@ -404,7 +536,7 @@ export default function PrimarySearchAppBar() {
                color='inherit'
                className={classes.moreProfileBtn}
             >
-               <ExpandMoreIcon style={{ fontSize: '3em' }} />
+               <ExpandMoreIcon />
             </IconButton>
             <p className={classes.moreNavLinks}>Profile</p>
          </MenuItem>
@@ -422,6 +554,17 @@ export default function PrimarySearchAppBar() {
                         onClick={() =>
                            (window.location.href = '/client/browse')
                         }
+                        style={{
+                           color:
+                              window.location.href.includes(
+                                 'browse'
+                              ) && '#F44040',
+
+                           borderBottom:
+                              window.location.href.includes(
+                                 'browse'
+                              ) && '1px solid #F44040',
+                        }}
                         className={classes.menuList}
                      >
                         Browse
@@ -431,6 +574,16 @@ export default function PrimarySearchAppBar() {
                         onClick={() =>
                            (window.location.href = '/client/discover')
                         }
+                        style={{
+                           color:
+                              window.location.href.includes(
+                                 'discover'
+                              ) && '#F44040',
+                           borderBottom:
+                              window.location.href.includes(
+                                 'discover'
+                              ) && '1px solid #F44040',
+                        }}
                      >
                         Discover
                      </MenuItem>
@@ -439,6 +592,16 @@ export default function PrimarySearchAppBar() {
                         onClick={() =>
                            (window.location.href = '/client/radio')
                         }
+                        style={{
+                           color:
+                              window.location.href.includes(
+                                 'radio'
+                              ) && '#F44040',
+                           borderBottom:
+                              window.location.href.includes(
+                                 'radio'
+                              ) && '1px solid #F44040',
+                        }}
                      >
                         Radio
                      </MenuItem>
@@ -447,6 +610,16 @@ export default function PrimarySearchAppBar() {
                         onClick={() =>
                            (window.location.href = '/client/library')
                         }
+                        style={{
+                           color:
+                              window.location.href.includes(
+                                 'library'
+                              ) && '#F44040',
+                           borderBottom:
+                              window.location.href.includes(
+                                 'library'
+                              ) && '1px solid #F44040',
+                        }}
                      >
                         My Library
                      </MenuItem>
@@ -502,7 +675,7 @@ export default function PrimarySearchAppBar() {
                         aria-label='account of current user'
                         aria-controls={menuId}
                         aria-haspopup='true'
-                        // onClick={handleProfileMenuOpen}
+                        onClick={handleProfileMenuOpen}
                         color='inherit'
                      >
                         <ExpandMoreIcon />

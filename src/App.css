@@ -2,8 +2,9 @@
    text-align: center;
    margin: 0;
    padding: 0%;
-   /* background-color: #132d52; */
-   background-color: #1b3863;
+   background-color: #132d52;
+
+   /* background-color: #1b3863; */
    height: 100vh;
    color: rgb(216, 68, 30);
 }

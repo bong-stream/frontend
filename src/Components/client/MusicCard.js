@@ -45,7 +45,7 @@ const useStyles = makeStyles({
       paddingLeft: 10,
       fontSize: '1em',
       [genMediaQuery('xs')]: {
-         fontSize: '2.5em',
+         // fontSize: '2.5em',
       },
       // [genMediaQuery('xs', 375)]: {
       //    // fontSize: '2.3em',
