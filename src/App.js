@@ -35,6 +35,7 @@ import {
    getRecentPlay,
    getRecomended,
 } from './Pagesactions/HomeActions';
+import Playlist from './Pages/client/screens/Playlist';
 export const GlobalData = React.createContext();
 
 export const App = () => {
@@ -328,6 +329,11 @@ export const App = () => {
                exact
                path={'/client/browse'}
                component={BrowseMain}
+            />
+            <ClientRoute
+               exact
+               path={'/client/playist'}
+               component={Playlist}
             />
             <ClientRoute
                exact
