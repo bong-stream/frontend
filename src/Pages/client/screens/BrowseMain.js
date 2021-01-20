@@ -3,76 +3,12 @@ import { Divider, Grid, MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MusicCard from '../../../Components/client/MusicCard';
-import Carousel from 'react-elastic-carousel';
+
 import '../../../assets/BrowseStyle.css';
 import { genMediaQuery } from '../../../Styles/constants';
 import { GlobalData } from '../../../App';
 import { getTrending } from '../../../Pagesactions/songsactions';
-import ArtistsCard from '../../../Components/client/ArtistsCards';
-
-const tutorialSteps = [
-   {
-      title: 'hamara parcham',
-      label: 'San Francisco ',
-      imgPath:
-         'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-   {
-      title: 'a jaaa pardesi',
-      label: 'Bird',
-      imgPath:
-         'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-   {
-      title: 'hamara parcham',
-      label: 'Bali, Indonesia',
-      imgPath:
-         'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
-   },
-   {
-      title: 'a jaaa pardesi',
-      label: 'NeONBRAND ',
-      imgPath:
-         'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-   {
-      title: 'a jaaa pardesi',
-      label: 'Goč, Serbia',
-      imgPath:
-         'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-   {
-      title: 'a jaaa pardesi',
-      label: 'Goč, Serbia',
-      imgPath:
-         'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-   {
-      title: 'a jaaa pardesi',
-      label: 'Goč, Serbia',
-      imgPath:
-         'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-   {
-      title: 'a jaaa pardesi',
-      label: 'Goč, Serbia',
-      imgPath:
-         'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-   {
-      title: 'a jaaa pardesi',
-      label: 'Goč, Serbia',
-      imgPath:
-         'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-   {
-      title: 'a jaaa pardesi',
-      label: 'Goč, Serbia',
-      imgPath:
-         'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-   },
-];
+import BrowseCarousel from './BrowseCarousel';
 
 const useStyles = makeStyles((theme) => ({
    menuList: {
@@ -140,17 +76,19 @@ const useStyles = makeStyles((theme) => ({
       },
    },
 }));
-const card = [1, 2, 3, 4, 5, 6, 7];
+
 const list2 = ['All', 'Trending', 'Popular', 'Albums', 'Featured'];
+
+const origin = window.location.origin;
 const Lists = [
-   'New Music',
-   'Videos',
-   'Podcasts',
-   'PlayLists',
-   'Genure',
-   'Category',
-   'Artists',
-   'Albums',
+   { text: 'New Music', link: '' },
+   { text: 'Videos', link: '' },
+   { text: 'Podcasts', link: '' },
+   { text: 'PlayLists', link: `${origin}/playlist` },
+   { text: 'Genure', link: '' },
+   { text: 'Category', link: '' },
+   { text: 'Artists', link: '' },
+   { text: 'Albums', link: '' },
 ];
 
 // refresh page if experimenting and you already defined Array.prototype.chunk
@@ -298,15 +236,16 @@ const BrowseMain = (props) => {
                   {Lists.map((list) => (
                      <MenuItem
                         value={slug}
-                        onClick={(e) => handleSlug(e, list)}
+                        onClick={(e) => handleSlug(e, list.text)}
                         className={classes.menuList}
                         style={{
-                           color: slug === list && '#fff',
+                           color: slug === list.text && '#fff',
                            borderBottom:
-                              slug === list && '1px solid #F44040',
+                              slug === list.text &&
+                              '1px solid #F44040',
                         }}
                      >
-                        {list}
+                        {list.text}
                      </MenuItem>
                   ))}
                </div>
@@ -338,83 +277,12 @@ const BrowseMain = (props) => {
                </div>
             </Grid>
             <Grid item style={{ paddingTop: theme.spacing(3) }}>
-               {isFetching ? (
-                  <div className='loader'></div>
-               ) : (
-                  <Carousel
-                     itemsToShow={1}
-                     itemsToScroll={1}
-                     showArrows={false}
-                     className={classes.Carousel}
-                     // itemsToShow={window.screen.width >= 768 ? 6 : 2}
-                     // itemsToScroll={window.screen.width >= 768 ? 6 : 2}
-                  >
-                     {showArtists === true ? (
-                        <Grid
-                           container
-                           justify='flex-start'
-                           spacing={2}
-                        >
-                           {data.artists &&
-                              data.artists.length > 0 &&
-                              data.artists.map((artist) => (
-                                 <Grid
-                                    key={artist._id}
-                                    item
-                                    xs={6}
-                                    sm={3}
-                                    md={2}
-                                 >
-                                    <ArtistsCard
-                                       imgPath={artist.artistimage}
-                                       title={artist.artistname}
-                                       label={artist.label}
-                                       isArtist={true}
-                                    />
-                                 </Grid>
-                              ))}
-                        </Grid>
-                     ) : (
-                        allChunks &&
-                        allChunks.length > 0 &&
-                        allChunks.map((item) => (
-                           <div
-                              style={{
-                                 display: 'block',
-                                 // paddingLeft: theme.spacing(3),
-                                 // flexWrap: "nowrap",
-                                 flexDirection: 'row',
-                                 zIndex: 1,
-                                 width: '100%',
-                              }}
-                           >
-                              <Grid
-                                 container
-                                 justify='flex-start'
-                                 spacing={2}
-                              >
-                                 {item.map((value) => (
-                                    <Grid
-                                       key={value}
-                                       item
-                                       xs={6}
-                                       sm={3}
-                                       md={2}
-                                    >
-                                       <MusicCard
-                                          imgPath={value.songimage}
-                                          title={value.songname}
-                                          label={value.label}
-                                          isArtist={false}
-                                       />
-                                    </Grid>
-                                 ))}
-                              </Grid>
-                           </div>
-                        ))
-                     )}
-                  </Carousel>
-               )}
+               <BrowseCarousel
+                  isFetching={isFetching}
+                  allChunks={allChunks}
+                  classes={classes}
+                  data={data}
+               />
             </Grid>
             <Grid item justify='center'>
                <div
