@@ -3,14 +3,11 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/More';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -94,7 +91,9 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
 
       [genMediaQuery('sm')]: {
-         fontSize: '1.2em',
+         fontSize: window.location.href.includes('browse')
+            ? '1.2em'
+            : '0.7em ',
       },
 
       [theme.breakpoints.up('md')]: {
@@ -134,7 +133,9 @@ const useStyles = makeStyles((theme) => ({
       },
       display: 'none',
       '& p': {
-         fontSize: '3em',
+         fontSize: window.location.href.includes('browse')
+            ? '3em'
+            : '2em',
          margin: 'auto',
          textAlign: 'right',
          marginRight: 30,
@@ -204,7 +205,9 @@ const useStyles = makeStyles((theme) => ({
    notificationBadge: {
       [genMediaQuery('xs')]: {
          '& svg': {
-            fontSize: '2.7em',
+            fontSize: window.location.href.includes('browse')
+               ? '2.7em'
+               : '1.7em',
          },
          '& .MuiBadge-badge': {
             fontSize: '1.5em',
@@ -221,10 +224,14 @@ const useStyles = makeStyles((theme) => ({
    },
    moreNavLinks: {
       [genMediaQuery('xs')]: {
-         fontSize: '3em',
+         fontSize: window.location.href.includes('browse')
+            ? '3em'
+            : '2em',
          margin: 'auto',
          textAlign: 'right',
-         marginRight: 30,
+         marginRight: window.location.href.includes('browse')
+            ? 30
+            : 0,
          color: 'black',
          fontFamily: 'calibri',
          '& .MuiAvatar-root': {
@@ -236,9 +243,15 @@ const useStyles = makeStyles((theme) => ({
          overflow: 'visible',
          '& .MuiBadge-badge': {
             [genMediaQuery('xs')]: {
-               width: '40px',
-               fontSize: '1.2em',
-               height: '40px',
+               width: window.location.href.includes('browse')
+                  ? 40
+                  : 25,
+               fontSize: window.location.href.includes('browse')
+                  ? '1.2em'
+                  : '0.7em',
+               height: window.location.href.includes('browse')
+                  ? 40
+                  : 25,
             },
          },
       },
@@ -263,16 +276,26 @@ const useStyles = makeStyles((theme) => ({
          fontFamily: 'calibri',
          '& .MuiAvatar-root': {
             [genMediaQuery('xs')]: {
-               width: '70px',
-               height: '70px',
+               width: window.location.href.includes('browse')
+                  ? 70
+                  : 50,
+               height: window.location.href.includes('browse')
+                  ? 70
+                  : 50,
             },
          },
          overflow: 'visible',
          '& .MuiBadge-badge': {
             [genMediaQuery('xs')]: {
-               width: '40px',
-               fontSize: '1.2em',
-               height: '40px',
+               width: window.location.href.includes('browse')
+                  ? 40
+                  : 25,
+               fontSize: window.location.href.includes('browse')
+                  ? '1.2em'
+                  : '0.7em',
+               height: window.location.href.includes('browse')
+                  ? 40
+                  : 25,
             },
          },
       },
@@ -291,8 +314,10 @@ const useStyles = makeStyles((theme) => ({
          right: '20%',
          '& svg': {
             position: 'absolute',
-            right: '150px',
-            fontSize: '3em',
+            right: window.location.href.includes('browse') ? 150 : 80,
+            fontSize: window.location.href.includes('browse')
+               ? '3em'
+               : '2em',
          },
       },
    },
@@ -302,8 +327,10 @@ const useStyles = makeStyles((theme) => ({
          display: 'block',
          position: 'absolute',
          top: '5%',
-         right: '7%',
-         fontSize: '3.5em',
+         right: window.location.href.includes('browse') ? '7%' : '5%',
+         fontSize: window.location.href.includes('browse')
+            ? '3.5em'
+            : '2.5em',
       },
    },
    expandBtn: {
@@ -399,7 +426,11 @@ export default function PrimarySearchAppBar() {
                <div className={classes.searchIcon}>
                   <SearchIcon
                      style={{
-                        fontSize: '3.2em',
+                        fontSize: window.location.href.includes(
+                           'browse'
+                        )
+                           ? '3.2em'
+                           : '2.2em',
                      }}
                   />
                </div>
@@ -498,6 +529,11 @@ export default function PrimarySearchAppBar() {
          </MenuItem>
          <MenuItem
             className={`${classes.notificationItem} ${classes.extraNavLinks} ${classes.notificationSM}`}
+            style={{
+               marginRight: window.location.href.includes('browse')
+                  ? 30
+                  : 0,
+            }}
          >
             <IconButton
                aria-label='show 4 new mails'
@@ -547,7 +583,14 @@ export default function PrimarySearchAppBar() {
       <div className={classes.grow}>
          <AppBar position='fixed'>
             <Toolbar className={classes.Toolbar}>
-               <img src={logo} alt='logo' className={classes.logo} />
+               <img
+                  src={logo}
+                  alt='logo'
+                  className={classes.logo}
+                  onClick={() =>
+                     (window.location.href = `${window.location.origin}/client/home`)
+                  }
+               />
                <div className={classes.sectionNavLinks}>
                   <div style={{ display: 'flex' }}>
                      <MenuItem
