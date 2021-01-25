@@ -12,6 +12,7 @@ import { Row, Col, Card } from "react-bootstrap";
 import amountSpent from "../Components/charts/analytics-amount-spent";
 import amountProcessed from "../Components/charts/analytics-amount-processed";
 import profitProcessed from "../Components/charts/analytics-profit-processed";
+import SimpleBreadcrumbs from "../Components/Breadcrumbs";
 import View from "../Components/Userview";
 import "../Styles/adminpages.css";
 import "../Styles/adminuser.css";
@@ -22,6 +23,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Adduser from "../Components/Adduser";
 import Edituser from "../Components/Edituser";
 import Filters from "../Components/Filters";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -158,7 +160,7 @@ const User = () => {
         <div className="row">
           <div className="col-1 col-md-0"></div>
           <div className="col-10 col-md-11 ">
-            <Row>
+            {/* <Row>
               {users ? (
                 <Col className="mb-4" md={4} xl={4}>
                   <Card className="amount-card overflow-hidden">
@@ -195,27 +197,38 @@ const User = () => {
                   <Chart {...profitProcessed} />
                 </Card>
               </Col>
-            </Row>
-            <div>
+            </Row> */}
+            <div
+              className="mb-1"
+              style={{ height: "184px", backgroundColor: "#2F5184" }}
+            >
               <div className="row">
                 <div className="col-12 col-md-8 d-flex justify-content-start">
                   {" "}
-                  <div class="input-group ">
+                  <div class="input-group mt-2 ml-2">
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Search by Username"
+                      placeholder=" &#xF002;  Search"
                       aria-label="Recipient's username"
                       aria-describedby="basic-addon2"
                       value={searchValue}
                       onChange={handleSearchChange}
+                      style={{
+                        height: "55px",
+                        fontFamily: "FontAwesome",
+                      }}
                     />
-                    <div class="input-group-append">
-                      {/* <span class="input-group-text" id="basic-addon2">
-                        @example.com
-                      </span> */}
-                      <button className="btn btn-danger">Search</button>
-                    </div>
+                  </div>
+                </div>
+                <div className="col-4 d-flex justify-content-end"></div>
+              </div>
+              <br />
+              <div className="row m-2 text-white">
+                <div className="col-12 col-md-8 d-flex justify-content-start">
+                  {" "}
+                  <div class="input-group ">
+                    <h2>Users</h2>
                   </div>
                 </div>
                 <div className="col-4 d-flex justify-content-end">
@@ -236,23 +249,43 @@ const User = () => {
                       desc: "desc",
                     }}
                   />
-                  <button
-                    className="btn  btn-sm btn-danger m-0"
-                    onClick={handleToggleAddUser}
-                  >
-                    Add{" "}
-                    <AddCircleIcon
-                      style={{
-                        margin: 0,
-                        padding: 0,
-                      }}
-                    />
-                  </button>
+                  <div>
+                    <button
+                      className="btn  btn-danger"
+                      onClick={handleToggleAddUser}
+                      style={{ width: "120px", height: "40px" }}
+                    >
+                      <AddIcon
+                        style={{
+                          margin: 0,
+                          padding: 0,
+                        }}
+                      />{" "}
+                      Add
+                    </button>
+                  </div>
                 </div>
+                <div className=" m-2 text-white">
+                  <SimpleBreadcrumbs
+                    data={[
+                      {
+                        link: "/",
+                        name: "Home",
+                      },
+                      {
+                        link: "/admin/users",
+                        name: "Users",
+                      },
+                    ]}
+                  />
+                </div>
+
+                {/* <div className ="row m-2 text-white" >
+                  <div></div>
+
+                </div> */}
               </div>
             </div>
-
-            <br />
             {/* {console.log("i am users", search)} */}
             {users ? (
               <Userstable

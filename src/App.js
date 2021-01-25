@@ -4,6 +4,7 @@ import { getSongs } from "./Pagesactions/songsactions";
 import { getUsers } from "./Pagesactions/usersactions";
 import { getAlbums } from "./Pagesactions/albumactions";
 import Sidedrawer from "./Components/Sidedrawer";
+import Navbar from "./Components/Navbar";
 import { Switch, Route } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import AdminHome from "./Pages/AdminHome";
@@ -97,6 +98,7 @@ function App() {
 
         <Router>
           <Sidedrawer />
+          {/* <Navbar /> */}
           <Switch>
             <Route exact path="/" render={(routeProps) => <AdminHome />} />
             <Route exact path="/signin" render={(routeProps) => <Signin />} />

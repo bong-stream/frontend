@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import Imageavatar from "./Imageavatar";
 import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -26,12 +27,19 @@ import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
+import ArtTrackIcon from "@material-ui/icons/ArtTrack";
+import CategoryIcon from "@material-ui/icons/Category";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    backgroundColor: " #f44040",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -107,6 +115,16 @@ function Sidedrawer() {
   // const customClasses = styles;
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(true);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
+
+  const handleClick = () => {
+    setOpenMenu(!openMenu);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -161,43 +179,223 @@ function Sidedrawer() {
           }),
         }}
       >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
+        <div className="mb-1">
+          {open && (
+            <div className="row m-1">
+              <div className="col-3 mt-2">
+                <Imageavatar imageSrc="https://images.pexels.com/photos/2853535/pexels-photo-2853535.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" />
+              </div>
+              <div className="col-6">
+                <h5 className="mt-3">Admin Name</h5>
+              </div>
+              <div className="col-3 ">
+                <IconButton onClick={handleDrawerClose}>
+                  {theme.direction === "rtl" ? (
+                    <ChevronRightIcon />
+                  ) : (
+                    <ChevronLeftIcon />
+                  )}
+                </IconButton>
+              </div>
+            </div>
+          )}
         </div>
+        <Divider />
         <List>
+          <br />
+          <br />
+          <br />
+          {!open && (
+            <ListItem>
+              <ListItemIcon style={{ color: "white" }}>
+                {" "}
+                {/* <AppsIcon /> */}
+                <Imageavatar imageSrc="https://images.pexels.com/photos/2853535/pexels-photo-2853535.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" />
+              </ListItemIcon>
+              {/* <ListItemText primary="Home" /> */}
+            </ListItem>
+          )}
+
           <Link style={{ textDecoration: "none", color: "black" }} to="/">
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem
+              button
+              style={
+                selectedIndex === 0
+                  ? {
+                      backgroundColor: " #f44040",
+                      color: "white",
+                    }
+                  : null
+              }
+              selected={selectedIndex === 0}
+              onClick={(event) => handleListItemClick(event, 0)}
+            >
+              <ListItemIcon
+                style={selectedIndex === 0 ? { color: "white" } : null}
+              >
                 {" "}
                 <AppsIcon />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
           </Link>
+
           <Link
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/managehomepage"
           >
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem
+              button
+              style={
+                selectedIndex === 1
+                  ? {
+                      backgroundColor: " #f44040",
+                      color: "white",
+                    }
+                  : null
+              }
+              selected={selectedIndex === 1}
+              onClick={(event) => handleListItemClick(event, 1)}
+            >
+              <ListItemIcon
+                style={selectedIndex === 1 ? { color: "white" } : null}
+              >
                 {" "}
                 <HomeWorkIcon />
               </ListItemIcon>
-              <ListItemText primary="Manage Homepage" />
+              <ListItemText primary="Homepage" />
+              {openMenu ? (
+                <IconButton
+                  onClick={handleClick}
+                  edge="start"
+                  color="inherit"
+                  aria-label="close"
+                >
+                  <ExpandLess />
+                </IconButton>
+              ) : (
+                <IconButton
+                  onClick={handleClick}
+                  edge="start"
+                  color="inherit"
+                  aria-label="close"
+                >
+                  <ExpandMore />
+                </IconButton>
+              )}
             </ListItem>
           </Link>
+          <Collapse in={openMenu && open} timeout="auto" unmountOnExit>
+            <br />
+            <List component="div" disablePadding>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/trending"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <TrendingUpIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Trending" />
+                </ListItem>
+              </Link>
+              <Divider />
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/popular"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <WhatshotIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Popular" />
+                </ListItem>
+              </Link>
+              <Divider />
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/charts"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <InsertChartIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Top Charts" />
+                </ListItem>
+              </Link>
+              <Divider />
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/bongplaylist"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <PlaylistPlayIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="BongPlaylist" />
+                </ListItem>
+              </Link>
+              <Divider />
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/topartists"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <FaceIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Top Artists" />
+                </ListItem>
+              </Link>
+              <Divider />
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/topalbums"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <AlbumIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Top Albums" />
+                </ListItem>
+              </Link>
+              <Divider />
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/recommended"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <MusicNoteIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Recommended" />
+                </ListItem>
+              </Link>
+            </List>
+
+            <br />
+          </Collapse>
+
           <Link
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/users"
           >
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem
+              button
+              style={
+                selectedIndex === 2
+                  ? {
+                      backgroundColor: " #f44040",
+                      color: "white",
+                    }
+                  : null
+              }
+              selected={selectedIndex === 2}
+              onClick={(event) => handleListItemClick(event, 2)}
+            >
+              <ListItemIcon
+                style={selectedIndex === 2 ? { color: "white" } : null}
+              >
                 {" "}
                 <AccountCircleIcon />
               </ListItemIcon>
@@ -208,8 +406,22 @@ function Sidedrawer() {
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/artist"
           >
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem
+              button
+              style={
+                selectedIndex === 3
+                  ? {
+                      backgroundColor: " #f44040",
+                      color: "white",
+                    }
+                  : null
+              }
+              selected={selectedIndex === 3}
+              onClick={(event) => handleListItemClick(event, 3)}
+            >
+              <ListItemIcon
+                style={selectedIndex === 3 ? { color: "white" } : null}
+              >
                 {" "}
                 <FaceIcon />
               </ListItemIcon>
@@ -221,8 +433,22 @@ function Sidedrawer() {
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/albums"
           >
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem
+              button
+              style={
+                selectedIndex === 4
+                  ? {
+                      backgroundColor: " #f44040",
+                      color: "white",
+                    }
+                  : null
+              }
+              selected={selectedIndex === 4}
+              onClick={(event) => handleListItemClick(event, 4)}
+            >
+              <ListItemIcon
+                style={selectedIndex === 4 ? { color: "white" } : null}
+              >
                 <AlbumIcon />
               </ListItemIcon>
               <ListItemText primary="Albums" />
@@ -233,8 +459,22 @@ function Sidedrawer() {
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/songs"
           >
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem
+              button
+              style={
+                selectedIndex === 5
+                  ? {
+                      backgroundColor: " #f44040",
+                      color: "white",
+                    }
+                  : null
+              }
+              selected={selectedIndex === 5}
+              onClick={(event) => handleListItemClick(event, 5)}
+            >
+              <ListItemIcon
+                style={selectedIndex === 5 ? { color: "white" } : null}
+              >
                 <MusicNoteIcon />{" "}
               </ListItemIcon>
               <ListItemText primary="Songs" />
@@ -243,41 +483,56 @@ function Sidedrawer() {
 
           <Link
             style={{ textDecoration: "none", color: "black" }}
-            to="/admin/trending"
+            to="/admin/category"
           >
-            <ListItem button>
-              <ListItemIcon>
-                <TrendingUpIcon style={{ color: "#f44040" }} />
+            <ListItem
+              button
+              style={
+                selectedIndex === 6
+                  ? {
+                      backgroundColor: " #f44040",
+                      color: "white",
+                    }
+                  : null
+              }
+              selected={selectedIndex === 6}
+              onClick={(event) => handleListItemClick(event, 6)}
+            >
+              <ListItemIcon
+                style={selectedIndex === 6 ? { color: "white" } : null}
+              >
+                <CategoryIcon />{" "}
               </ListItemIcon>
-              <ListItemText primary="Trending" />
+              <ListItemText primary="Category" />
             </ListItem>
           </Link>
 
           <Link
             style={{ textDecoration: "none", color: "black" }}
-            to="/admin/popular"
+            to="/admin/genres"
           >
-            <ListItem button>
-              <ListItemIcon>
-                <WhatshotIcon style={{ color: "#f44040" }} />
+            <ListItem
+              button
+              style={
+                selectedIndex === 7
+                  ? {
+                      backgroundColor: " #f44040",
+                      color: "white",
+                    }
+                  : null
+              }
+              selected={selectedIndex === 7}
+              onClick={(event) => handleListItemClick(event, 7)}
+            >
+              <ListItemIcon
+                style={selectedIndex === 7 ? { color: "white" } : null}
+              >
+                <ArtTrackIcon />{" "}
               </ListItemIcon>
-              <ListItemText primary="Popular" />
-            </ListItem>
-          </Link>
-
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to="/admin/charts"
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <InsertChartIcon style={{ color: "#f44040" }} />
-              </ListItemIcon>
-              <ListItemText primary="Top Charts" />
+              <ListItemText primary="Genres" />
             </ListItem>
           </Link>
         </List>
-        <Divider />
       </Drawer>
     </div>
   );

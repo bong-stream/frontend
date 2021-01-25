@@ -73,9 +73,9 @@ export default function Filters({
         color="primary"
         onClick={handleClick}
         className="btn btn-danger"
+        style={{ width: "120px", height: "40px" }}
       >
-        Filters
-        <FilterListIcon />
+        <FilterListIcon /> Filters
       </button>
       <StyledMenu
         id="customized-menu"
