@@ -116,7 +116,7 @@ function Sidedrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(true);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
