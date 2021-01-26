@@ -230,103 +230,112 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
                 <h4>Album Details</h4>
                 <div className="row">
                   <div className="col-12 col-md-6">
-                    <TextField
+                    <input
+                      class="form-control"
                       autoFocus
                       margin="dense"
                       id="name"
-                      label="Album Name"
+                      placeholder="Album Name"
                       type="text"
                       name="albumname"
                       value={state.albumname}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <input
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      label="Number of Tracks"
+                      placeholder="Number of Tracks"
                       type="number"
                       name="tracks"
                       value={state.tracks}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <input
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      label="Genres"
+                      placeholder="Genres"
                       type="text"
                       name="genres"
                       value={state.genres}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <input
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      label="Album Duration"
+                      placeholder="Album Duration"
                       type="text"
                       name="duration"
                       value={state.duration}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <input
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      label="Poets"
+                      placeholder="Poets"
                       type="text"
                       name="poets"
                       value={state.poets}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <input
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      label="Mix and Master"
+                      placeholder="Mix and Master"
                       type="text"
                       name="mixmaster"
                       value={state.mixmaster}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <input
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      label="Producer"
+                      placeholder="Producer"
                       type="text"
                       name="producer"
                       value={state.producer}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <input
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      label="Label"
+                      placeholder="Label"
                       type="text"
                       name="label"
                       value={state.label}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <input
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      label="Year of Production"
+                      placeholder="Year of Production"
                       type="text"
                       name="year"
                       value={state.year}
                       onChange={handleChange}
                     />
                     <br />
-                    <TextField
+                    <textarea
+                      class="form-control"
                       margin="dense"
                       id="name"
-                      multiline
-                      rows={8}
-                      label="Summary"
+                      rows="5"
+                      placeholder="Summary"
                       type="text"
                       name="summary"
                       value={state.summary}

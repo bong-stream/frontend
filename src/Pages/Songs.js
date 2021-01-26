@@ -27,6 +27,9 @@ import Icon from "@material-ui/core/Icon";
 import "../Styles/adminpages.css";
 import "../Styles/adminsong.css";
 import Filters from "../Components/Filters";
+import AddIcon from "@material-ui/icons/Add";
+import SimpleBreadcrumbs from "../Components/Breadcrumbs";
+import Deletealert from "../Components/Deletealert";
 
 const Songs = () => {
   const [songs, setSongs] = useState();
@@ -37,6 +40,8 @@ const Songs = () => {
   const [editSongData, setEditSongData] = useState();
   const [searchValue, setSearchValue] = useState("");
   const [search, setSearch] = useState("");
+  const [deleteId, setDeleteId] = useState();
+  const [openDelete, setOpenDelete] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -55,6 +60,10 @@ const Songs = () => {
     setOpenEdit(false);
     setEditSongData();
     // console.log(editSongData);
+  };
+
+  const handleToggleDeleteUser = () => {
+    setOpenDelete(!openDelete);
   };
 
   const handleEditSong = async (data) => {
@@ -77,11 +86,19 @@ const Songs = () => {
   //   editSongs(data);
   //   setUpdateData(true);
   // };
+
+  const handleDeleteData = (id) => {
+    // console.log(data);
+    setDeleteId(id);
+    handleToggleDeleteUser();
+  };
+
   const deleteSong = async (id) => {
-    // console.log(id);
+    console.log(id);
     let res;
     res = await deleteSongs(id);
     setUpdateData(true);
+    handleToggleDeleteUser();
   };
 
   const handleSearchChange = (evt) => {
@@ -146,7 +163,7 @@ const Songs = () => {
         <div className="row">
           <div className="col-1 col-md-0"></div>
           <div className="col-10 col-md-11">
-            <Row>
+            {/* <Row>
               <Col className="mb-4" md={6}>
                 {songs ? (
                   <Card>
@@ -191,24 +208,39 @@ const Songs = () => {
                   </Card.Body>
                 </Card>
               </Col>
-            </Row>
-            <div>
+            </Row> */}
+            <div
+              className="mb-1"
+              style={{ height: "184px", backgroundColor: "#2F5184" }}
+            >
               <div className="row">
                 <div className="col-12 col-md-8 d-flex justify-content-start">
                   {" "}
-                  <div class="input-group ">
+                  <div class="input-group mt-2 ml-2">
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Search by Song Name"
+                      placeholder=" &#xF002;  Search"
                       aria-label="Recipient's username"
                       aria-describedby="basic-addon2"
                       value={searchValue}
                       onChange={handleSearchChange}
+                      style={{
+                        height: "55px",
+                        fontFamily: "FontAwesome",
+                      }}
                     />
-                    <div class="input-group-append">
-                      <button className="btn btn-danger">Search</button>
-                    </div>
+                  </div>
+                </div>
+                <div className="col-4 d-flex justify-content-end"></div>
+              </div>
+              <br />
+
+              <div className="row  m-2 text-white">
+                <div className="col-12 col-md-8 d-flex justify-content-start">
+                  {" "}
+                  <div class="input-group ">
+                    <h2>Songs</h2>
                   </div>
                 </div>
                 <div className="col-4 d-flex justify-content-end">
@@ -229,22 +261,38 @@ const Songs = () => {
                       desc: "desc",
                     }}
                   />
-                  <button
-                    className="btn  btn-sm btn-danger m-0"
-                    onClick={handleClickOpen}
-                  >
-                    Add{" "}
-                    <AddCircleIcon
-                      style={{
-                        margin: 0,
-                        padding: 0,
-                      }}
-                    />
-                  </button>
+                  <div>
+                    <button
+                      className="btn btn-danger m-0"
+                      onClick={handleClickOpen}
+                      style={{ width: "120px", height: "40px" }}
+                    >
+                      <AddIcon
+                        style={{
+                          margin: 0,
+                          padding: 0,
+                        }}
+                      />{" "}
+                      Add
+                    </button>
+                  </div>
+                </div>
+                <div className=" m-2 text-white">
+                  <SimpleBreadcrumbs
+                    data={[
+                      {
+                        link: "/",
+                        name: "Home",
+                      },
+                      {
+                        link: "/admin/songs",
+                        name: "Songs",
+                      },
+                    ]}
+                  />
                 </div>
               </div>
             </div>
-            <br />
 
             {songs ? (
               <Songstable
@@ -257,7 +305,7 @@ const Songs = () => {
                         songs.sortDirection
                       )
                 }
-                handleDelete={deleteSong}
+                handleDelete={handleDeleteData}
                 handleEdit={handleClickOpenEdit}
                 className="mb-4"
                 handleActiveChange={handleActiveChange}
@@ -278,6 +326,14 @@ const Songs = () => {
                 handleClickOpen={handleClickOpenEdit}
                 handleCloseEdit={handleCloseEdit}
                 handleEditSong={handleEditSong}
+              />
+            ) : null}
+            {openDelete ? (
+              <Deletealert
+                open={openDelete}
+                handleClose={handleToggleDeleteUser}
+                id={deleteId}
+                handleDelete={deleteSong}
               />
             ) : null}
           </div>

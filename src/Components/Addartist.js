@@ -160,53 +160,62 @@ const Addartist = ({ open, addArtist, handleClose }) => {
             </div>
             <div className="col-12 col-md-8">
               <div className="row">
-                <div className="col-12 col-md-6">
+                <div className="col-12 col-md-12">
                   <h4>Artist Details</h4>
-                  <TextField
+                  <input
+                    style={{ height: "48px" }}
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Artist Name"
+                    placeholder="Artist Name"
                     type="text"
                     name="artistname"
                     value={state.artistname}
                     onChange={handleChange}
                   />
                   <br />
-                  <TextField
+                  <input
+                    style={{ height: "48px" }}
+                    class="form-control"
                     margin="dense"
                     id="name"
-                    label="Last Name"
+                    placeholder="Last Name"
                     type="text"
                     name="lastname"
                     value={state.lastname}
                     onChange={handleChange}
                   />
                   <br />
-                  <TextField
+                  <input
+                    style={{ height: "48px" }}
+                    class="form-control"
                     margin="dense"
                     id="name"
-                    label="Artist City"
+                    placeholder="Artist City"
                     type="text"
                     name="city"
                     value={state.city}
                     onChange={handleChange}
                   />
                   <br />
-                  <TextField
+                  <input
+                    style={{ height: "48px" }}
+                    class="form-control"
                     margin="dense"
                     id="name"
-                    label="Artist Country"
+                    placeholder="Artist Country"
                     type="text"
                     name="country"
                     value={state.country}
                     onChange={handleChange}
                   />
                   <br />
-                  <br />
-                  <TextField
+                  <input
+                    style={{ height: "48px" }}
+                    class="form-control"
                     id="date"
-                    label="Date of Birth"
+                    placeholder="Date of Birth"
                     type="date"
                     defaultValue="2021-01-15"
                     className={classes.textField}
@@ -222,8 +231,6 @@ const Addartist = ({ open, addArtist, handleClose }) => {
                 </div>
 
                 <div className="col-12 col-md-6">
-                  <br />
-                  <br />
                   <br />
                   <div className="row">
                     <div className="col-8">

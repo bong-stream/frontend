@@ -58,15 +58,19 @@ export default function Artiststable({
     }
     setKeys(yoo);
   };
+  const handleDeleteButton = (id) => {
+    // console.log(id);
+    handleDelete(id);
+  };
 
   useEffect(() => {
     settingKeys();
   }, [data]);
 
-  const hanldeDelete = (id) => {
-    // console.log(id);
-    handleDelete(id);
-  };
+  // const hanldeDelete = (id) => {
+  //   // console.log(id);
+  //   handleDelete(id);
+  // };
 
   const handleEditButton = (data) => {
     // console.log(data);
@@ -98,7 +102,6 @@ export default function Artiststable({
               <StyledTableCell>Date of Birth</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
               <StyledTableCell> Deactivate</StyledTableCell>
-              <StyledTableCell>_id</StyledTableCell>
               <StyledTableCell>Delete</StyledTableCell>
               <StyledTableCell>Edit</StyledTableCell>
               <StyledTableCell>View</StyledTableCell>
@@ -160,12 +163,11 @@ export default function Artiststable({
                     active={row.active}
                   />
                 </StyledTableCell>
-                <StyledTableCell>{row._id}</StyledTableCell>
 
                 <StyledTableCell align="left">
                   <button
                     className="btn btn-sm btn-danger"
-                    onClick={() => hanldeDelete(row._id)}
+                    onClick={() => handleDeleteButton(row._id)}
                   >
                     <DeleteForeverIcon />
                   </button>

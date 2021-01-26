@@ -287,6 +287,9 @@ const Addsong = ({ open, addSong, handleClose }) => {
         <DialogContent className="container">
           <div className="row">
             <div className="col-12 col-md-4">
+              <br />
+              <br />
+              <br />
               <div>
                 <Imageupload
                   className="mb-4"
@@ -313,86 +316,102 @@ const Addsong = ({ open, addSong, handleClose }) => {
             </div>
             <div className="col-12 col-md-8">
               <h4>Song Details</h4>
+              <br />
               <div className="row">
                 <div className="col-12 col-md-6">
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Song Name"
+                    placeholder="Song Name"
                     type="text"
                     name="songname"
                     value={state.songname}
                     onChange={handleChange}
                   />
+                  <br />
 
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Song Poet"
+                    placeholder="Song Poet"
                     type="text"
                     name="poet"
                     value={state.poet}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Mix and Master"
+                    placeholder="Mix and Master"
                     type="text"
                     name="mixmaster"
                     value={state.mixmaster}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Producer"
+                    placeholder="Producer"
                     type="text"
                     name="producer"
                     value={state.producer}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Year"
+                    placeholder="Year"
                     type="text"
                     name="year"
                     value={state.year}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Label"
+                    placeholder="Label"
                     type="text"
                     name="label"
                     value={state.label}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <textarea
+                    class="form-control"
                     margin="dense"
                     id="name"
                     multiline
-                    rows={8}
-                    label="Song Lyrics"
+                    rows="5"
+                    placeholder="Song Lyrics"
                     type="text"
                     name="lyrics"
                     value={state.lyrics}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <textarea
+                    class="form-control"
                     margin="dense"
                     id="name"
                     multiline
-                    rows={8}
-                    label="Description"
+                    rows="5"
+                    placeholder="Description"
                     type="text"
                     name="summary"
                     value={state.summary}
@@ -400,9 +419,9 @@ const Addsong = ({ open, addSong, handleClose }) => {
                   />
                   <br />
                   <br />
+                  <br />
                 </div>
                 <div className="col-12 col-md-6">
-                  <br />
                   <div className="row">
                     <div className="col-8">
                       <h5>Add Artist </h5>

@@ -72,7 +72,12 @@ export default function Albumstable({
     settingKeys();
   }, [data]);
 
-  const hanldeDelete = (id) => {
+  // const hanldeDelete = (id) => {
+  //   // console.log(id);
+  //   handleDelete(id);
+  // };
+
+  const handleDeleteButton = (id) => {
     // console.log(id);
     handleDelete(id);
   };
@@ -187,7 +192,7 @@ export default function Albumstable({
                 </StyledTableCell>
                 <StyledTableCell align="left">
                   <button
-                    onClick={() => hanldeDelete(row._id)}
+                    onClick={() => handleDeleteButton(row._id)}
                     className="btn btn-sm btn-danger"
                   >
                     {" "}

@@ -72,7 +72,12 @@ export default function Albumstable({
     settingKeys();
   }, [data]);
 
-  const hanldeDelete = (id) => {
+  // const hanldeDelete = (id) => {
+  //   // console.log(id);
+  //   handleDelete(id);
+  // };
+
+  const handleDeleteButton = (id) => {
     // console.log(id);
     handleDelete(id);
   };
@@ -116,7 +121,6 @@ export default function Albumstable({
               <StyledTableCell>Genres</StyledTableCell>
               <StyledTableCell>Year</StyledTableCell>
 
-              <StyledTableCell>_id</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
               <StyledTableCell> Deactivate</StyledTableCell>
 
@@ -152,8 +156,6 @@ export default function Albumstable({
                 <StyledTableCell>{row.label}</StyledTableCell>
                 <StyledTableCell>{row.genres}</StyledTableCell>
                 <StyledTableCell>{row.year}</StyledTableCell>
-
-                <StyledTableCell>{row._id}</StyledTableCell>
                 <StyledTableCell align="left">
                   {/* {console.log(row.active)} */}
                   {row.active ? (
@@ -198,7 +200,7 @@ export default function Albumstable({
 
                 <StyledTableCell align="left">
                   <button
-                    onClick={() => hanldeDelete(row._id)}
+                    onClick={() => handleDeleteButton(row._id)}
                     className="btn btn-sm btn-danger"
                   >
                     <DeleteForeverIcon />

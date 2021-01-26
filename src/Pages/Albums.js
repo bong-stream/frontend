@@ -26,6 +26,9 @@ import "../Styles/adminpages.css";
 import "../Styles/adminalbum.css";
 import Viewalbum from "../Components/Viewalbum";
 import Filters from "../Components/Filters";
+import AddIcon from "@material-ui/icons/Add";
+import Deletealert from "../Components/Deletealert";
+import SimpleBreadcrumbs from "../Components/Breadcrumbs";
 
 const Albums = () => {
   const [albums, setAlbums] = useState();
@@ -39,6 +42,8 @@ const Albums = () => {
   const [search, setSearch] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [editAlbumData, setEditAlbumData] = useState();
+  const [deleteId, setDeleteId] = useState();
+  const [openDelete, setOpenDelete] = useState(false);
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -85,6 +90,10 @@ const Albums = () => {
     // console.log(editAlbumData);
   };
 
+  const handleToggleDeleteUser = () => {
+    setOpenDelete(!openDelete);
+  };
+
   const addAlbum = async (data) => {
     // console.log(data);
 
@@ -92,10 +101,18 @@ const Albums = () => {
     setUpdateData(true);
   };
 
+  const handleDeleteData = (id) => {
+    // console.log(data);
+    setDeleteId(id);
+    handleToggleDeleteUser();
+  };
+
   const deleteAlbum = async (id) => {
-    // console.log(id);
+    console.log(id);
     let res;
     res = await deleteAlbums(id);
+    handleToggleDeleteUser();
+
     setUpdateData(true);
   };
 
@@ -126,7 +143,7 @@ const Albums = () => {
     let yoo;
     setSearchValue(evt.target.value);
     // console.log(evt.target.value);
-    yoo = albums.filter((album) => {
+    yoo = albums.albums.filter((album) => {
       return album.albumname
         .toLowerCase()
         .includes(evt.target.value.toLowerCase());
@@ -161,14 +178,13 @@ const Albums = () => {
         <div className="row">
           <div className="col-1 col-md-0"></div>
           <div className="col-10 col-md-11">
-            <Row>
+            {/* <Row>
               <Col className="mb-4" xl={6} md={6}>
                 {albums ? (
                   <Card>
                     <Card.Body>
                       <Row className="align-items-center m-l-0">
                         <Col sm="auto">
-                          {/* <i className="icon feather icon-book f-30 text-c-purple" /> */}
                           <AlbumIcon style={{ color: "#f44040" }} />
                         </Col>
                         <Col>
@@ -202,7 +218,6 @@ const Albums = () => {
                   <Card.Body>
                     <Row className="align-items-center m-l-0">
                       <Col sm="auto">
-                        {/* <i className="icon feather icon-users f-30 text-c-red" /> */}
                         <NavigationIcon style={{ color: "#f44040" }} />
                       </Col>
                       <Col>
@@ -218,7 +233,6 @@ const Albums = () => {
                   <Card.Body>
                     <Row className="align-items-center m-l-0">
                       <Col sm="auto">
-                        {/* <i className="icon feather icon-award f-30 text-c-blue" /> */}
                         <PlayArrowIcon style={{ color: "#f44040" }} />
                       </Col>
                       <Col>
@@ -229,24 +243,39 @@ const Albums = () => {
                   </Card.Body>
                 </Card>
               </Col>
-            </Row>
-            <div>
+            </Row> */}
+            <div
+              className="mb-1"
+              style={{ height: "184px", backgroundColor: "#2F5184" }}
+            >
               <div className="row">
                 <div className="col-12 col-md-8 d-flex justify-content-start">
                   {" "}
-                  <div class="input-group ">
+                  <div class="input-group mt-2 ml-2">
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Search by Username"
+                      placeholder=" &#xF002;  Search"
                       aria-label="Recipient's username"
                       aria-describedby="basic-addon2"
                       value={searchValue}
                       onChange={handleSearchChange}
+                      style={{
+                        height: "55px",
+                        fontFamily: "FontAwesome",
+                      }}
                     />
-                    <div class="input-group-append">
-                      <button className="btn btn-danger">Search</button>
-                    </div>
+                  </div>
+                </div>
+                <div className="col-4 d-flex justify-content-end"></div>
+              </div>
+              <br />
+
+              <div className="row m-2 text-white">
+                <div className="col-12 col-md-8 d-flex justify-content-start">
+                  {" "}
+                  <div class="input-group ">
+                    <h2>Albums</h2>
                   </div>
                 </div>
                 <div className="col-4 d-flex justify-content-end">
@@ -267,22 +296,38 @@ const Albums = () => {
                       desc: "desc",
                     }}
                   />
-                  <button
-                    className="btn  btn-sm btn-danger m-0"
-                    onClick={handleClickOpen}
-                  >
-                    Add{" "}
-                    <AddCircleIcon
-                      style={{
-                        margin: 0,
-                        padding: 0,
-                      }}
-                    />
-                  </button>
+                  <div>
+                    <button
+                      className="btn btn-danger m-0"
+                      onClick={handleClickOpen}
+                      style={{ width: "120px", height: "40px" }}
+                    >
+                      <AddIcon
+                        style={{
+                          margin: 0,
+                          padding: 0,
+                        }}
+                      />{" "}
+                      Add
+                    </button>
+                  </div>
+                </div>
+                <div className=" m-2 text-white">
+                  <SimpleBreadcrumbs
+                    data={[
+                      {
+                        link: "/",
+                        name: "Home",
+                      },
+                      {
+                        link: "/admin/albums",
+                        name: "Albums",
+                      },
+                    ]}
+                  />
                 </div>
               </div>
             </div>
-            <br />
             {albums ? (
               <Albumstable
                 // data={searchValue.length > 0 ? search : albums.albums}
@@ -300,6 +345,7 @@ const Albums = () => {
                 handleView={handleView}
                 className="mb-4"
                 handleActiveChange={handleActiveChange}
+                handleDelete={handleDeleteData}
               />
             ) : null}
             <Addalbum
@@ -324,6 +370,14 @@ const Albums = () => {
                 data={viewData}
                 albums={albums}
                 songs={songs}
+              />
+            ) : null}
+            {openDelete ? (
+              <Deletealert
+                open={openDelete}
+                handleClose={handleToggleDeleteUser}
+                id={deleteId}
+                handleDelete={deleteAlbum}
               />
             ) : null}
           </div>

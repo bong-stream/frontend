@@ -44,30 +44,19 @@ export default function Userstable({
   handleView,
   handleEdit,
   handleActiveChange,
+  handleDelete,
 }) {
   const classes = useStyles();
   const [keys, setKeys] = useState([]);
   const [active, setActive] = useState();
 
-  const settingKeys = () => {
-    let yoo = [];
-    for (let key in data[0]) {
-      // console.log(key);
-      yoo.push(key);
-    }
-    setKeys(yoo);
-  };
-
-  const handleDelete = async (id) => {
-    // console.log(id);
-    let res;
-    res = await deleteUsers(id);
-    handleUpdateData();
-  };
-
   const handleEditButton = (data) => {
     // console.log(data);
     handleEdit(data);
+  };
+  const handleDeleteButton = (id) => {
+    // console.log(id);
+    handleDelete(id);
   };
 
   const handleActive = (active, id) => {
@@ -77,7 +66,7 @@ export default function Userstable({
   };
 
   useEffect(() => {
-    settingKeys();
+    // settingKeys();
   }, [data]);
 
   return (
@@ -153,7 +142,7 @@ export default function Userstable({
               <StyledTableCell align="left">
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => handleDelete(row._id)}
+                  onClick={() => handleDeleteButton(row._id)}
                 >
                   <DeleteForeverIcon />
                 </button>

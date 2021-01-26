@@ -91,6 +91,9 @@ export default function Adduser({ open, handleToggle, handleAddUser }) {
           <div className="container">
             <div className="row">
               <div className="col-12 col-md-4">
+                <br />
+                <br />
+                <br />
                 <Imageupload
                   className="mb-4"
                   id="userimage"
@@ -99,8 +102,10 @@ export default function Adduser({ open, handleToggle, handleAddUser }) {
               </div>
               <div className="col-12 col-md-4">
                 <h4>User Details</h4>
-                <TextField
+                <br />
+                <input
                   autoFocus
+                  class="form-control"
                   margin="dense"
                   id="name"
                   label="Name"
@@ -108,56 +113,69 @@ export default function Adduser({ open, handleToggle, handleAddUser }) {
                   name="name"
                   value={state.name}
                   onChange={handleChange}
+                  placeholder="Name"
+                  style={{ width: "400px", height: "48px" }}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
+                  class="form-control"
                   id="name"
-                  label="Email"
+                  placeholder="Email"
                   type="email"
                   name="email"
                   value={state.email}
                   onChange={handleChange}
+                  style={{ width: "400px", height: "48px" }}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
                   id="name"
-                  label="Phone Number"
+                  placeholder="Phone Number"
                   type="text"
                   name="phoneNumber"
                   value={state.phoneNumber}
                   onChange={handleChange}
+                  style={{ width: "400px", height: "48px" }}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
                   id="name"
-                  label="Age"
+                  placeholder="Age"
                   type="number"
                   name="age"
                   value={state.age}
                   onChange={handleChange}
+                  style={{ width: "400px", height: "48px" }}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
                   id="name"
-                  label="Gender"
+                  placeholder="Gender"
                   type="text"
                   name="gender"
                   value={state.gender}
                   onChange={handleChange}
+                  style={{ width: "400px", height: "48px" }}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
                   id="name"
-                  label="Password"
+                  placeholder="Password"
                   type="password"
                   name="password"
                   value={state.password}
                   onChange={handleChange}
+                  style={{ width: "400px", height: "48px" }}
                 />
                 <br />
                 <br />

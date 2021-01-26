@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 // let url = "http://localhost:3001";
 let url = "https://bong-backend.herokuapp.com";
-
+//
 const getGenres = async () => {
   let Genres;
 

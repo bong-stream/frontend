@@ -24,6 +24,9 @@ import Viewartist from "../Components/Viewartist";
 import "../Styles/adminpages.css";
 import "../Styles/adminartist.css";
 import Filters from "../Components/Filters";
+import AddIcon from "@material-ui/icons/Add";
+import SimpleBreadcrumbs from "../Components/Breadcrumbs";
+import Deletealert from "../Components/Deletealert";
 
 const Artist = () => {
   const [artists, setArtists] = useState();
@@ -38,6 +41,8 @@ const Artist = () => {
   const [search, setSearch] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [totalActiveArtists, setTotalActiveArtists] = useState();
+  const [deleteId, setDeleteId] = useState();
+  const [openDelete, setOpenDelete] = useState(false);
 
   useEffect(() => {
     const fetchArtists = async () => {
@@ -92,6 +97,10 @@ const Artist = () => {
     // console.log(editArtistData);
   };
 
+  const handleToggleDeleteUser = () => {
+    setOpenDelete(!openDelete);
+  };
+
   const addArtist = async (data, albums, songs) => {
     // console.log(data, albums, songs);
     let res;
@@ -99,11 +108,18 @@ const Artist = () => {
     setUpdateData(true);
   };
 
+  const handleDeleteData = (id) => {
+    // console.log(data);
+    setDeleteId(id);
+    handleToggleDeleteUser();
+  };
+
   const deleteArtist = async (id) => {
     // console.log(id);
     let res;
     res = await deleteArtists(id);
     setUpdateData(true);
+    handleToggleDeleteUser();
   };
 
   const editArtist = async (data) => {
@@ -168,14 +184,13 @@ const Artist = () => {
         <div className="row">
           <div className="col-1 col-md-0"></div>
           <div className="col-10 col-md-11 ">
-            <Row>
+            {/* <Row>
               <Col className="mb-4" xl={6} md={6}>
                 {artists ? (
                   <Card>
                     <Card.Body>
                       <Row className="align-items-center m-l-0">
                         <Col sm="auto">
-                          {/* <i className="icon feather icon-book f-30 text-c-purple" /> */}
                           <FaceIcon style={{ color: "#f44040" }} />
                         </Col>
                         <Col>
@@ -209,7 +224,6 @@ const Artist = () => {
                   <Card.Body>
                     <Row className="align-items-center m-l-0">
                       <Col sm="auto">
-                        {/* <i className="icon feather icon-users f-30 text-c-red" /> */}
                         <NavigationIcon style={{ color: "#f44040" }} />
                       </Col>
                       <Col>
@@ -235,24 +249,38 @@ const Artist = () => {
                   </Card.Body>
                 </Card>
               </Col>
-            </Row>
-            <div>
+            </Row> */}
+            <div
+              className="mb-1"
+              style={{ height: "184px", backgroundColor: "#2F5184" }}
+            >
               <div className="row">
                 <div className="col-12 col-md-8 d-flex justify-content-start">
                   {" "}
-                  <div class="input-group ">
+                  <div class="input-group mt-2 ml-2">
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Search by Username"
+                      placeholder=" &#xF002;  Search"
                       aria-label="Recipient's username"
                       aria-describedby="basic-addon2"
                       value={searchValue}
                       onChange={handleSearchChange}
+                      style={{
+                        height: "55px",
+                        fontFamily: "FontAwesome",
+                      }}
                     />
-                    <div class="input-group-append">
-                      <button className="btn btn-danger">Search</button>
-                    </div>
+                  </div>
+                </div>
+                <div className="col-4 d-flex justify-content-end"></div>
+              </div>
+              <br />
+              <div className="row m-2 text-white">
+                <div className="col-12 col-md-8 d-flex justify-content-start">
+                  {" "}
+                  <div class="input-group ">
+                    <h2>Artists</h2>
                   </div>
                 </div>
                 <div className="col-4 d-flex justify-content-end">
@@ -273,22 +301,38 @@ const Artist = () => {
                       desc: "desc",
                     }}
                   />
-                  <button
-                    className="btn  btn-sm btn-danger m-0"
-                    onClick={handleClickOpen}
-                  >
-                    Add{" "}
-                    <AddCircleIcon
-                      style={{
-                        margin: 0,
-                        padding: 0,
-                      }}
-                    />
-                  </button>
+                  <div>
+                    <button
+                      className="btn  btn-danger m-0"
+                      onClick={handleClickOpen}
+                      style={{ width: "120px", height: "40px" }}
+                    >
+                      <AddIcon
+                        style={{
+                          margin: 0,
+                          padding: 0,
+                        }}
+                      />{" "}
+                      Add
+                    </button>
+                  </div>
+                </div>
+                <div className=" m-2 text-white">
+                  <SimpleBreadcrumbs
+                    data={[
+                      {
+                        link: "/",
+                        name: "Home",
+                      },
+                      {
+                        link: "/admin/artist",
+                        name: "Artists",
+                      },
+                    ]}
+                  />
                 </div>
               </div>
             </div>
-            <br />
             {/* {console.log(artists)} */}
             {artists ? (
               <Artiststable
@@ -306,11 +350,11 @@ const Artist = () => {
                         artists.sortDirection
                       )
                 }
-                handleDelete={deleteArtist}
                 handleEdit={editArtist}
                 className="mb-4"
                 handleView={handleView}
                 handleActiveChange={handleActiveChange}
+                handleDelete={handleDeleteData}
               />
             ) : null}
             {open ? (
@@ -339,6 +383,14 @@ const Artist = () => {
                 data={viewData}
                 albums={albums}
                 songs={songs}
+              />
+            ) : null}
+            {openDelete ? (
+              <Deletealert
+                open={openDelete}
+                handleClose={handleToggleDeleteUser}
+                id={deleteId}
+                handleDelete={deleteArtist}
               />
             ) : null}
           </div>

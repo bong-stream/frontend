@@ -6,6 +6,7 @@ import {
   addUsers,
   editUsers,
   activeUsers,
+  deleteUsers,
 } from "../Pagesactions/usersactions";
 import Chart from "react-apexcharts";
 import { Row, Col, Card } from "react-bootstrap";
@@ -24,6 +25,7 @@ import Adduser from "../Components/Adduser";
 import Edituser from "../Components/Edituser";
 import Filters from "../Components/Filters";
 import AddIcon from "@material-ui/icons/Add";
+import Deletealert from "../Components/Deletealert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,7 +52,9 @@ const User = () => {
   const [open, setOpen] = React.useState(false);
   const [viewData, setViewData] = useState();
   const [editData, setEditData] = useState();
+  const [deleteId, setDeleteId] = useState();
   const [openEdit, setOpenEdit] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [totalActiveUsers, setTotalActiveUsers] = useState();
   const [search, setSearch] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -89,6 +93,9 @@ const User = () => {
   const handleToggleEditUser = () => {
     setOpenEdit(!openEdit);
   };
+  const handleToggleDeleteUser = () => {
+    setOpenDelete(!openDelete);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -121,6 +128,20 @@ const User = () => {
     res = await editUsers(data);
     // console.log(res);
     setUpdateData(true);
+  };
+
+  const handleDeleteData = (id) => {
+    // console.log(data);
+    setDeleteId(id);
+    handleToggleDeleteUser();
+  };
+
+  const handleDelete = async (id) => {
+    console.log(id);
+    let res;
+    res = await deleteUsers(id);
+    handleToggleDeleteUser();
+    handleUpdateData();
   };
 
   const handleActiveChange = async (active, id) => {
@@ -302,6 +323,7 @@ const User = () => {
                 handleUpdateData={handleUpdateData}
                 handleView={handleView}
                 handleEdit={handleEditData}
+                handleDelete={handleDeleteData}
                 handleActiveChange={handleActiveChange}
               />
             ) : null}
@@ -321,6 +343,14 @@ const User = () => {
                 handleEdit={handleEdit}
                 handleToggle={handleToggleEditUser}
                 data={editData}
+              />
+            ) : null}
+            {openDelete ? (
+              <Deletealert
+                open={openDelete}
+                handleClose={handleToggleDeleteUser}
+                id={deleteId}
+                handleDelete={handleDelete}
               />
             ) : null}
           </div>

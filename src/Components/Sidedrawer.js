@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import Imageavatar from "./Imageavatar";
 import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -112,14 +112,20 @@ const useStyles = makeStyles((theme) => ({
 
 function Sidedrawer() {
   const classes = useStyles();
+  const history = useHistory();
+  console.log(history.location.pathname);
+  // let path = history.location.pathname;
   // const customClasses = styles;
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(true);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [path, setPath] = React.useState(history.location.pathname);
+  console.log("i am path", path);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
+    // setPath(history.location.pathname);
   };
 
   const handleClick = () => {
@@ -133,6 +139,10 @@ function Sidedrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    setPath(history.location.pathname);
+  }, [history.location.pathname]);
 
   return (
     <div className={classes.root}>
@@ -215,50 +225,50 @@ function Sidedrawer() {
               {/* <ListItemText primary="Home" /> */}
             </ListItem>
           )}
-
-          <Link style={{ textDecoration: "none", color: "black" }} to="/">
+          {console.log("inner story of path", path)}
+          <NavLink style={{ textDecoration: "none", color: "black" }} to="/">
             <ListItem
               button
               style={
-                selectedIndex === 0
+                path === "/"
                   ? {
                       backgroundColor: " #f44040",
                       color: "white",
                     }
                   : null
               }
-              selected={selectedIndex === 0}
+              // selected={path === "/"}
               onClick={(event) => handleListItemClick(event, 0)}
             >
-              <ListItemIcon
-                style={selectedIndex === 0 ? { color: "white" } : null}
-              >
+              <ListItemIcon style={path === "/" ? { color: "white" } : null}>
                 {" "}
                 <AppsIcon />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/managehomepage"
           >
             <ListItem
               button
               style={
-                selectedIndex === 1
+                path === "/admin/managehomepage"
                   ? {
                       backgroundColor: " #f44040",
                       color: "white",
                     }
                   : null
               }
-              selected={selectedIndex === 1}
+              // selected={selectedIndex === 1}
               onClick={(event) => handleListItemClick(event, 1)}
             >
               <ListItemIcon
-                style={selectedIndex === 1 ? { color: "white" } : null}
+                style={
+                  path === "/admin/managehomepage" ? { color: "white" } : null
+                }
               >
                 {" "}
                 <HomeWorkIcon />
@@ -284,11 +294,11 @@ function Sidedrawer() {
                 </IconButton>
               )}
             </ListItem>
-          </Link>
+          </NavLink>
           <Collapse in={openMenu && open} timeout="auto" unmountOnExit>
             <br />
             <List component="div" disablePadding>
-              <Link
+              <NavLink
                 style={{ textDecoration: "none", color: "black" }}
                 to="/admin/trending"
               >
@@ -298,9 +308,9 @@ function Sidedrawer() {
                   </ListItemIcon>
                   <ListItemText primary="Trending" />
                 </ListItem>
-              </Link>
+              </NavLink>
               <Divider />
-              <Link
+              <NavLink
                 style={{ textDecoration: "none", color: "black" }}
                 to="/admin/popular"
               >
@@ -310,9 +320,9 @@ function Sidedrawer() {
                   </ListItemIcon>
                   <ListItemText primary="Popular" />
                 </ListItem>
-              </Link>
+              </NavLink>
               <Divider />
-              <Link
+              <NavLink
                 style={{ textDecoration: "none", color: "black" }}
                 to="/admin/charts"
               >
@@ -322,9 +332,9 @@ function Sidedrawer() {
                   </ListItemIcon>
                   <ListItemText primary="Top Charts" />
                 </ListItem>
-              </Link>
+              </NavLink>
               <Divider />
-              <Link
+              <NavLink
                 style={{ textDecoration: "none", color: "black" }}
                 to="/admin/bongplaylist"
               >
@@ -334,9 +344,9 @@ function Sidedrawer() {
                   </ListItemIcon>
                   <ListItemText primary="BongPlaylist" />
                 </ListItem>
-              </Link>
+              </NavLink>
               <Divider />
-              <Link
+              <NavLink
                 style={{ textDecoration: "none", color: "black" }}
                 to="/admin/topartists"
               >
@@ -346,9 +356,9 @@ function Sidedrawer() {
                   </ListItemIcon>
                   <ListItemText primary="Top Artists" />
                 </ListItem>
-              </Link>
+              </NavLink>
               <Divider />
-              <Link
+              <NavLink
                 style={{ textDecoration: "none", color: "black" }}
                 to="/admin/topalbums"
               >
@@ -358,9 +368,9 @@ function Sidedrawer() {
                   </ListItemIcon>
                   <ListItemText primary="Top Albums" />
                 </ListItem>
-              </Link>
+              </NavLink>
               <Divider />
-              <Link
+              <NavLink
                 style={{ textDecoration: "none", color: "black" }}
                 to="/admin/recommended"
               >
@@ -370,168 +380,168 @@ function Sidedrawer() {
                   </ListItemIcon>
                   <ListItemText primary="Recommended" />
                 </ListItem>
-              </Link>
+              </NavLink>
             </List>
 
             <br />
           </Collapse>
 
-          <Link
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/users"
           >
             <ListItem
               button
               style={
-                selectedIndex === 2
+                path === "/admin/users"
                   ? {
                       backgroundColor: " #f44040",
                       color: "white",
                     }
                   : null
               }
-              selected={selectedIndex === 2}
+              // selected={selectedIndex === 2}
               onClick={(event) => handleListItemClick(event, 2)}
             >
               <ListItemIcon
-                style={selectedIndex === 2 ? { color: "white" } : null}
+                style={path === "/admin/users" ? { color: "white" } : null}
               >
                 {" "}
                 <AccountCircleIcon />
               </ListItemIcon>
               <ListItemText primary="Users" />
             </ListItem>
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/artist"
           >
             <ListItem
               button
               style={
-                selectedIndex === 3
+                path === "/admin/artist"
                   ? {
                       backgroundColor: " #f44040",
                       color: "white",
                     }
                   : null
               }
-              selected={selectedIndex === 3}
+              // selected={selectedIndex === 3}
               onClick={(event) => handleListItemClick(event, 3)}
             >
               <ListItemIcon
-                style={selectedIndex === 3 ? { color: "white" } : null}
+                style={path === "/admin/artist" ? { color: "white" } : null}
               >
                 {" "}
                 <FaceIcon />
               </ListItemIcon>
               <ListItemText primary="Artists" />
             </ListItem>
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/albums"
           >
             <ListItem
               button
               style={
-                selectedIndex === 4
+                path === "/admin/albums"
                   ? {
                       backgroundColor: " #f44040",
                       color: "white",
                     }
                   : null
               }
-              selected={selectedIndex === 4}
+              // selected={selectedIndex === 4}
               onClick={(event) => handleListItemClick(event, 4)}
             >
               <ListItemIcon
-                style={selectedIndex === 4 ? { color: "white" } : null}
+                style={path === "/admin/albums" ? { color: "white" } : null}
               >
                 <AlbumIcon />
               </ListItemIcon>
               <ListItemText primary="Albums" />
             </ListItem>
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/songs"
           >
             <ListItem
               button
               style={
-                selectedIndex === 5
+                path === "/admin/songs"
                   ? {
                       backgroundColor: " #f44040",
                       color: "white",
                     }
                   : null
               }
-              selected={selectedIndex === 5}
+              // selected={selectedIndex === 5}
               onClick={(event) => handleListItemClick(event, 5)}
             >
               <ListItemIcon
-                style={selectedIndex === 5 ? { color: "white" } : null}
+                style={path === "/admin/songs" ? { color: "white" } : null}
               >
                 <MusicNoteIcon />{" "}
               </ListItemIcon>
               <ListItemText primary="Songs" />
             </ListItem>
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/category"
           >
             <ListItem
               button
               style={
-                selectedIndex === 6
+                path === "/admin/category"
                   ? {
                       backgroundColor: " #f44040",
                       color: "white",
                     }
                   : null
               }
-              selected={selectedIndex === 6}
+              // selected={selectedIndex === 6}
               onClick={(event) => handleListItemClick(event, 6)}
             >
               <ListItemIcon
-                style={selectedIndex === 6 ? { color: "white" } : null}
+                style={path === "/admin/category" ? { color: "white" } : null}
               >
                 <CategoryIcon />{" "}
               </ListItemIcon>
               <ListItemText primary="Category" />
             </ListItem>
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/genres"
           >
             <ListItem
               button
               style={
-                selectedIndex === 7
+                path === "/admin/genres"
                   ? {
                       backgroundColor: " #f44040",
                       color: "white",
                     }
                   : null
               }
-              selected={selectedIndex === 7}
+              // selected={selectedIndex === 7}
               onClick={(event) => handleListItemClick(event, 7)}
             >
               <ListItemIcon
-                style={selectedIndex === 7 ? { color: "white" } : null}
+                style={path === "/admin/genres" ? { color: "white" } : null}
               >
                 <ArtTrackIcon />{" "}
               </ListItemIcon>
               <ListItemText primary="Genres" />
             </ListItem>
-          </Link>
+          </NavLink>
         </List>
       </Drawer>
     </div>
