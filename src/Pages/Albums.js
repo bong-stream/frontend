@@ -95,10 +95,10 @@ const Albums = () => {
   };
 
   const addAlbum = async (data) => {
-    // console.log(data);
+    console.log(data);
 
-    let res = await addAlbums(data);
-    setUpdateData(true);
+    // let res = await addAlbums(data);
+    // setUpdateData(true);
   };
 
   const handleDeleteData = (id) => {

@@ -270,52 +270,56 @@ export default function Editartist({
               <div className="row">
                 <div className="col-12 col-md-6">
                   <h4>Artist Detials</h4>
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Artist Name"
+                    placeholder="Artist Name"
                     type="text"
                     name="artistname"
                     value={state.artistname}
                     onChange={handleChange}
                   />
                   <br />
-                  <TextField
+                  <input
+                    class="form-control"
                     margin="dense"
                     id="name"
-                    label="Last Name"
+                    placeholder="Last Name"
                     type="text"
                     name="lastname"
                     value={state.lastname}
                     onChange={handleChange}
                   />
                   <br />
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="City"
+                    placeholder="City"
                     type="text"
                     name="city"
                     value={state.city}
                     onChange={handleChange}
                   />
                   <br />
-                  <TextField
-                    autoFocus
+                  <input
+                    class="form-control"
                     margin="dense"
                     id="name"
-                    label="Country"
+                    placeholder="Country"
                     type="text"
                     name="country"
                     value={state.country}
                     onChange={handleChange}
                   />
                   <br />
-                  <TextField
+                  <input
+                    class="form-control"
                     id="date"
-                    label="Date of Birth"
+                    placeholder="Date of Birth"
                     type="date"
                     className={classes.textField}
                     InputLabelProps={{

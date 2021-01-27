@@ -13,6 +13,10 @@ import EditIcon from "@material-ui/icons/Edit";
 import Imageavatar from "./Imageavatar";
 import Active from "../Components/Active";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Fade from "@material-ui/core/Fade";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -126,7 +130,6 @@ export default function Albumstable({
               <StyledTableCell> Deactivate</StyledTableCell>
               <StyledTableCell>Delete</StyledTableCell>
               <StyledTableCell>Edit</StyledTableCell>
-              <StyledTableCell>View</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -226,7 +229,7 @@ export default function Albumstable({
                     <EditIcon />
                   </button>
                 </StyledTableCell>
-                <StyledTableCell align="left">
+                {/* <StyledTableCell align="left">
                   <button
                     disabled
                     className="btn btn-sm btn-success"
@@ -251,7 +254,7 @@ export default function Albumstable({
                   >
                     <VisibilityIcon />
                   </button>
-                </StyledTableCell>
+                </StyledTableCell> */}
               </StyledTableRow>
             ))}
           </TableBody>

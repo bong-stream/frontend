@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-// let url = "http://localhost:3001";
-let url = "https://bong-backend.herokuapp.com";
+let url = "http://localhost:3001";
+// let url = "https://bong-backend.herokuapp.com";
 
 const getAlbums = async () => {
   let albums;
@@ -15,15 +15,15 @@ const getAlbums = async () => {
 const addAlbums = async (data) => {
   let artists;
 
-  // console.log(data);
+  console.log(data);
 
   // artists = await axios.post(
   //   `https://bong-backend.herokuapp.com/api/album`,
   //   data
   // );
-  artists = await axios.post(`${url}/api/album`, data);
-  // console.log(artists.data);
-  return artists.data;
+  // artists = await axios.post(`${url}/api/album`, data);
+  // // console.log(artists.data);
+  // return artists.data;
 };
 
 const activeAlbums = async (active, id) => {

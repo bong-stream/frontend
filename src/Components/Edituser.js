@@ -100,53 +100,58 @@ export default function Edituser({ open, handleToggle, handleEdit, data }) {
                   imageSrc={state.userimage}
                 />
               </div>
-              <div className="col-12 col-md-4">
+              <div className="col-12 col-md-6">
                 <h4>User Details</h4>
-                <TextField
+                <input
+                  class="form-control"
                   autoFocus
                   margin="dense"
                   id="name"
-                  label="Name"
+                  placeholder="Name"
                   type="text"
                   name="name"
                   value={state.name}
                   onChange={handleChange}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
                   id="name"
-                  label="Email"
+                  placeholder="Email"
                   type="email"
                   name="email"
                   value={state.email}
                   onChange={handleChange}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
                   id="name"
-                  label="Phone Number"
+                  placeholder="Phone Number"
                   type="text"
                   name="phoneNumber"
                   value={state.phoneNumber}
                   onChange={handleChange}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
                   id="name"
-                  label="Age"
+                  placeholder="Age"
                   type="number"
                   name="age"
                   value={state.age}
                   onChange={handleChange}
                 />
                 <br />
-                <TextField
+                <input
+                  class="form-control"
                   margin="dense"
                   id="name"
-                  label="Gender"
+                  placeholder="Gender"
                   type="text"
                   name="gender"
                   value={state.gender}
@@ -155,7 +160,7 @@ export default function Edituser({ open, handleToggle, handleEdit, data }) {
                 <br />
                 <br />
               </div>
-              <div className="col-12 col-md-4"></div>
+              <div className="col-12 col-md-2"></div>
             </div>
           </div>
         </div>

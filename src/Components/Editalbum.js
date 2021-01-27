@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { getArtists } from "../Pagesactions/artistsactions";
 import { getSongs } from "../Pagesactions/songsactions";
+import { getAlbums } from "../Pagesactions/albumactions";
 import Selectartistforalbum from "../Components/Selectartistforalbum";
 import Selectsongsforartist from "../Components/Selectsongsforartist";
 import Button from "@material-ui/core/Button";
@@ -24,6 +25,7 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import Imageupload from "../Components/Imageupload";
+import Selectalbumforartist from "./Selectalbumforartist";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -74,8 +76,20 @@ export default function Editalbum({
   const [foundSongs, setFoundSongs] = useState([]);
   const [editSongs, setEditSongs] = useState(false);
   const [addSongs, setAddSongs] = useState(false);
+  const [allAlbums, setAllAlbums] = useState([]);
+  const [foundAlbums, setFoundAlbums] = useState([]);
+  const [editAlbums, setEditAlbums] = useState(false);
+  const [addAlbums, setAddAlbums] = useState(false);
+  const [allRelatedAlbums, setAllRelatedAlbums] = useState([]);
+  const [foundRelatedAlbums, setFoundRelatedAlbums] = useState([]);
+  const [editRelatedAlbums, setEditRelatedAlbums] = useState(false);
+  const [addRelatedAlbums, setAddRelatedAlbums] = useState(false);
+  const [allOtherAlbums, setAllOtherAlbums] = useState([]);
+  const [foundOtherAlbums, setFoundOtherAlbums] = useState([]);
+  const [editOtherAlbums, setEditOtherAlbums] = useState(false);
+  const [addOtherAlbums, setAddOtherAlbums] = useState(false);
 
-  // console.log(data);
+  console.log(data);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -115,6 +129,24 @@ export default function Editalbum({
     handleSongsToggle();
     setAddSongs(!addSongs);
   };
+  const handleOtherAlbumsToggle = () => {
+    setEditOtherAlbums(!editOtherAlbums);
+    setAddOtherAlbums(false);
+  };
+
+  const handleAddOtherAlbums = () => {
+    handleOtherAlbumsToggle();
+    setAddOtherAlbums(!addOtherAlbums);
+  };
+  const handleRelatedAlbumsToggle = () => {
+    setEditRelatedAlbums(!editRelatedAlbums);
+    setAddRelatedAlbums(false);
+  };
+
+  const handleAddRelatedAlbums = () => {
+    handleRelatedAlbumsToggle();
+    setAddRelatedAlbums(!addRelatedAlbums);
+  };
 
   const handleSelectedAddArtists = (data) => {
     let yoo;
@@ -136,14 +168,6 @@ export default function Editalbum({
 
   const handleSelectedAddSongs = (data) => {
     let ids = [];
-    // console.log(foundSongs);
-    // console.log(data);
-    // foundAlbums.map((yoo) => {
-    //   dub = data.filter((subData) => {
-    //     return subData._id !== yoo;
-    //   });
-    //   return dub;
-    // });
 
     data.map((subData) => {
       ids.push(subData._id);
@@ -157,6 +181,34 @@ export default function Editalbum({
 
     // console.log(ids);
     // console.log(data);
+  };
+
+  const handleSelectedOtherAlbums = (data) => {
+    let ids = [];
+    console.log(data);
+    data.map((subData) => {
+      ids.push(subData._id);
+    });
+
+    setFoundOtherAlbums(data);
+    setState({
+      ...state,
+      otheralbums: ids,
+    });
+  };
+
+  const handleSelectedRelatedAlbums = (data) => {
+    let ids = [];
+    console.log(data);
+    data.map((subData) => {
+      ids.push(subData._id);
+    });
+
+    setFoundRelatedAlbums(data);
+    setState({
+      ...state,
+      relatedalbums: ids,
+    });
   };
 
   const deleteAlbumArtists = async (id) => {
@@ -187,6 +239,50 @@ export default function Editalbum({
     await setState({
       ...state,
       songs: ids,
+    });
+  };
+
+  const deleteOtherAlbum = async (id) => {
+    let yoo;
+    let ids = [];
+    yoo = foundOtherAlbums.filter((album) => {
+      if (album._id !== id) {
+        return album;
+      }
+    });
+    foundOtherAlbums.filter((album) => {
+      if (album._id !== id) {
+        ids.push(album._id);
+      }
+    });
+    console.log(ids);
+    console.log(yoo);
+    await setFoundOtherAlbums(yoo);
+    await setState({
+      ...state,
+      otheralbums: ids,
+    });
+  };
+
+  const deleteRelatedAlbum = async (id) => {
+    let yoo;
+    let ids = [];
+    yoo = foundRelatedAlbums.filter((album) => {
+      if (album._id !== id) {
+        return album;
+      }
+    });
+    foundRelatedAlbums.filter((album) => {
+      if (album._id !== id) {
+        ids.push(album._id);
+      }
+    });
+    console.log(ids);
+    console.log(yoo);
+    await setFoundRelatedAlbums(yoo);
+    await setState({
+      ...state,
+      relatedalbums: ids,
     });
   };
 
@@ -226,6 +322,56 @@ export default function Editalbum({
 
       await setFoundSongs(filterSongs);
     };
+
+    const fetchAlbums = async () => {
+      let allAlbums;
+      let filterOtherAlbums = [];
+      let filterRelatedAlbums = [];
+      allAlbums = await getAlbums();
+      setAllAlbums(allAlbums);
+      console.log(allAlbums);
+      console.log(state);
+      if (state.relatedalbums !== null && state.relatedalbums !== undefined) {
+        state.relatedalbums.map((albumId) => {
+          allAlbums.filter((album) => {
+            if (
+              album.relatedalbums !== null &&
+              album.relatedalbums !== undefined
+            ) {
+              album.relatedalbums.map((relatedId) => {
+                if (relatedId === albumId) {
+                  filterRelatedAlbums.push(album);
+                }
+              });
+            }
+          });
+        });
+      }
+
+      if (state.otheralbums !== null && state.otheralbums !== undefined) {
+        state.otheralbums.map((albumId) => {
+          allAlbums.filter((album) => {
+            if (album.otheralbums !== null && album.otheralbums !== undefined) {
+              album.otheralbums.map((otherId) => {
+                if (otherId === albumId) {
+                  filterOtherAlbums.push(album);
+                }
+              });
+            }
+          });
+        });
+      }
+
+      console.log(filterOtherAlbums);
+      console.log(filterRelatedAlbums);
+
+      await setFoundOtherAlbums(filterOtherAlbums);
+      await setFoundRelatedAlbums(filterRelatedAlbums);
+
+      // await setFoundAlbums(filterAlbums);
+    };
+
+    fetchAlbums();
 
     fetchArtists();
     fetchSongs();
@@ -275,106 +421,114 @@ export default function Editalbum({
               <h4>Album Details</h4>
               <div className="row">
                 <div className="col-12 col-md-6">
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Album Name"
+                    placeholder="Album Name"
                     type="text"
                     name="albumname"
                     value={state.albumname}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     margin="dense"
                     id="name"
-                    label="Number of Tracks"
+                    placeholder="Number of Tracks"
                     type="text"
                     name="tracks"
                     value={state.tracks}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Genres"
-                    type="text"
-                    name="genres"
-                    value={state.genres}
-                    onChange={handleChange}
-                  />
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Album Duration"
+                    placeholder="Album Duration"
                     type="text"
                     name="duration"
                     value={state.duration}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Album Poets"
+                    placeholder="Album Poets"
                     type="text"
                     name="poets"
                     value={state.poets}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Mix and Master"
+                    placeholder="Mix and Master"
                     type="text"
                     name="mixmaster"
                     value={state.mixmaster}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Producer"
+                    placeholder="Producer"
                     type="text"
                     name="producer"
                     value={state.producer}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Label"
+                    placeholder="Label"
                     type="text"
                     name="label"
                     value={state.label}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Year of Production"
+                    placeholder="Year of Production"
                     type="text"
                     name="year"
                     value={state.year}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <textarea
+                    class="form-control"
                     margin="dense"
                     id="name"
                     multiline
-                    rows={8}
-                    label="Summary"
+                    rows="5"
+                    placeholder="Summary"
                     type="text"
                     name="summary"
                     value={state.summary}
                     onChange={handleChange}
                   />
+                  <br />
                   <br />
                   <br />
                 </div>
@@ -502,19 +656,135 @@ export default function Editalbum({
                       />
                     ) : null}
                   </div>
+                  <div className="row">
+                    <div className="col-8">
+                      <span style={{ fontSize: "25px" }}>Other Albums</span>
+                    </div>
+                    <div className="col-4">
+                      {" "}
+                      <button
+                        style={{ marginLeft: "20px", marginBottom: "7px" }}
+                        className="btn btn-sm btn-outline-danger"
+                        onClick={handleOtherAlbumsToggle}
+                      >
+                        {editOtherAlbums ? "X" : <EditIcon />}
+                      </button>
+                      <span>
+                        {editOtherAlbums || addOtherAlbums ? (
+                          <button
+                            style={{ marginLeft: "20px", marginBottom: "7px" }}
+                            className="btn btn-sm btn-outline-danger"
+                            onClick={handleAddOtherAlbums}
+                          >
+                            {addOtherAlbums ? "X" : "+"}
+                          </button>
+                        ) : null}
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      {editOtherAlbums ? (
+                        <div>
+                          {foundOtherAlbums ? (
+                            <List>
+                              {foundOtherAlbums.map((album) => (
+                                <ListItem>
+                                  {/* {console.log()} */}
+                                  <ListItemText
+                                    primary={album.albumname}
+                                    // secondary={secondary ? "Secondary text" : null}
+                                  />
+                                  <ListItemSecondaryAction>
+                                    <IconButton edge="end" aria-label="delete">
+                                      <DeleteForeverIcon
+                                        onClick={() =>
+                                          deleteOtherAlbum(album._id)
+                                        }
+                                      />
+                                    </IconButton>
+                                  </ListItemSecondaryAction>
+                                </ListItem>
+                              ))}
+                            </List>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </div>
+                    {addOtherAlbums ? (
+                      <Selectalbumforartist
+                        data={allAlbums}
+                        selectAlbums={handleSelectedOtherAlbums}
+                      />
+                    ) : null}
+                  </div>
+                  <div className="row">
+                    <div className="col-8">
+                      <span style={{ fontSize: "25px" }}>Related Albums</span>
+                    </div>
+                    <div className="col-4">
+                      {" "}
+                      <button
+                        style={{ marginLeft: "20px", marginBottom: "7px" }}
+                        className="btn btn-sm btn-outline-danger"
+                        onClick={handleRelatedAlbumsToggle}
+                      >
+                        {editRelatedAlbums ? "X" : <EditIcon />}
+                      </button>
+                      <span>
+                        {editRelatedAlbums || addRelatedAlbums ? (
+                          <button
+                            style={{ marginLeft: "20px", marginBottom: "7px" }}
+                            className="btn btn-sm btn-outline-danger"
+                            onClick={handleAddRelatedAlbums}
+                          >
+                            {addRelatedAlbums ? "X" : "+"}
+                          </button>
+                        ) : null}
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      {editRelatedAlbums ? (
+                        <div>
+                          {foundRelatedAlbums ? (
+                            <List>
+                              {foundRelatedAlbums.map((album) => (
+                                <ListItem>
+                                  {/* {console.log()} */}
+                                  <ListItemText
+                                    primary={album.albumname}
+                                    // secondary={secondary ? "Secondary text" : null}
+                                  />
+                                  <ListItemSecondaryAction>
+                                    <IconButton edge="end" aria-label="delete">
+                                      <DeleteForeverIcon
+                                        onClick={() =>
+                                          deleteRelatedAlbum(album._id)
+                                        }
+                                      />
+                                    </IconButton>
+                                  </ListItemSecondaryAction>
+                                </ListItem>
+                              ))}
+                            </List>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </div>
+                    {addRelatedAlbums ? (
+                      <Selectalbumforartist
+                        data={allAlbums}
+                        selectAlbums={handleSelectedRelatedAlbums}
+                      />
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </DialogContent>
-        {/* <DialogActions>
-          <Button onClick={handleCloseEdit} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit} color="primary">
-            Update Album
-          </Button>
-        </DialogActions> */}
       </Dialog>
     </div>
   );

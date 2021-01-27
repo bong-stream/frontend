@@ -273,7 +273,7 @@ const Artist = () => {
                     />
                   </div>
                 </div>
-                <div className="col-4 d-flex justify-content-end"></div>
+                <div className="col-4 col-md-12 d-flex justify-content-end"></div>
               </div>
               <br />
               <div className="row m-2 text-white">

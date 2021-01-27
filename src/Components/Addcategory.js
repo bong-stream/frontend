@@ -137,11 +137,13 @@ const Addcategory = ({ open, addGenres, handleClose }) => {
               <div className="row">
                 <div className="col-12 col-md-6">
                   <h4>Category Details</h4>
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Category Name"
+                    placeholder="Category Name"
                     type="text"
                     name="categoryname"
                     value={state.categoryname}
@@ -155,7 +157,7 @@ const Addcategory = ({ open, addGenres, handleClose }) => {
                 <div className="col-12 col-md-6">
                   <br />
                   <br />
-
+                  <br />
                   <div className="row">
                     <div className="col-8">
                       <h5>Add Songs </h5>

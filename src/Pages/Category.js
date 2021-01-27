@@ -16,6 +16,8 @@ import Viewartist from "../Components/Viewartist";
 import "../Styles/adminpages.css";
 import "../Styles/adminartist.css";
 import Filters from "../Components/Filters";
+import AddIcon from "@material-ui/icons/Add";
+import SimpleBreadcrumbs from "../Components/Breadcrumbs";
 
 const Category = () => {
   const [category, setCategory] = useState();
@@ -156,29 +158,34 @@ const Category = () => {
         <div className="row">
           <div className="col-1 col-md-0"></div>
           <div className="col-10 col-md-11 ">
-            <h3 className="text-white">Categories</h3>
+            {/* <h3 className="text-white">Categories</h3>
             <br />
-            <br />
-            <div>
+            <br /> */}
+            <div
+              className="mb-1"
+              style={{ height: "184px", backgroundColor: "#2F5184" }}
+            >
               <div className="row">
                 <div className="col-12 col-md-8 d-flex justify-content-start">
                   {" "}
-                  <div class="input-group ">
+                  <div class="input-group mt-2 ml-2 ">
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Search by Category Name"
+                      placeholder=" &#xF002;  Search"
                       aria-label="Recipient's username"
                       aria-describedby="basic-addon2"
                       value={searchValue}
                       onChange={handleSearchChange}
+                      style={{
+                        height: "55px",
+                        fontFamily: "FontAwesome",
+                      }}
                     />
-                    <div class="input-group-append">
-                      <button className="btn btn-danger">Search</button>
-                    </div>
                   </div>
                 </div>
-                <div className="col-4 d-flex justify-content-end">
+                <div className="col-4 col-md-12 d-flex justify-content-end"></div>
+                {/* <div className="col-4 d-flex justify-content-end">
                   <Filters
                     handleSortType={handleSortType}
                     filterName={{
@@ -208,6 +215,64 @@ const Category = () => {
                       }}
                     />
                   </button>
+                </div> */}
+              </div>
+              <br />
+
+              <div className="row m-2 text-white">
+                <div className="col-12 col-md-8 d-flex justify-content-start">
+                  {" "}
+                  <div class="input-group ">
+                    <h2>Category</h2>
+                  </div>
+                </div>
+                <div className="col-4 d-flex justify-content-end">
+                  <Filters
+                    handleSortType={handleSortType}
+                    filterName={{
+                      name1: "Category Name A-Z",
+                      name2: "Category Name Z-A",
+                      date1: "Date up",
+                      date2: "Date down",
+                    }}
+                    columnName={{
+                      name1: "categoryname",
+                      name2: "date",
+                    }}
+                    type={{
+                      asc: "asc",
+                      desc: "desc",
+                    }}
+                  />
+                  <div>
+                    <button
+                      className="btn  btn-danger m-0"
+                      onClick={handleClickOpen}
+                      style={{ width: "120px", height: "40px" }}
+                    >
+                      <AddIcon
+                        style={{
+                          margin: 0,
+                          padding: 0,
+                        }}
+                      />{" "}
+                      Add
+                    </button>
+                  </div>
+                </div>
+                <div className=" m-2 text-white">
+                  <SimpleBreadcrumbs
+                    data={[
+                      {
+                        link: "/",
+                        name: "Home",
+                      },
+                      {
+                        link: "/admin/category",
+                        name: "Category",
+                      },
+                    ]}
+                  />
                 </div>
               </div>
             </div>

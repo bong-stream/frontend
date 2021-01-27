@@ -219,11 +219,12 @@ export default function Editcategory({
               <div className="row">
                 <div className="col-12 col-md-6">
                   <h4>Category Detials</h4>
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Category Name"
+                    placeholder="Category Name"
                     type="text"
                     name="categoryname"
                     value={state.categoryname}

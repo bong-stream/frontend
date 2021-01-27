@@ -219,11 +219,12 @@ export default function Editgenres({
               <div className="row">
                 <div className="col-12 col-md-6">
                   <h4>Genre Detials</h4>
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Genre Name"
+                    placeholder="Genre Name"
                     type="text"
                     name="genresname"
                     value={state.genresname}

@@ -365,94 +365,111 @@ export default function Editsong({
               <h4>Song Details</h4>
               <div className="row">
                 <div className="col-12 col-md-6">
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Song Name"
+                    placeholder="Song Name"
                     type="text"
                     name="songname"
                     value={state.songname}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Genres"
+                    placeholder="Genres"
                     type="text"
                     name="genres"
                     value={state.genres}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Label"
+                    placeholder="Label"
                     type="text"
                     name="label"
                     value={state.label}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Poets"
+                    placeholder="Poets"
                     type="text"
                     name="poet"
                     value={state.poet}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Producer"
+                    placeholder="Producer"
                     type="text"
                     name="producer"
                     value={state.producer}
                     onChange={handleChange}
                   />
+                  <br />
 
-                  <TextField
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Year of Release"
+                    placeholder="Year of Release"
                     type="text"
                     name="year"
                     value={state.year}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Mix and Master"
+                    placeholder="Mix and Master"
                     type="text"
                     name="mixmaster"
                     value={state.mixmaster}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <textarea
+                    class="form-control"
                     margin="dense"
                     id="name"
                     multiline
-                    rows={8}
-                    label="Lyrics"
+                    rows="5"
+                    placeholder="Lyrics"
                     type="text"
                     name="lyrics"
                     value={state.lyrics}
                     onChange={handleChange}
                   />
-                  <TextField
+                  <br />
+                  <textarea
+                    class="form-control"
                     margin="dense"
                     id="name"
                     multiline
-                    rows={8}
-                    label="Summary"
+                    rows="5"
+                    placeholder="Summary"
                     type="text"
                     name="summary"
                     value={state.summary}

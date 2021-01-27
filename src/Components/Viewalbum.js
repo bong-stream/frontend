@@ -142,7 +142,53 @@ export default function Viewalbum({
 
                 <h4>{data.albumname}</h4>
               </div>
-              <div className="col-4"></div>
+              {console.log(data)}
+              <div className="col-4 justify-content-start">
+                <br />
+                <div className="row">
+                  <div className="col-4 d-flex justify-content-start">
+                    <p className="text-secondary">Tracks</p>
+                  </div>
+                  <div className="col-8 d-flex justify-content-start">
+                    <span className="text-secondary">{data.songs.length}</span>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-4 d-flex justify-content-start">
+                    <p className="text-secondary"> Duration</p>
+                  </div>
+                  <div className="col-8 d-flex justify-content-start">
+                    <span className="text-secondary">{data.duration}</span>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-4 d-flex justify-content-start">
+                    <p className="text-secondary">Producer</p>
+                  </div>
+                  <div className="col-8 d-flex justify-content-start">
+                    <span className="text-secondary">{data.producer}</span>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-4 d-flex justify-content-start">
+                    <p className="text-secondary">Year</p>
+                  </div>
+                  <div className="col-8 d-flex justify-content-start">
+                    <span className="text-secondary">{data.year}</span>
+                  </div>
+                </div>
+
+                {/* <p className="text-secondary">
+                  <span></span>
+                </p>
+                <p className="text-secondary">
+                  <span></span>
+                </p>
+                <p className="text-secondary">
+                  <span></span>
+                </p> */}
+              </div>
             </div>
 
             <div className="container text-center">

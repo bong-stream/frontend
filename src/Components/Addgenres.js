@@ -141,11 +141,13 @@ const Addgenres = ({ open, addGenres, handleClose }) => {
               <div className="row">
                 <div className="col-12 col-md-6">
                   <h4>Genre Details</h4>
-                  <TextField
+                  <br />
+                  <input
+                    class="form-control"
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="Genre Name"
+                    placeholder="Genre Name"
                     type="text"
                     name="genresname"
                     value={state.genresname}

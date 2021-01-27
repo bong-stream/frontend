@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { getArtists } from "../Pagesactions/artistsactions";
 import { getSongs } from "../Pagesactions/songsactions";
 import { getAlbums } from "../Pagesactions/albumactions";
+import { getGenres } from "../Pagesactions/genresactions";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -17,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import Imageupload from "../Components/Imageupload";
+import Selectgenres from "./Selectgenres";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -66,15 +68,18 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   const [onAddSongs, setOnAddSongs] = useState(false);
   const [onAddOtherAlbums, setOnAddOtherAlbums] = useState(false);
   const [onAddRelatedAlbums, setOnAddRelatedAlbums] = useState(false);
+  const [onAddGenres, setOnAddGenres] = useState(false);
+  const [selectGenres, setSelectGenres] = useState([]);
+  const [fetchedGenres, setFetchedGenres] = useState();
 
   const handleAddAlbum = (evt) => {
     evt.preventDefault();
     addAlbum(state);
     handleClose();
-    setState({
-      albumname: "",
-      albumimage: "",
-    });
+    // setState({
+    //   albumname: "",
+    //   albumimage: "",
+    // });
   };
 
   function handleChange(evt) {
@@ -98,6 +103,20 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   const handleOnAddRelatedAlbums = () => {
     setOnAddRelatedAlbums(!onAddRelatedAlbums);
   };
+
+  const handleOnAddGenres = () => {
+    setOnAddGenres(!onAddGenres);
+  };
+
+  const handleGenres = useCallback(async (data) => {
+    // console.log(data);
+
+    await setSelectGenres(data);
+    setState({
+      ...state,
+      genres: data,
+    });
+  });
 
   const handleArtists = useCallback(async (data) => {
     // console.log(data);
@@ -125,11 +144,11 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   });
 
   const handleOtherAlbums = useCallback(async (data) => {
-    // console.log(data);
+    console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
-    // console.log(ids);
+    console.log(ids);
 
     await setSelectOtherAlbums(ids);
 
@@ -140,11 +159,11 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
   });
 
   const handleRelatedAlbums = useCallback(async (data) => {
-    // console.log(data);
+    console.log(data);
     let ids = [];
     await data.map((subData) => ids.push(subData._id));
 
-    // console.log(ids);
+    console.log(ids);
 
     await setSelectRelatedAlbums(ids);
 
@@ -183,6 +202,14 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
       // console.log(allAlbums);
       setFetchedAlbums(allAlbums);
     };
+    const fetchGenres = async () => {
+      let allGenres;
+      allGenres = await getGenres();
+      // console.log(allGenres);
+      setFetchedGenres(allGenres);
+    };
+
+    fetchGenres();
 
     fetchArtists();
     fetchSongs();
@@ -250,17 +277,6 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
                       type="number"
                       name="tracks"
                       value={state.tracks}
-                      onChange={handleChange}
-                    />
-                    <br />
-                    <input
-                      class="form-control"
-                      margin="dense"
-                      id="name"
-                      placeholder="Genres"
-                      type="text"
-                      name="genres"
-                      value={state.genres}
                       onChange={handleChange}
                     />
                     <br />
@@ -422,6 +438,31 @@ export default function Addalbum({ open, addAlbum, handleClose }) {
                         ) : null}
                       </div>
                     ) : null}
+                    <br />
+                    <div className="row">
+                      <div className="col-8">
+                        <h5>Select Genre </h5>
+                      </div>
+                      <div className="col-4">
+                        <a
+                          className="btn btn-outline-danger"
+                          onClick={handleOnAddGenres}
+                        >
+                          {onAddGenres ? "X" : "+"}
+                        </a>
+                      </div>
+                      {console.log(fetchedGenres)}
+                      {onAddGenres ? (
+                        <div>
+                          {fetchedGenres ? (
+                            <Selectgenres
+                              data={fetchedGenres}
+                              selectGenres={handleGenres}
+                            />
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </div>
 
                     <br />
                     <div className="row">

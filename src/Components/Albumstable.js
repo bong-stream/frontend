@@ -224,6 +224,8 @@ export default function Albumstable({
                         year: row.year,
                         label: row.label,
                         summary: row.summary,
+                        relatedalbums: row.relatedalbums,
+                        otheralbums: row.otheralbums,
                       })
                     }
                     className="btn btn-sm btn-primary"
