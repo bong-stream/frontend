@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import Demo from "../assets/demo.png";
+import Demo from "../assets/upload.png";
 
 // import Button from "../Button/index";
 
@@ -81,19 +81,19 @@ const Imageupload = (props) => {
               }
               alt="Preview"
               className="img-thumbnail"
+              onClick={pickImageHandler}
             />
 
             {!previewUrl && <p></p>}
           </div>
           <br />
-          <button
+          {/* <button
             className="btn btn-sm btn-danger"
             type="button"
             text="Choose Image"
-            onClick={pickImageHandler}
           >
             Choose Image
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

@@ -102,7 +102,7 @@ const Artist = () => {
   };
 
   const addArtist = async (data, albums, songs) => {
-    // console.log(data, albums, songs);
+    console.log(data, albums, songs);
     let res;
     res = await addArtists(data, albums, songs);
     setUpdateData(true);

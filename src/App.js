@@ -23,6 +23,11 @@ import Topalbums from "./Pages/Topalbums";
 import Recommended from "./Pages/Recommended";
 import Genres from "./Pages/Genres";
 import Category from "./Pages/Category";
+import Tags from "./Pages/Tags";
+import Labels from "./Pages/Labels";
+import Profession from "./Pages/Profession";
+import Socialmedia from "./Pages/Socialmedia";
+
 import "./App.css";
 
 export const GlobalData = React.createContext();
@@ -172,6 +177,23 @@ function App() {
               exact
               path="/admin/category"
               render={(routeProps) => <Category />}
+            />
+            <Route exact path="/admin/tags" render={(routeProps) => <Tags />} />
+            <Route
+              exact
+              path="/admin/labels"
+              render={(routeProps) => <Labels />}
+            />
+
+            <Route
+              exact
+              path="/admin/profession"
+              render={(routeProps) => <Profession />}
+            />
+            <Route
+              exact
+              path="/admin/socialmedia"
+              render={(routeProps) => <Socialmedia />}
             />
           </Switch>
         </Router>

@@ -33,6 +33,11 @@ import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
+import LabelIcon from "@material-ui/icons/Label";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import ApartmentIcon from "@material-ui/icons/Apartment";
+import InfoIcon from "@material-ui/icons/Info";
 
 const drawerWidth = 240;
 
@@ -248,7 +253,7 @@ function Sidedrawer() {
             </ListItem>
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/managehomepage"
           >
@@ -384,9 +389,9 @@ function Sidedrawer() {
             </List>
 
             <br />
-          </Collapse>
+          </Collapse> */}
 
-          <NavLink
+          {/* <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/users"
           >
@@ -411,7 +416,7 @@ function Sidedrawer() {
               </ListItemIcon>
               <ListItemText primary="Users" />
             </ListItem>
-          </NavLink>
+          </NavLink> */}
           <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/artist"
@@ -438,8 +443,116 @@ function Sidedrawer() {
               <ListItemText primary="Artists" />
             </ListItem>
           </NavLink>
+          <ListItem
+            button
+            style={
+              path === "/admin/managehomepage"
+                ? {
+                    backgroundColor: " #f44040",
+                    color: "white",
+                  }
+                : null
+            }
+            // selected={selectedIndex === 1}
+            onClick={(event) => handleListItemClick(event, 1)}
+          >
+            <ListItemIcon
+              style={
+                path === "/admin/managehomepage" ? { color: "white" } : null
+              }
+            >
+              {" "}
+              <InfoIcon />
+            </ListItemIcon>
+            <ListItemText primary="Basic Info" />
+            {openMenu ? (
+              <IconButton
+                onClick={handleClick}
+                edge="start"
+                color="inherit"
+                aria-label="close"
+              >
+                <ExpandLess />
+              </IconButton>
+            ) : (
+              <IconButton
+                onClick={handleClick}
+                edge="start"
+                color="inherit"
+                aria-label="close"
+              >
+                <ExpandMore />
+              </IconButton>
+            )}
+          </ListItem>
+          <Collapse in={openMenu && open} timeout="auto" unmountOnExit>
+            <br />
+            <List component="div" disablePadding>
+              <NavLink
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/genres"
+              >
+                <ListItem button>
+                  <ListItemIcon style={{ color: "#f44040" }}>
+                    <ArtTrackIcon />{" "}
+                  </ListItemIcon>
+                  <ListItemText primary="Genres" />
+                </ListItem>
+              </NavLink>
+              <Divider />
+              <NavLink
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/labels"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <LabelIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Labels" />
+                </ListItem>
+              </NavLink>
+              <Divider />
+              <NavLink
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/tags"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <LocalOfferIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Tags" />
+                </ListItem>
+              </NavLink>
+              <Divider />
+              <NavLink
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/socialmedia"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <InstagramIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Social Media" />
+                </ListItem>
+              </NavLink>
+              <Divider />
+              <NavLink
+                style={{ textDecoration: "none", color: "black" }}
+                to="/admin/profession"
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <ApartmentIcon style={{ color: "#f44040" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Profession" />
+                </ListItem>
+              </NavLink>
+            </List>
 
-          <NavLink
+            <br />
+          </Collapse>
+
+          {/* <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/albums"
           >
@@ -541,7 +654,7 @@ function Sidedrawer() {
               </ListItemIcon>
               <ListItemText primary="Genres" />
             </ListItem>
-          </NavLink>
+          </NavLink> */}
         </List>
       </Drawer>
     </div>

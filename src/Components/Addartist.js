@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { getAlbums } from "../Pagesactions/albumactions";
 import { getSongs } from "../Pagesactions/songsactions";
+import { getTags, getLabels, getProfession } from "../Pagesactions/infoactions";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -17,6 +18,10 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import Imageupload from "../Components/Imageupload";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Selectinfo from "./Selectinfo";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -49,11 +54,23 @@ const Addartist = ({ open, addArtist, handleClose }) => {
     lastname: "",
     city: "",
     country: "",
+    gender: "",
+    biography: "",
+    tags: [],
+    genres: [],
+    profession: [],
+    awards: "",
+    website: "",
+    label: [],
+    rate: "",
   });
   const [selectAlbums, setSelectAlbums] = useState([]);
   const [selectSongs, setSelectSongs] = useState([]);
   const [fetchedAlbums, setFetchedAlbums] = useState();
   const [fetchedSongs, setFetchedSongs] = useState();
+  const [fetchedTags, setFetchedTags] = useState();
+  const [fetchedLabels, setFetchedLabels] = useState();
+  const [fetchedProfession, setFetchedProfession] = useState();
 
   const [onAddAlbums, setOnAddAlbums] = useState(false);
   const [onAddSongs, setOnAddSongs] = useState(false);
@@ -73,7 +90,29 @@ const Addartist = ({ open, addArtist, handleClose }) => {
       setFetchedSongs(allSongs);
     };
 
+    const fetchTags = async () => {
+      let allTags;
+      allTags = await getTags();
+      // console.log(allTags);
+      setFetchedTags(allTags);
+    };
+    const fetchLabels = async () => {
+      let allLabels;
+      allLabels = await getLabels();
+      // console.log(allLabels);
+      setFetchedLabels(allLabels);
+    };
+    const fetchProfession = async () => {
+      let allProfession;
+      allProfession = await getProfession();
+      // console.log(allProfession);
+      setFetchedProfession(allProfession);
+    };
+
     fetchAlbums();
+    fetchTags();
+    fetchLabels();
+    fetchProfession();
     fetchSongs();
   }, []);
 
@@ -123,6 +162,37 @@ const Addartist = ({ open, addArtist, handleClose }) => {
     });
   };
 
+  const handleTags = (tags) => {
+    let ids = [];
+    tags.map((tag) => {
+      ids.push(tag._id);
+    });
+    setState({
+      ...state,
+      tags: ids,
+    });
+  };
+  const handleLabels = (labels) => {
+    let ids = [];
+    labels.map((label) => {
+      ids.push(label._id);
+    });
+    setState({
+      ...state,
+      labels: ids,
+    });
+  };
+  const handleProfession = (profession) => {
+    let ids = [];
+    profession.map((profession) => {
+      ids.push(profession._id);
+    });
+    setState({
+      ...state,
+      profession: ids,
+    });
+  };
+
   return (
     <div>
       <Dialog
@@ -150,6 +220,7 @@ const Addartist = ({ open, addArtist, handleClose }) => {
           </Toolbar>
         </AppBar>
         <DialogContent className="container">
+          <br />
           <div className="row">
             <div className="col-12 col-md-4">
               <Imageupload
@@ -162,9 +233,10 @@ const Addartist = ({ open, addArtist, handleClose }) => {
               <div className="row">
                 <div className="col-12 col-md-12">
                   <h4>Artist Details</h4>
-                  <input
-                    style={{ height: "48px" }}
-                    class="form-control"
+                  <label>Name</label>
+                  <br />
+                  <TextField
+                    style={{ width: "350px" }}
                     autoFocus
                     margin="dense"
                     id="name"
@@ -175,9 +247,11 @@ const Addartist = ({ open, addArtist, handleClose }) => {
                     onChange={handleChange}
                   />
                   <br />
-                  <input
-                    style={{ height: "48px" }}
-                    class="form-control"
+                  <br />
+                  <label>Last Name</label>
+                  <br />
+                  <TextField
+                    style={{ width: "350px" }}
                     margin="dense"
                     id="name"
                     placeholder="Last Name"
@@ -187,9 +261,57 @@ const Addartist = ({ open, addArtist, handleClose }) => {
                     onChange={handleChange}
                   />
                   <br />
-                  <input
-                    style={{ height: "48px" }}
-                    class="form-control"
+                  <br />
+                  <label>Gender</label>
+                  <br />
+
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={state.gender}
+                    onChange={handleChange}
+                    name="gender"
+                    style={{ width: "350px" }}
+                  >
+                    <MenuItem value="Male">Male</MenuItem>
+                    <MenuItem value="Female">Female</MenuItem>
+                    <MenuItem value="Rather Not Say">Rather Not Say</MenuItem>
+                  </Select>
+                  <br />
+                  <br />
+                  <label>Select Tags</label>
+                  <br />
+                  {console.log(fetchedTags)}
+                  <Selectinfo
+                    data={fetchedTags}
+                    handleSelectedInfo={handleTags}
+                    name="Tags"
+                  />
+                  <br />
+                  <br />
+                  <label>Select Labels</label>
+                  <br />
+                  {console.log(fetchedTags)}
+                  <Selectinfo
+                    data={fetchedLabels}
+                    handleSelectedInfo={handleLabels}
+                    name="Labels"
+                  />
+                  <br />
+                  <br />
+                  <label>Select Profession</label>
+                  <br />
+                  <Selectinfo
+                    data={fetchedProfession}
+                    handleSelectedInfo={handleProfession}
+                    name="Profession"
+                  />
+                  <br />
+                  <br />
+                  <label>City</label>
+                  <br />
+                  <TextField
+                    style={{ width: "350px" }}
                     margin="dense"
                     id="name"
                     placeholder="Artist City"
@@ -199,9 +321,11 @@ const Addartist = ({ open, addArtist, handleClose }) => {
                     onChange={handleChange}
                   />
                   <br />
-                  <input
-                    style={{ height: "48px" }}
-                    class="form-control"
+                  <br />
+                  <label>Country</label>
+                  <br />
+                  <TextField
+                    style={{ width: "350px" }}
                     margin="dense"
                     id="name"
                     placeholder="Artist Country"
@@ -211,9 +335,57 @@ const Addartist = ({ open, addArtist, handleClose }) => {
                     onChange={handleChange}
                   />
                   <br />
-                  <input
-                    style={{ height: "48px" }}
-                    class="form-control"
+                  <br />
+                  <label>Website URL</label>
+                  <br />
+                  <TextField
+                    style={{ width: "350px" }}
+                    margin="dense"
+                    id="name"
+                    placeholder="Website URL"
+                    type="url"
+                    name="website"
+                    value={state.website}
+                    onChange={handleChange}
+                  />
+                  <br />
+                  <br />
+                  <label>Biography</label>
+                  <br />
+                  <TextField
+                    margin="dense"
+                    style={{ width: "350px" }}
+                    id="name"
+                    multiline
+                    rows={4}
+                    placeholder="Biography"
+                    type="text"
+                    name="biography"
+                    value={state.biography}
+                    onChange={handleChange}
+                  />
+                  <br />
+                  <br />
+                  <label>Awards</label>
+                  <br />
+                  <TextField
+                    margin="dense"
+                    style={{ width: "350px" }}
+                    id="name"
+                    multiline
+                    rows={4}
+                    placeholder="Awards"
+                    type="text"
+                    name="awards"
+                    value={state.awards}
+                    onChange={handleChange}
+                  />
+                  <br />
+                  <br />
+                  <label>Date of Birth</label>
+                  <br />
+                  <TextField
+                    style={{ width: "350px" }}
                     id="date"
                     placeholder="Date of Birth"
                     type="date"

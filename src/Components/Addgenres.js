@@ -45,6 +45,7 @@ const Addgenres = ({ open, addGenres, handleClose }) => {
   const [state, setState] = useState({
     genresname: "",
     genresimage: "",
+    genresdescription: "",
     songs: [],
   });
   //   const [selectAlbums, setSelectAlbums] = useState([]);
@@ -121,7 +122,7 @@ const Addgenres = ({ open, addGenres, handleClose }) => {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Add Artist
+              Add Genres
             </Typography>
             <Button color="inherit" onClick={handleAddArtist}>
               save
@@ -130,13 +131,7 @@ const Addgenres = ({ open, addGenres, handleClose }) => {
         </AppBar>
         <DialogContent className="container">
           <div className="row">
-            <div className="col-12 col-md-4">
-              <Imageupload
-                className="mb-4"
-                id="albbumimage"
-                onInput={handleImage}
-              />
-            </div>
+            <div className="col-12 col-md-4"></div>
             <div className="col-12 col-md-8">
               <div className="row">
                 <div className="col-12 col-md-6">
@@ -154,8 +149,33 @@ const Addgenres = ({ open, addGenres, handleClose }) => {
                     onChange={handleChange}
                   />
                   <br />
+                  <textarea
+                    class="form-control"
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    rows="5"
+                    placeholder="Genre Description"
+                    type="text"
+                    name="genresdescription"
+                    value={state.genresdescription}
+                    onChange={handleChange}
+                  />
                   <br />
                   <br />
+                  <Imageupload
+                    className="mb-4"
+                    id="albbumimage"
+                    onInput={handleImage}
+                  />
+                  <br />
+                  <button
+                    className="btn btn-danger"
+                    color="inherit"
+                    onClick={handleAddArtist}
+                  >
+                    save
+                  </button>
                 </div>
 
                 <div className="col-12 col-md-6">
