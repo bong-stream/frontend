@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import orderBy from "lodash/orderBy";
-import Infotable from "../Components/Infotable";
+import Socialmediatable from "../Components/Socialmediatable";
 import Addsocialmedia from "../Components/Addsocialmedia";
 import Editgenres from "../Components/Editgenres";
 import {
@@ -270,8 +270,9 @@ const Socialmedia = () => {
               </div>
             </div>
             <br />
+            {console.log(tags)}
             {tags ? (
-              <Infotable
+              <Socialmediatable
                 // data={searchValue.length > 0 ? search : genres.genres}
                 data={
                   searchValue.length > 0

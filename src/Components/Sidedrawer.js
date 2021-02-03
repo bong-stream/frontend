@@ -124,6 +124,7 @@ function Sidedrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(true);
+  const [openInfoMenu, setOpenInfoMenu] = React.useState(true);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [path, setPath] = React.useState(history.location.pathname);
   console.log("i am path", path);
@@ -135,6 +136,9 @@ function Sidedrawer() {
 
   const handleClick = () => {
     setOpenMenu(!openMenu);
+  };
+  const handleInfoClick = () => {
+    setOpenInfoMenu(!openInfoMenu);
   };
 
   const handleDrawerOpen = () => {
@@ -253,7 +257,7 @@ function Sidedrawer() {
             </ListItem>
           </NavLink>
 
-          {/* <NavLink
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/managehomepage"
           >
@@ -389,9 +393,9 @@ function Sidedrawer() {
             </List>
 
             <br />
-          </Collapse> */}
+          </Collapse>
 
-          {/* <NavLink
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/users"
           >
@@ -416,7 +420,7 @@ function Sidedrawer() {
               </ListItemIcon>
               <ListItemText primary="Users" />
             </ListItem>
-          </NavLink> */}
+          </NavLink>
           <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/artist"
@@ -445,29 +449,25 @@ function Sidedrawer() {
           </NavLink>
           <ListItem
             button
-            style={
-              path === "/admin/managehomepage"
-                ? {
-                    backgroundColor: " #f44040",
-                    color: "white",
-                  }
-                : null
-            }
+            // style={
+            //   path === "/admin/managehomepage"
+            //     ? {
+            //         backgroundColor: " #f44040",
+            //         color: "white",
+            //       }
+            //     : null
+            // }
             // selected={selectedIndex === 1}
             onClick={(event) => handleListItemClick(event, 1)}
           >
-            <ListItemIcon
-              style={
-                path === "/admin/managehomepage" ? { color: "white" } : null
-              }
-            >
+            <ListItemIcon>
               {" "}
               <InfoIcon />
             </ListItemIcon>
             <ListItemText primary="Basic Info" />
-            {openMenu ? (
+            {openInfoMenu ? (
               <IconButton
-                onClick={handleClick}
+                onClick={handleInfoClick}
                 edge="start"
                 color="inherit"
                 aria-label="close"
@@ -476,7 +476,7 @@ function Sidedrawer() {
               </IconButton>
             ) : (
               <IconButton
-                onClick={handleClick}
+                onClick={handleInfoClick}
                 edge="start"
                 color="inherit"
                 aria-label="close"
@@ -485,7 +485,7 @@ function Sidedrawer() {
               </IconButton>
             )}
           </ListItem>
-          <Collapse in={openMenu && open} timeout="auto" unmountOnExit>
+          <Collapse in={openInfoMenu && open} timeout="auto" unmountOnExit>
             <br />
             <List component="div" disablePadding>
               <NavLink
@@ -552,7 +552,7 @@ function Sidedrawer() {
             <br />
           </Collapse>
 
-          {/* <NavLink
+          <NavLink
             style={{ textDecoration: "none", color: "black" }}
             to="/admin/albums"
           >
@@ -654,7 +654,7 @@ function Sidedrawer() {
               </ListItemIcon>
               <ListItemText primary="Genres" />
             </ListItem>
-          </NavLink> */}
+          </NavLink>
         </List>
       </Drawer>
     </div>
