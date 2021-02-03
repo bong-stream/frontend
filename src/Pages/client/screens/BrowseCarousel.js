@@ -26,8 +26,7 @@ const BrowseCarousel = (props) => {
             >
                {showArtists === true ? (
                   <Grid container justify='flex-start' spacing={2}>
-                     {data.artists &&
-                        data.artists.length > 0 &&
+                     {data.artists && data.artists.length > 0 ? (
                         data.artists.map((artist) => (
                            <Grid
                               key={artist._id}
@@ -43,7 +42,10 @@ const BrowseCarousel = (props) => {
                                  isArtist={true}
                               />
                            </Grid>
-                        ))}
+                        ))
+                     ) : (
+                        <div className='loader'></div>
+                     )}
                   </Grid>
                ) : (
                   allChunks &&

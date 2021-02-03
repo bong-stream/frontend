@@ -100,6 +100,7 @@ function Form(props) {
                <TextField
                   name='password'
                   label='Password'
+                  type='password'
                   value={props.user.password}
                   variant='filled'
                   fullwidth
