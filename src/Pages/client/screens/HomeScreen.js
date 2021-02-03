@@ -86,7 +86,7 @@ function HomeScreen() {
                   ))}
                </Grid>
             </Grid>
-            {data.bongplaylist && data.bongplaylist.active === true && (
+            {/* {data.bongplaylist && data.bongplaylist.active === true && (
                <Grid item>
                   <div
                      style={{
@@ -154,7 +154,7 @@ function HomeScreen() {
                      </Carousel>
                   </div>
                </Grid>
-            )}
+            )} */}
             {data.topCharts && data.topCharts.active === true && (
                <Grid item>
                   <div
@@ -306,7 +306,7 @@ function HomeScreen() {
                         paddingTop: theme.spacing(1),
                      }}
                   >
-                     Popular Vedios
+                     Popular Songs
                   </Typography>
                   <Button
                      variant='outlined'
@@ -344,6 +344,264 @@ function HomeScreen() {
                                  key={item._id}
                                  imgPath={item.songimage}
                                  title={item.songname}
+                                 // label={item.label}
+                              />
+                           </div>
+                        ))}
+                  </Carousel>
+               </div>
+            </Grid>
+            <Grid item>
+               <div
+                  style={{
+                     display: 'flex',
+                     justifyContent: 'space-between',
+                     paddingTop: theme.spacing(3),
+                  }}
+               >
+                  <Typography
+                     style={{
+                        color: '#fff',
+                        paddingLeft:
+                           window.screen.width >= 768
+                              ? theme.spacing(12)
+                              : theme.spacing(8),
+                        paddingBottom: theme.spacing(1),
+                        paddingTop: theme.spacing(1),
+                     }}
+                  >
+                     Songs
+                  </Typography>
+                  <Button
+                     variant='outlined'
+                     style={{
+                        marginBottom: theme.spacing(2),
+                        color: '#fff',
+                        width: 104,
+                        height: 40,
+                        backgroundColor: '#1B3863',
+                        borderRadius: 38,
+                        marginLeft: 3,
+                     }}
+                  >
+                     View All
+                  </Button>
+               </div>
+               <div className={classes.crousel}>
+                  <Carousel
+                     breakPoints={breakPoints}
+                     // itemsToShow={5}
+                     // itemsToScroll={5}
+                  >
+                     {data.songs &&
+                        data.songs.map((item) => (
+                           <div
+                              style={{
+                                 display: 'block',
+                                 paddingLeft: theme.spacing(3),
+                                 // flexWrap: "nowrap",
+                                 flexDirection: 'row',
+                                 zIndex: 1,
+                              }}
+                           >
+                              <SimpleStripCard
+                                 key={item._id}
+                                 imgPath={item.songimage}
+                                 title={item.songname}
+                                 // label={item.label}
+                              />
+                           </div>
+                        ))}
+                  </Carousel>
+               </div>
+            </Grid>
+
+            <Grid item>
+               <div
+                  style={{
+                     display: 'flex',
+                     justifyContent: 'space-between',
+                     paddingTop: theme.spacing(3),
+                  }}
+               >
+                  <Typography
+                     style={{
+                        color: '#fff',
+                        paddingLeft:
+                           window.screen.width >= 768
+                              ? theme.spacing(12)
+                              : theme.spacing(8),
+                        paddingBottom: theme.spacing(1),
+                        paddingTop: theme.spacing(1),
+                     }}
+                  >
+                     Albums
+                  </Typography>
+                  <Button
+                     variant='outlined'
+                     style={{
+                        marginBottom: theme.spacing(2),
+                        color: '#fff',
+                        width: 104,
+                        height: 40,
+                        backgroundColor: '#1B3863',
+                        borderRadius: 38,
+                        marginLeft: 3,
+                     }}
+                  >
+                     View All
+                  </Button>
+               </div>
+               <div className={classes.crousel}>
+                  <Carousel
+                     breakPoints={breakPoints}
+                     // itemsToShow={5}
+                     // itemsToScroll={5}
+                  >
+                     {data.albums &&
+                        data.albums.map((item) => (
+                           <div
+                              style={{
+                                 display: 'block',
+                                 paddingLeft: theme.spacing(3),
+                                 // flexWrap: "nowrap",
+                                 flexDirection: 'row',
+                                 zIndex: 1,
+                              }}
+                           >
+                              <SimpleStripCard
+                                 key={item._id}
+                                 imgPath={item.albumimage}
+                                 title={item.albumname}
+                                 // label={item.label}
+                              />
+                           </div>
+                        ))}
+                  </Carousel>
+               </div>
+            </Grid>
+            <Grid item>
+               <div
+                  style={{
+                     display: 'flex',
+                     justifyContent: 'space-between',
+                     paddingTop: theme.spacing(3),
+                  }}
+               >
+                  <Typography
+                     style={{
+                        color: '#fff',
+                        paddingLeft:
+                           window.screen.width >= 768
+                              ? theme.spacing(12)
+                              : theme.spacing(8),
+                        paddingBottom: theme.spacing(1),
+                        paddingTop: theme.spacing(1),
+                     }}
+                  >
+                     Bong Playlist
+                  </Typography>
+                  <Button
+                     variant='outlined'
+                     style={{
+                        marginBottom: theme.spacing(2),
+                        color: '#fff',
+                        width: 104,
+                        height: 40,
+                        backgroundColor: '#1B3863',
+                        borderRadius: 38,
+                        marginLeft: 3,
+                     }}
+                  >
+                     View All
+                  </Button>
+               </div>
+               <div className={classes.crousel}>
+                  <Carousel
+                     breakPoints={breakPoints}
+                     // itemsToShow={5}
+                     // itemsToScroll={5}
+                  >
+                     {data.bongplaylist.active === true &&
+                        data.bongplaylist.bongplaylist &&
+                        data.bongplaylist.bongplaylist.map((item) => (
+                           <div
+                              style={{
+                                 display: 'block',
+                                 paddingLeft: theme.spacing(3),
+                                 // flexWrap: "nowrap",
+                                 flexDirection: 'row',
+                                 zIndex: 1,
+                              }}
+                           >
+                              <SimpleStripCard
+                                 key={item._id}
+                                 imgPath={item.songimage}
+                                 title={item.songname}
+                                 // label={item.label}
+                              />
+                           </div>
+                        ))}
+                  </Carousel>
+               </div>
+            </Grid>
+            <Grid item>
+               <div
+                  style={{
+                     display: 'flex',
+                     justifyContent: 'space-between',
+                     paddingTop: theme.spacing(3),
+                  }}
+               >
+                  <Typography
+                     style={{
+                        color: '#fff',
+                        paddingLeft:
+                           window.screen.width >= 768
+                              ? theme.spacing(12)
+                              : theme.spacing(8),
+                        paddingBottom: theme.spacing(1),
+                        paddingTop: theme.spacing(1),
+                     }}
+                  >
+                     Artists
+                  </Typography>
+                  <Button
+                     variant='outlined'
+                     style={{
+                        marginBottom: theme.spacing(2),
+                        color: '#fff',
+                        width: 104,
+                        height: 40,
+                        backgroundColor: '#1B3863',
+                        borderRadius: 38,
+                        marginLeft: 3,
+                     }}
+                  >
+                     View All
+                  </Button>
+               </div>
+               <div className={classes.crousel}>
+                  <Carousel
+                     breakPoints={breakPoints}
+                     // itemsToShow={5}
+                     // itemsToScroll={5}
+                  >
+                     {data.artists &&
+                        data.artists.map((item) => (
+                           <div
+                              style={{
+                                 display: 'block',
+                                 paddingLeft: theme.spacing(3),
+                                 // flexWrap: "nowrap",
+                                 flexDirection: 'row',
+                                 zIndex: 1,
+                              }}
+                           >
+                              <SimpleStripCard
+                                 key={item._id}
+                                 imgPath={item.artistimage}
+                                 title={item.artistname}
                                  // label={item.label}
                               />
                            </div>

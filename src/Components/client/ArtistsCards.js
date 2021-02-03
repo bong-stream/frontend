@@ -95,7 +95,7 @@ const ArtistsCard = (props) => {
          >
             <CardActionArea
                style={{
-                  backgroundColor: '#1b3863',
+                  backgroundColor: '#132d52',
                }}
             >
                <CardMedia

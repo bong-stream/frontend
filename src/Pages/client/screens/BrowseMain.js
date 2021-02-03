@@ -11,6 +11,8 @@ import { getTrending } from '../../../Pagesactions/songsactions';
 import BrowseCarousel from './BrowseCarousel';
 import AddIcon from '@material-ui/icons/Add';
 
+import Switch, { Case, Default } from 'react-switch-case';
+
 const useStyles = makeStyles((theme) => ({
    menuList: {
       fontSize: '1em',
@@ -81,6 +83,9 @@ const useStyles = makeStyles((theme) => ({
       color: '#0E284E',
       borderRadius: 20,
       marginLeft: 'auto',
+      '&.MuiListItem-button:hover': {
+         background: '#fff',
+      },
    },
 }));
 
@@ -136,10 +141,25 @@ const BrowseMain = (props) => {
    const [all, setAll] = useState([...data.popular]);
 
    React.useEffect(() => {
-      if (topSlug.toLowerCase() === 'playlists') {
-         setCurrentList('list2');
-         setBottomSlug('Music Playlist');
+      switch (topSlug.toLowerCase()) {
+         case 'playlists':
+            setCurrentList('list2');
+            setBottomSlug('Music Playlist');
+            break;
+
+         case 'new music':
+            setCurrentList('list1');
+            setBottomSlug('All');
+            break;
+         case 'artists':
+            setShowArtists(true);
+            break;
+         default:
+            setCurrentList('list1');
+            setBottomSlug('All');
       }
+      // if (topSlug.toLowerCase() === 'playlists') {
+      // }
    }, [topSlug]);
 
    React.useEffect(() => {
@@ -204,7 +224,8 @@ const BrowseMain = (props) => {
       console.log('<<<<<<<<<<<<');
       console.log('<<<<<<<<<<<<');
       console.log('all', all);
-      setAllChunks(all.chunk(18));
+
+      all && all.length > 0 && setAllChunks(all.chunk(18));
    }, [all]);
 
    React.useEffect(() => {
@@ -234,6 +255,17 @@ const BrowseMain = (props) => {
       if (item === 'playlist') {
       }
       setBottomSlug(item);
+   };
+
+   const SwitchCase = (props) => {
+      switch (props.value) {
+         case 'new music':
+            return 'You are a Admin.';
+         case 'playlist':
+            return 'You are a Manager.';
+         default:
+            return 'You are a User';
+      }
    };
 
    return (
@@ -290,6 +322,18 @@ const BrowseMain = (props) => {
                   }}
                >
                   {/* {list3.map((list) => ( */}
+                  {/* <Switch condition={topSlug.toLowerCase()}>
+                        <Case value="new music">
+                           <span>Component 1</span>
+                        </Case>
+                        <Case value="playlist">
+                           <span>Component 2</span>
+                        </Case>
+                        <Default>
+                           <span>Nothing!</span>
+                        </Default>
+                  </Switch> */}
+
                   {list2[currentList].map((list) => (
                      <MenuItem
                         value={bottomSlug}
@@ -304,10 +348,12 @@ const BrowseMain = (props) => {
                         {list}
                      </MenuItem>
                   ))}
-                  <MenuItem className={classes.newListBtn}>
-                     <AddIcon />
-                     Create Playlist
-                  </MenuItem>
+                  {topSlug.toLowerCase() === 'playlists' && (
+                     <MenuItem className={classes.newListBtn}>
+                        <AddIcon />
+                        Create Playlist
+                     </MenuItem>
+                  )}
                </div>
             </Grid>
             <Grid item style={{ paddingTop: theme.spacing(3) }}>
@@ -317,6 +363,7 @@ const BrowseMain = (props) => {
                   classes={classes}
                   data={data}
                   slug={'playlist'}
+                  showArtists={showArtists}
                />
             </Grid>
             <Grid item justify='center'>

@@ -136,6 +136,8 @@ export const signUp = async (obj, history, changeToken) => {
          );
 
          changeToken(response.data.token);
+
+         setTimeout(() => history.push('/client/home'));
       })
       .catch((err) => {
          alert('error while sending otp', err);

@@ -124,8 +124,8 @@ const editTopcharts = async (data) => {
 const getBongPlaylist = async (data) => {
    let topchart;
    topchart = await axios.get(`${API_BASE_URL}/bongplaylist`, data);
-   console.log(topchart.data);
-   return topchart.data;
+   console.log(topchart.data[0]);
+   return topchart.data[0];
 };
 
 const fetchTopCharts = async (data) => {
